@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="TimeIntervals">
+ 
+    <resultMap id="result" type="TimeIntervals">
+        <result property="timeSlotId" column="Time_Slot_Id"/>
+        <result property="timeDuration" column="Time_Duration"/>
+		<result property="day" column="Day"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="result">
+        SELECT * FROM Time_Intervals1;
+    </select>
+    
+</mapper>
