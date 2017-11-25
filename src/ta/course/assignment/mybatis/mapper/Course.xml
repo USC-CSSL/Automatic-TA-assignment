@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="Course">
+ 
+    <resultMap id="result" type="Course">
+        <result property="courseId" column="Course_ID"/>
+        <result property="courseCode" column="Course_Code"/>
+        <result property="area" column="Area"/>
+        <result property="numberOfHalfTa" column="Number_Of_Half_TA"/>
+        <result property="numberOfFullTa" column="Number_Of_Full_TA"/>
+        <result property="preference1" column="Preference1"/>
+        <result property="preference2" column="Preference2"/>   
+    </resultMap>
+ 
+    <select id="selectAll" resultMap="result">
+        SELECT * FROM Course1;
+    </select>
+</mapper>

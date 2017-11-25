@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="CourseSection">
+ 
+    <resultMap id="result" type="CourseSection">
+        <result property="sectionId" column="Section_Id"/>
+        <result property="courseId" column="Course_Id"/>
+		<result property="timeSlotId" column="Time_Slot_Id"/>
+		<result property="isLecture" column="Is_Lecture"/>   
+    </resultMap>
+ 
+    <select id="selectAll" resultMap="result">
+        SELECT * FROM Course_Section1;
+    </select>
+    
+</mapper>

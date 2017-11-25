@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="TAPreferences">
+ 
+    <resultMap id="result" type="TAPreferences">
+        <result property="id" column="Id"/>
+        <result property="taId" column="TA_Id"/>
+		<result property="courseId" column="Course_Id"/>
+		<result property="hasBeenTAForThisCourse" column="Has_Been_TA_For_This_Course"/>
+		<result property="interestLevel" column="Interest_Level"/>   
+    </resultMap>
+
+    <select id="selectAll" resultMap="result">
+        SELECT * FROM TA_Preferences1;
+    </select>
+    
+</mapper>

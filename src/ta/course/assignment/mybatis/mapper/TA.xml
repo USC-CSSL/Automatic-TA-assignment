@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="TA">
+ 
+    <resultMap id="result" type="TA">
+        <result property="taId" column="TA_Id"/>
+        <result property="area" column="Area"/>
+		<result property="previousCoursesTaught" column="Previous_Courses_Taught"/>
+		<result property="happyWithPreviousCoursesTaught" column="Happy_With_Previous_Courses_Taught"/>
+		<result property="hasTAExperience" column="Has_TA_Experience"/>
+		<result property="milestoneId" column="Milestones_Id"/>
+		<result property="hasTAExperianceForNumberOfSemester" column="Has_TA_Experiance_For_Number_Of_Semester"/>   
+    </resultMap>
+
+    <select id="selectAll" resultMap="result">
+        SELECT * FROM TA1;
+    </select>
+    
+</mapper>
