@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+<configuration>
+    <typeAliases>
+        <typeAlias alias="Course" type="ta.course.assignment.Course"/>
+        <typeAlias alias="CourseSection" type="ta.course.assignment.CourseSection"/>
+        <typeAlias alias="Milestone" type="ta.course.assignment.Milestone"/>
+        <typeAlias alias="TA" type="ta.course.assignment.TA"/>
+        <typeAlias alias="TAPreferences" type="ta.course.assignment.TAPreferences"/>
+        <typeAlias alias="TATimeConstraints" type="ta.course.assignment.TATimeConstraints"/>
+        <typeAlias alias="TimeIntervals" type="ta.course.assignment.TimeIntervals"/>
+        <typeAlias alias="User" type="ta.course.assignment.User"/>         
+    </typeAliases>
+ 
+    <environments default="development">
+        <environment id="development">
+          <transactionManager type="JDBC"/>
+            <!--  connecting to Local MySql -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:8899/mysql"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+       </environment>
+    </environments>
+    <mappers>
+       <mapper resource="ta/course/assignment/mybatis/mapper/Course.xml"/>
+       <mapper resource="ta/course/assignment/mybatis/mapper/CourseSection.xml"/>
+       <mapper resource="ta/course/assignment/mybatis/mapper/Milestone.xml"/>
+       <mapper resource="ta/course/assignment/mybatis/mapper/TA.xml"/>
+       <mapper resource="ta/course/assignment/mybatis/mapper/TAPreferences.xml"/>
+       <mapper resource="ta/course/assignment/mybatis/mapper/TATimeConstraints.xml"/>
+       <mapper resource="ta/course/assignment/mybatis/mapper/TimeIntervals.xml"/>
+       <mapper resource="ta/course/assignment/mybatis/mapper/User.xml"/>
+    </mappers>
+</configuration>
