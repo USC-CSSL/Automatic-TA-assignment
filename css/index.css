@@ -1,0 +1,12 @@
+#form{
+	width: 70%;
+	height: 50%;
+	border-style: solid;
+	margin: 5% auto; /* Will not center vertically and won't work in IE6/7. */
+	left: 0;
+	right: 0;
+	border-width: 2px;
+	border-radius: 5px;
+	padding: 5%;
+	
+}
