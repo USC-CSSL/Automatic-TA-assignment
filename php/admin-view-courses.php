@@ -30,8 +30,8 @@
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav">
 		<li><a href="../html/admin.html">Home</a></li>
-		<li class="active"><a href="../html/admin-users.html">Users</a></li>
-		<li><a href="../html/admin-courses.html">Courses</a></li> 
+		<li><a href="../html/admin-users.html">Users</a></li>
+		<li class="active"><a href="../html/admin-courses.html">Courses</a></li> 
 		<li><a href="../html/admin-matching.html">Matching</a></li> 
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
@@ -49,23 +49,23 @@
 			
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top: 2%;">
 				<ol class="breadcrumb"> 
-				  <li><a href="../html/admin-users.html">Users</a></li> 
-				  <li class="active">View Users</li>
+				  <li><a href="../html/admin-courses.html">Courses</a></li> 
+				  <li class="active">View Courses</li>
 				  
 				</ol>
 			</div>
 			
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-				<center><h3>View User Details</h3><center>
+				<center><h3>View Course Details</h3><center>
 			</div>
 			
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top: 2%;">
-				<table class="table table-striped table-responsive ">
+				<table class="table table-responsive ">
 				    <thead>
 					<tr>
-					    <th><center>User Id</center></th>
-					    <th><center>Name</center></th>
-					    <th><center>Username</center></th>
+					    <th><center>Course Id</center></th>
+					    <th><center>Course Code</center></th>
+					    <th><center>Course Name</center></th>
 					    <th><center>Area</center></th>
 					    <th><center>Action</center></th>
 					</tr>
@@ -73,45 +73,19 @@
 
 				    <tbody><?php
 				    		
-						$query1="SELECT * FROM `User`";
+						$query1="SELECT * FROM `Course`";
 						$result1=mysqli_query($conn,$query1);
-						#$row=mysqli_fetch_array($result);
-						/*
-						while($row1=mysqli_fetch_array($result1))
-						{
-							echo $row1['Username'];
-							print "\n";
-						}
-						
-						$query1="SELECT * FROM `Users`";
-						$result1=mysqli_query($conn,$query1);
-						//$row1=mysqli_fetch_array($result1);
-						
-						
-					    	$query3="SELECT * FROM `Milestones`";
-					    	$result3=mysqli_query($conn,$query3);
-						$row3=mysqli_fetch_array($result3);
-						*/
 						$records_flag=False;
 						
 						while($row1 = mysqli_fetch_array($result1))
 						{
-							if($row1['Username']=="admin")
-							{	
-								continue;
-							}
-							#echo $row1['User_Id'];
-							$query2="SELECT * FROM `TA` WHERE `User_Id`='".$row1['User_Id']."'";
-							$result2=mysqli_query($conn,$query2);
-							$row2=mysqli_fetch_array($result2);
-							$row2['User_Id'];
 										    	
 							echo    "
 								    <tr>
-									<td><center>".$row1['User_Id']."</center></td>
-									<td><center>".$row1['Name']."</center></td>
-									<td><center>".$row1['Username']."</center></td>
-									<td><center>".$row2['Area']."</center></td>
+									<td><center>".$row1['Course_Id']."</center></td>
+									<td><center>".$row1['Course_Code']."</center></td>
+									<td><center>".$row1['Course_Name']."</center></td>
+									<td><center>".$row1['Area']."</center></td>
 									<td>
 										<center>
 										<!-- Split button -->
@@ -122,11 +96,13 @@
 										    <span class='sr-only'>Toggle Dropdown</span>
 										  </button>
 										  <ul class='dropdown-menu'>
-										    <li><a href='admin-view-users-details.php?user_id=".$row1['User_Id']."'>View</a></li>
+										    <li><a href='admin-view-course-details.php?course_id=".$row1['Course_Id']."'>View</a></li>
 										    <li role='separator' class='divider'></li>
-										    <li><a href='admin-update-user-details.php?user_id=".$row1['User_Id']."'>Update</a></li>
+										    <li><a href='admin-update-course-details.php?course_id=".$row1['Course_Id']."'>Update</a></li>
 										    <li role='separator' class='divider'></li>
-										    <li><a href='admin-delete-user.php?user_id=".$row1['User_Id']."'>Delete</a></li>
+										    <li>
+										    
+										    <a href='admin-delete-course.php?course_id=".$row1['Course_Id']."'>Delete</a></li>
 										  </ul>
 										</div>
 										</center>

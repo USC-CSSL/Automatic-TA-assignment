@@ -1,20 +1,14 @@
 <?php
 	include('dbConnect.php');
 	session_start();
-	if (isset($_GET['user_id']))
+	if (isset($_GET['course_id']))
 	{
-		$userId=$_GET['user_id'];
-		$sql1 = "SELECT * FROM `User` WHERE User_Id ='$userId'";
+		$courseId=$_GET['course_id'];
+		$sql1 = "SELECT * FROM `Course` WHERE Course_Id ='$courseId'";
 		$result1 = mysqli_query($conn,$sql1);
 		$row1 = mysqli_fetch_array($result1);
 		
-		$sql2 = "SELECT * FROM `TA` WHERE User_Id ='$userId'";
-		$result2 = mysqli_query($conn,$sql2);
-		$row2 = mysqli_fetch_array($result2);
 		
-		$sql3 = "SELECT * FROM `Milestones` WHERE Milestone_Id ='".$row2['Milestone_Id']."'";
-		$result3 = mysqli_query($conn,$sql3);
-		$row3 = mysqli_fetch_array($result3);
 		
 	}
 	else
@@ -50,8 +44,8 @@
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav">
 		<li><a href="../html/admin.html">Home</a></li>
-		<li class="active"><a href="../html/admin-users.html">Users</a></li>
-		<li><a href="../html/admin-courses.html">Courses</a></li> 
+		<li><a href="../html/admin-users.html">Users</a></li>
+		<li class="active"><a href="../html/admin-courses.html">Courses</a></li> 
 		<li><a href="../html/admin-matching.html">Matching</a></li> 
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
@@ -69,66 +63,105 @@
 			
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top: 2%;">
 				<ol class="breadcrumb">
-				  <li><a href="../html/admin-users.html">Users</a></li> 
-				  <li><a href="admin-view-users.php">View Users</a></li>
-				  <li class="active">View User Details</li>
+				  <li><a href="../html/admin-courses.html">Courses</a></li> 
+				  <li><a href="admin-view-courses.php">View Courses</a></li>
+				  <li class="active">View Course Details</li>
 				</ol>
 			</div>
 			<div class="container">
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-				<center><h3>User Details</h3><center><br>
+				<center><h3>Course Details</h3><center><br>
 				<table class="table" style="width:60%;">
 				    <tbody>
 					<tr>
-					  <th>User Id</th>
-					    <td><?php echo $userId;?></td>
+					  <th>Course Id</th>
+					    <td><?php echo $courseId;?></td>
 					</tr>
 					<tr>
-					  <th>Name</th>
-					    <td><?php echo $row1['Name'];?></td>
+					  <th>Course Code</th>
+					    <td><?php echo $row1['Course_Code'];?></td>
 					</tr>
 					<tr>
-					  <th>Username</th>
-					    <td><?php echo $row1['Username'];?></td>
+					  <th>Course Name</th>
+					    <td><?php echo $row1['Course_Name'];?></td>
 					</tr>
 				      	<tr>
 					  <th>Area</th>
-					    <td><?php echo $row2['Area'];?></td>
+					    <td><?php echo $row1['Area'];?></td>
 					</tr>
 					<tr>
-					  <th>Has TA Experience</th>
-					    <td>
-					    	<?php 
-					    	if($row2['Has_TA_Experience']==1)
+					  <th>Number of Half TA</th>
+					    <td><?php echo $row1['Number_Of_Half_TA'];?></td>
+					</tr>
+					<tr>
+					  <th>Number of Full TA</th>
+					    <td><?php echo $row1['Number_Of_Full_TA'];?></td>
+					</tr>
+					<tr>
+					  <th>Preference 1</th>
+					    <td><?php echo $row1['Preference1'];?></td>
+					</tr>
+					<tr>
+					  <th>Preference 2</th>
+					    <td><?php echo $row1['Preference2'];?></td>
+					</tr>
+					
+					
+				    </tbody>
+				</table>
+				<br><br><br>
+			</div>
+			
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+				<center><h3>Sections</h3><center><br>
+				<table class="table" style="width:60%;">
+				    <tbody>
+					<tr>
+						<th>Section ID</th>
+						<th>Type</th>
+						<th>Lecture Code</th>
+						<th>Lab Code</th>
+						<th>Start Time</th>
+						<th>End Time</th>
+						<th>Day</th>
+					</tr>
+					<?php
+					$sql2 = "SELECT * FROM `Course_Section` WHERE Course_Id ='$courseId'";
+					$result2 = mysqli_query($conn,$sql2);
+					while($row2 = mysqli_fetch_array($result2))
+					{
+						$sql3 = "SELECT * FROM `Time_Intervals` WHERE Time_Slot_Id ='".$row2['Time_Slot_Id']."'";
+						$result3 = mysqli_query($conn,$sql3);
+						$row3 = mysqli_fetch_array($result3);
+						if($row2['IsLecture']==1)
 						{
-						    	echo "Yes";
+							$type="Lecture";
 						}
 						else
 						{
-							echo "No";
+							$type="Lab";
 						}
-						 ?></td>
-					</tr>
-					<tr>
-					  <th>Previous Courses Taught</th>
-					    <td><?php echo $row2['Previous_Courses_Taught'];?></td>
-					</tr>
-					<tr>
-					  <th>Happy with Previous Courses Taught</th>
-					    <td><?php echo $row2['Happy_With_Previous_Courses_Taught'];?></td>
-					</tr>
-					<tr>
-					  <th>Number of Semesters (of TA Experience)</th>
-					    <td><?php echo $row2['Has_TA_Experience_For_Number_Of_Semester'];?></td>
-					</tr>
-					<tr>
-					  <th>Milestone</th>
-					    <td><?php echo $row3['Milestone_Name'];?></td>
-					</tr>
-					<tr>
-					  <th>Milestone Ranking</th>
-					    <td><?php echo $row3['Ranking'];?></td>
-					</tr>
+						
+						echo "
+					
+						<tr>
+							<td>".$row2['Section_Id']."</td>
+							<td>".$type."</td>
+							<td>".$row2['Lecture_Code']."</td>
+							<td>".$row2['Lab_Code']."</td>
+							<td>".$row3['Start_Time']."</td>
+							<td>".$row3['End_Time']."</td>
+							<td>".$row3['Day']."</td>
+							
+						</tr>
+						
+						";
+					}
+		
+					
+					?>
+					
+					
 				    </tbody>
 				</table>
 				<br><br><br>

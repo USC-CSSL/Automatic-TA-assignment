@@ -30,8 +30,8 @@
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav">
 		<li><a href="../html/admin.html">Home</a></li>
-		<li class="active"><a href="../html/admin-users.html">Users</a></li>
-		<li><a href="../html/admin-courses.html">Courses</a></li> 
+		<li><a href="../html/admin-users.html">Users</a></li>
+		<li class="active"><a href="../html/admin-courses.html">Courses</a></li> 
 		<li><a href="../html/admin-matching.html">Matching</a></li> 
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
@@ -49,32 +49,36 @@
 			
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top: 2%;">
 				<ol class="breadcrumb"> 
-				  <li><a href="../html/admin-users.html">Users</a></li> 
-				  <li class="active">View Users</li>
+				  <li><a href="../html/admin-courses.html">Courses</a></li> 
+				  <li class="active">View Sections</li>
 				  
 				</ol>
 			</div>
 			
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-				<center><h3>View User Details</h3><center>
+				<center><h3>View Section Details</h3><center>
 			</div>
 			
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top: 2%;">
-				<table class="table table-striped table-responsive ">
+				<table class="table table-responsive ">
 				    <thead>
 					<tr>
-					    <th><center>User Id</center></th>
-					    <th><center>Name</center></th>
-					    <th><center>Username</center></th>
-					    <th><center>Area</center></th>
+					    <th><center>Section Id</center></th>
+					    <th><center>Course Code</center></th>
+					    <th><center>Type</center></th>
+					    <th><center>Lecture Code</center></th>
+					    <th><center>Lab Code</center></th>
+					    <th><center>Start Time</center></th>
+					    <th><center>End Time</center></th>
+					    <th><center>Day</center></th>
 					    <th><center>Action</center></th>
 					</tr>
 				    </thead>
 
 				    <tbody><?php
 				    		
-						$query1="SELECT * FROM `User`";
-						$result1=mysqli_query($conn,$query1);
+						$sql1="SELECT * FROM `Course_Section`";
+						$result1=mysqli_query($conn,$sql1);
 						#$row=mysqli_fetch_array($result);
 						/*
 						while($row1=mysqli_fetch_array($result1))
@@ -96,22 +100,35 @@
 						
 						while($row1 = mysqli_fetch_array($result1))
 						{
-							if($row1['Username']=="admin")
-							{	
-								continue;
+							$timeSlotId=$row1['Time_Slot_Id'];
+							$sql2="SELECT * FROM `Time_Intervals` WHERE `Time_Slot_Id`=$timeSlotId";
+							$result2=mysqli_query($conn,$sql2);
+							$row2 = mysqli_fetch_array($result2);
+								
+							$courseId=$row1['Course_Id'];
+							#echo $courseId;
+							$sql3="SELECT * FROM `Course` WHERE `Course_Id`='$courseId'";
+							$result3=mysqli_query($conn,$sql3);
+							$row3 = mysqli_fetch_array($result3);
+							
+							if($row1['IsLecture']==1)
+							{
+								$type="Lecture";
 							}
-							#echo $row1['User_Id'];
-							$query2="SELECT * FROM `TA` WHERE `User_Id`='".$row1['User_Id']."'";
-							$result2=mysqli_query($conn,$query2);
-							$row2=mysqli_fetch_array($result2);
-							$row2['User_Id'];
-										    	
+							else
+							{
+								$type="Lab";
+							}			    	
 							echo    "
 								    <tr>
-									<td><center>".$row1['User_Id']."</center></td>
-									<td><center>".$row1['Name']."</center></td>
-									<td><center>".$row1['Username']."</center></td>
-									<td><center>".$row2['Area']."</center></td>
+									<td><center>".$row1['Section_Id']."</center></td>
+									<td><center>".$row3['Course_Code']."</center></td>
+									<td><center>".$type."</center></td>
+									<td><center>".$row1['Lecture_Code']."</center></td>
+									<td><center>".$row1['Lab_Code']."</center></td>
+									<td><center>".$row2['Start_Time']."</center></td>
+									<td><center>".$row2['End_Time']."</center></td>
+									<td><center>".$row2['Day']."</center></td>
 									<td>
 										<center>
 										<!-- Split button -->
@@ -122,11 +139,11 @@
 										    <span class='sr-only'>Toggle Dropdown</span>
 										  </button>
 										  <ul class='dropdown-menu'>
-										    <li><a href='admin-view-users-details.php?user_id=".$row1['User_Id']."'>View</a></li>
+										    <li><a href='admin-view-course-details.php?course_id=".$row1['Course_Id']."'>View</a></li>
 										    <li role='separator' class='divider'></li>
-										    <li><a href='admin-update-user-details.php?user_id=".$row1['User_Id']."'>Update</a></li>
+										    <li><a href='admin-update-course-details.php?course_id=".$row1['Course_Id']."'>Update</a></li>
 										    <li role='separator' class='divider'></li>
-										    <li><a href='admin-delete-user.php?user_id=".$row1['User_Id']."'>Delete</a></li>
+										    <li><a href='admin-delete-course.php?user_id=".$row1['Course_Id']."'>Delete</a></li>
 										  </ul>
 										</div>
 										</center>

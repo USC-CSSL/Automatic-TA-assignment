@@ -25,10 +25,10 @@ if (isset($_POST['name'])&&isset($_POST['username'])&&isset($_POST['password'])&
 		      #$sql2 = "INSERT INTO `User` (`Name`,`Username`,`Password`,`IsAdmin`) VALUES ($name, $username, $hashPassword, $isAdmin)";
 		      $sql2="INSERT INTO User (`Name`,`Username`,`Password`,`IsAdmin`) VALUES ('$name','$username','$hashPassword','$isAdmin')";
 		      $result=mysqli_query($conn,$sql2);
-		      echo $result;
+		      #echo $result;
 		      if($result) 
 		      {
-			 	echo $result;
+			 	#echo $result;
 			 
 				$_SESSION['Username'] = $username;
 				$_SESSION['Name'] = $name;

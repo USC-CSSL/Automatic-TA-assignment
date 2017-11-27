@@ -19,7 +19,8 @@
 	}
 	else
 	{
-		$userId="empty";	
+		echo "<script> alert('No userid');</script>";
+		echo '<META HTTP-EQUIV="Refresh" Content="0; URL=admin-view-users.php">';	
 	}
 ?>
 <!DOCTYPE HTML>
@@ -77,62 +78,42 @@
 			<div class="container">
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
 				<center><h3>Update User Details</h3><center><br>
-				<form>
+				<form method="post" action="admin-update-user-details-courses.php?user_id=<?php echo $userId;?>">
 				  <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="User_Id">User Id</label></div>
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input type="number" class="form-control" id="User_Id" placeholder="User Id"></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="number" disabled class="form-control" value="<?php echo $userId;?>" name="User_Id" id="User_Id" placeholder="User Id"></div>
 				  </div>
-				   <div class="form-row">
+				  <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="name">Name</label></div>
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input type="text" class="form-control" id="name" placeholder="Name" value="<?php echo $row1['Name'];?>"></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="text" class="form-control" id="name" placeholder="Name" name="Name" value="<?php echo $row1['Name'];?>"></div>
 				  </div>
 				  <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="username">Username</label></div>
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input type="text" class="form-control" id="username" placeholder="Username" value="<?php echo $row1['Username'];?>"></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="text" class="form-control" id="username" placeholder="Username" name="Username" value="<?php echo $row1['Username'];?>"></div>
 				  </div>
 				  <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="area">Area</label></div>
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input type="text" class="form-control" id="area" placeholder="Area" value="<?php echo $row2['Area'];?>"></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="text" class="form-control" id="area" placeholder="Area" name="Area" value="<?php echo $row2['Area'];?>"></div>
 				  </div>
 				  <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="hasTAexp">Has TA Experience</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
-				    	<select class="form-control" id="hasTAexp">
+				    	<select required class="form-control" id="hasTAexp" name="hasTAexp">
 				    	<?php
 				    		if($row2['Has_TA_Experience']==1)
 				    		{
-				    			echo "<option select='selected'>Yes</option><option>No</option>";
+				    			echo "<option select='selected' name='Yes'>Yes</option><option name='No'>No</option>";
 				    		}
 				    		else
 				    		{
-				    			echo "<option>Yes</option><option select='selected'>No</option>";
+				    			echo "<option select='selected' name='No'>No</option><option name='Yes'>Yes</option>";
 				    		}
 				    	?>
 					      
 					</select>
 				   </div>
-				   <div class="form-row">
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="noOfSem">Number of Semesters (of TA Experience)</label></div>
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input type="text" class="form-control" id="noOfSem" placeholder="Number of Semesters" value="<?php echo $row2['Has_TA_Experience_For_Number_Of_Semester'];?>"></div>
-				  </div>
-				   <div class="form-row">
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="noOfSem">Number of Semesters (of TA Experience)</label></div>
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
-				    	<select name="previousCoursesTaught[]" multiple="multiple">
-				    		<?php
-				    			sql1="SELECT `Course_Code` and "
-				    		?>
-				    	</select>
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <div class="form-check">
-				      <label class="form-check-label">
-					<input class="form-check-input" type="checkbox"> Check me out
-				      </label>
-				    </div>
-				  </div>
-				  <button type="submit" class="btn btn-primary">Sign in</button>
+				   <br>
+				  <input type="submit" name="submit" class="btn btn-primary" value="Update"></input> 
 				</form>
 				<br><br><br>
 			</div>
