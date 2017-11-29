@@ -11,6 +11,6 @@
     </resultMap>
  
     <select id="selectAll" resultMap="result">
-        SELECT * FROM User1;
+        SELECT * FROM User;
     </select>
 </mapper>
