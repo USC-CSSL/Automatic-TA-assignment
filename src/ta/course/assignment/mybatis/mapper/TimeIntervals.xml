@@ -13,7 +13,7 @@
     </resultMap>
 
     <select id="selectAll" resultMap="result">
-        SELECT * FROM Time_Intervals1;
+        SELECT * FROM Time_Intervals;
     </select>
     
 </mapper>
