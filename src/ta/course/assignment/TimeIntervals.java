@@ -14,8 +14,11 @@ public class TimeIntervals {
 	//unique id to identify time slots
 	private int timeSlotId;
 	
-	//time intervel of the slot
-	private Time timeDuration;
+	//start time
+	private Time startTime;
+	
+	//end time
+	private Time endTime;
 	
 	//day of the slot
 	private String day;
@@ -28,12 +31,20 @@ public class TimeIntervals {
 		this.timeSlotId = timeSlotId;
 	}
 
-	public Time getTimeDuration() {
-		return timeDuration;
+	public Time getStartTime() {
+		return startTime;
 	}
 
-	public void setTimeDuration(Time timeDuration) {
-		this.timeDuration = timeDuration;
+	public void setStartTime(Time startTime) {
+		this.startTime = startTime;
+	}
+
+	public Time getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Time endTime) {
+		this.endTime = endTime;
 	}
 
 	public String getDay() {
