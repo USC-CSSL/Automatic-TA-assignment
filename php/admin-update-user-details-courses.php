@@ -9,7 +9,7 @@
 		$username=$_POST["Username"];
 		$area=$_POST["Area"];
 		$hasTAexp=$_POST["hasTAexp"];
-		#echo $hasTAexp;
+		echo "<script> alert('$hasTAexp');</script>";
 		
 			$sql1="UPDATE `User` SET `Name`='$name',`Username`='$username' WHERE `User_Id`='$userId'";
 			$sql2="UPDATE `TA` SET `Area`='$area',`Previous_Courses_Taught`='N/A', `Happy_With_Previous_Courses_Taught`='N/A', `Has_TA_Experience`='0', `Has_TA_Experience_For_Number_Of_Semester`='0' WHERE `User_Id`='$userId'";
@@ -31,49 +31,6 @@
 				 echo "<script> alert('$error');</script>";
 				 echo '<META HTTP-EQUIV="Refresh" Content="0; URL=admin-view-users.php">';
 		        }
-		
-		/*
-		else if($hasTAexp =="Yes" )
-		{
-			if(isset($_GET['check']))
-			{
-				echo "<script> alert('YESS');</script>";
-				$prevCourses=$_POST['prevCourses'];
-				$happy=$_POST['happy'];
-				$numberSem=$_POST['number'];
-				$milestone=$_POST['milestone'];
-				#$ranking=$_POST['ranking'];
-				if($happy=="Yes")
-				{
-					$h=1;
-				}
-				else
-				{
-					$h=0;
-				}
-				$sql3="SELECT * FROM `Milestone` WHERE `Milestone_Name'=$milestone";
-				$result3=mysqli_query($conn,$sql3);
-				$milID=$result3['Milestone_Id'];
-				$sql1="UPDATE `User` SET `Name`='$name',`Username`='$username' WHERE `User_Id`='$userId'";
-				$sql2="UPDATE `TA` SET `Area`=$area',`Previous_Courses_Taught`='$prevCourses', `Happy_With_Previous_Courses_Taught`='$h', `Has_TA_Experience`='1', `Has_TA_Experience_For_Number_Of_Semesters`='$numberSem', `Milestone_Id`='$milID' WHERE `User_Id`='$userId'";
-			
-				$result1=mysqli_query($conn,$sql1);
-				$result2=mysqli_query($conn,$sql2);
-				if($result1 and result2) 
-				{
-				 	#echo $result;
-				 
-					echo "<script> alert('Updated');</script>";
-					echo '<META HTTP-EQUIV="Refresh" Content="0; URL=admin-view-users.php">';
-				}
-				else 
-				{
-					 $error = "Error in Update";
-					 echo $error;
-				}
-			}
-		
-		}*/
 		
 			
 	}
