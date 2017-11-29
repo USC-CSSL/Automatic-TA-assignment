@@ -3,13 +3,18 @@
  */
 package ta.course.assignment;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 //import com.mysql.jdbc.Driver;
 import java.util.stream.Collectors;
 
@@ -57,6 +62,7 @@ public class GenerateAssignment {
 	Map<Integer,Milestone> milestonesMap = new HashMap<Integer,Milestone>();
 	
 	Map<Integer,List<TAPreferences>> findEligibleMatches (List<TAPreferences> orderedTaPreferences) {
+		
 		Map<Integer,List<TAPreferences>> eligilbeTAForCourse = new HashMap<Integer,List<TAPreferences>>();
 		for (TAPreferences taPreference: orderedTaPreferences) {
 			Course course = this.coursesMap.get(taPreference.getCourseId());
@@ -129,16 +135,16 @@ public class GenerateAssignment {
 		Map<Integer,Integer> courseSectionDone = new HashMap<Integer,Integer>();
 		Map<Integer,Integer> tADone = new HashMap<Integer,Integer>();
 		Map<Integer,Integer> finalSectionToTAAssignment = new HashMap<Integer,Integer>();
-		
+		Set<String> finalOutput = new HashSet<String>();
 		List<TAPreferences> highestPrefered = this.taPreferences.stream().filter(e -> e.getInterestLevel() == 3).collect(Collectors.toList());
 		List<TAPreferences> mediumPrefered = this.taPreferences.stream().filter(e -> e.getInterestLevel() == 2).collect(Collectors.toList());
 		List<TAPreferences> lowestPrefered = this.taPreferences.stream().filter(e -> e.getInterestLevel() == 1).collect(Collectors.toList());
 		
-		Map<Integer,List<TAPreferences>> eligilbeTAForSection = this.findEligibleMatches(highestPrefered);
+		Map<Integer,List<TAPreferences>> eligilbeTAForSectionHigh = this.findEligibleMatches(highestPrefered);
 		System.out.println("\nFINAL LIST FOR HIGHEST PREFERRED");
 		
-		for (Integer keys : eligilbeTAForSection.keySet()) {
-			List<TAPreferences> vals = eligilbeTAForSection.get(keys);
+		for (Integer keys : eligilbeTAForSectionHigh.keySet()) {
+			List<TAPreferences> vals = eligilbeTAForSectionHigh.get(keys);
 			Collections.sort(vals, new Comparator<TAPreferences>() {
 			    public int compare(TAPreferences s1, TAPreferences s2) {
 			        return (((Float)s2.getScore()).compareTo((Float)s1.getScore()));
@@ -147,67 +153,130 @@ public class GenerateAssignment {
 			for (TAPreferences taPreference :vals) {
 				System.out.println("Section Id " + keys + " Possible TaiD : " + taPreference.getTaId() + "Score" + taPreference.getScore());
 			}
-			for (TAPreferences taPreference :vals) {
-				if (!tADone.containsKey(taPreference.getTaId()) && !courseSectionDone.containsKey(keys)) {
-					System.out.println("Section Id " + keys + " Possible TaiD : " + taPreference.getTaId() + "Score" + taPreference.getScore());
-					courseSectionDone.put(keys,1);
-					tADone.put(taPreference.getTaId(), 1);
-					finalSectionToTAAssignment.put(keys, taPreference.getTaId());
-					break;
-				}
-			}
 		}
-
-		eligilbeTAForSection = this.findEligibleMatches(mediumPrefered);
+		
+		Map<Integer,List<TAPreferences>> eligilbeTAForSectionMedium = this.findEligibleMatches(mediumPrefered);
 		System.out.println("\nFINAL LIST FOR MEDIUM PREFERRED");
-		for (Integer keys : eligilbeTAForSection.keySet()) {
-			List<TAPreferences> vals = eligilbeTAForSection.get(keys);
-			Collections.sort(vals, new Comparator<TAPreferences>() {
-			    public int compare(TAPreferences s1, TAPreferences s2) {
-			        return (((Float)s2.getScore()).compareTo((Float)s1.getScore()));
-			    }
-			});
-			for (TAPreferences taPreference :vals) {
-				System.out.println("Section Id " + keys + " Possible TaiD : " + taPreference.getTaId());
-			}
-			for (TAPreferences taPreference :vals) {
-				if (!tADone.containsKey(taPreference.getTaId()) && !courseSectionDone.containsKey(keys)) {
-					System.out.println("Section Id " + keys + " Possible TaiD : " + taPreference.getTaId() + "Score" + taPreference.getScore());
-					courseSectionDone.put(keys,1);
-					tADone.put(taPreference.getTaId(), 1);
-					finalSectionToTAAssignment.put(keys, taPreference.getTaId());
-					break;
-				}
-			}
-		}
 		
-		eligilbeTAForSection = this.findEligibleMatches(lowestPrefered);
+		Map<Integer,List<TAPreferences>> eligilbeTAForSectionLow = this.findEligibleMatches(lowestPrefered);
 		System.out.println("\nFINAL LIST FOR LOWEST PREFERRED");
-		for (Integer keys : eligilbeTAForSection.keySet()) {
-			List<TAPreferences> vals = eligilbeTAForSection.get(keys);
-			Collections.sort(vals, new Comparator<TAPreferences>() {
-			    public int compare(TAPreferences s1, TAPreferences s2) {
-			        return (((Float)s2.getScore()).compareTo((Float)s1.getScore()));
-			    }
-			});
-			for (TAPreferences taPreference :vals) {
-				System.out.println("Section Id " + keys + " Possible TaiD : " + taPreference.getTaId());
-			}
-			for (TAPreferences taPreference :vals) {
-				if (!tADone.containsKey(taPreference.getTaId()) && !courseSectionDone.containsKey(keys)) {
-					System.out.println("Section Id " + keys + " Possible TaiD : " + taPreference.getTaId() + "Score" + taPreference.getScore());
-					courseSectionDone.put(keys,1);
-					tADone.put(taPreference.getTaId(), 1);
-					finalSectionToTAAssignment.put(keys, taPreference.getTaId());
-					break;
+		
+		
+		Set<Integer> sectionsSet = eligilbeTAForSectionHigh.keySet();
+		List<Integer> sectionList = new ArrayList<Integer>();
+		sectionList.addAll(sectionsSet);
+		for (int i = 0;i< sectionList.size();i++) {
+			for (int j = 0; j< sectionList.size();j++) {
+				List<TAPreferences> vals = eligilbeTAForSectionHigh.get(sectionList.get(j));
+				for (TAPreferences taPreference :vals) {
+					if (this.tasMap.get(taPreference.getTaId()).getArea() != null || !this.tasMap.get(taPreference.getTaId()).getArea().equals("") && this.tasMap.get(taPreference.getTaId()).getArea().equals("Quant")) {
+						if (this.coursesMap.get(taPreference.getCourseId()).getArea() == null || "".equals(this.coursesMap.get(taPreference.getCourseId()).getArea())) {
+							continue;
+						}
+						if (!this.tasMap.get(taPreference.getTaId()).getArea().equals(this.coursesMap.get(taPreference.getCourseId()).getArea())) {
+							continue;
+						}
+					}
+					if (!tADone.containsKey(taPreference.getTaId()) && !courseSectionDone.containsKey(sectionList.get(j))) {
+						System.out.println("Section Id " + sectionList.get(0) + " Possible TaiD : " + taPreference.getTaId() + "Score" + taPreference.getScore());
+						courseSectionDone.put(sectionList.get(j),1);
+						tADone.put(taPreference.getTaId(), 1);
+						finalSectionToTAAssignment.put(sectionList.get(j), taPreference.getTaId());
+						break;
+					}
 				}
 			}
+			for (Integer keys : eligilbeTAForSectionMedium.keySet()) {
+				List<TAPreferences> vals = eligilbeTAForSectionMedium.get(keys);
+				Collections.sort(vals, new Comparator<TAPreferences>() {
+				    public int compare(TAPreferences s1, TAPreferences s2) {
+				        return (((Float)s2.getScore()).compareTo((Float)s1.getScore()));
+				    }
+				});
+				for (TAPreferences taPreference :vals) {
+					System.out.println("Section Id " + keys + " Possible TaiD : " + taPreference.getTaId());
+				}
+				
+				for (TAPreferences taPreference :vals) {
+					if (this.tasMap.get(taPreference.getTaId()).getArea() != null || !this.tasMap.get(taPreference.getTaId()).getArea().equals("") && this.tasMap.get(taPreference.getTaId()).getArea().equals("Quant")) {
+						if (this.coursesMap.get(taPreference.getCourseId()).getArea() == null || "".equals(this.coursesMap.get(taPreference.getCourseId()).getArea())) {
+							continue;
+						}
+						if (!this.tasMap.get(taPreference.getTaId()).getArea().equals(this.coursesMap.get(taPreference.getCourseId()).getArea())) {
+							continue;
+						}
+					}
+					if (!tADone.containsKey(taPreference.getTaId()) && !courseSectionDone.containsKey(keys)) {
+						System.out.println("Section Id " + keys + " Possible TaiD : " + taPreference.getTaId() + "Score" + taPreference.getScore());
+						courseSectionDone.put(keys,1);
+						tADone.put(taPreference.getTaId(), 1);
+						finalSectionToTAAssignment.put(keys, taPreference.getTaId());
+						break;
+					}
+				}
+			}
+			for (Integer keys : eligilbeTAForSectionLow.keySet()) {
+				List<TAPreferences> vals = eligilbeTAForSectionLow.get(keys);
+				Collections.sort(vals, new Comparator<TAPreferences>() {
+				    public int compare(TAPreferences s1, TAPreferences s2) {
+				        return (((Float)s2.getScore()).compareTo((Float)s1.getScore()));
+				    }
+				});
+				for (TAPreferences taPreference :vals) {
+					System.out.println("Section Id " + keys + " Possible TaiD : " + taPreference.getTaId());
+				}
+				
+				for (TAPreferences taPreference :vals) {
+					if (this.tasMap.get(taPreference.getTaId()).getArea() != null || !this.tasMap.get(taPreference.getTaId()).getArea().equals("") && this.tasMap.get(taPreference.getTaId()).getArea().equals("Quant")) {
+						if (this.coursesMap.get(taPreference.getCourseId()).getArea() == null || "".equals(this.coursesMap.get(taPreference.getCourseId()).getArea())) {
+							continue;
+						}
+						if (!this.tasMap.get(taPreference.getTaId()).getArea().equals(this.coursesMap.get(taPreference.getCourseId()).getArea())) {
+							continue;
+						}
+					}
+					if (!tADone.containsKey(taPreference.getTaId()) && !courseSectionDone.containsKey(keys)) {
+						System.out.println("Section Id " + keys + " Possible TaiD : " + taPreference.getTaId() + "Score" + taPreference.getScore());
+						courseSectionDone.put(keys,1);
+						tADone.put(taPreference.getTaId(), 1);
+						finalSectionToTAAssignment.put(keys, taPreference.getTaId());
+						break;
+					}
+				}
+			}
+			System.out.println("\nDONE WITH ASSIGNMENT\n");
+			StringBuilder sb = new StringBuilder();
+
+			for (Integer key : finalSectionToTAAssignment.keySet()) {
+				sb.append(finalSectionToTAAssignment.get(key)).append(",").append(key).append("\n");
+				System.out.println("TA : "+ finalSectionToTAAssignment.get(key) + "Section Id : " + key + " ");
+			}
+			finalOutput.add(sb.toString());
+			System.out.println(sb.toString());
+			finalSectionToTAAssignment.clear();
+			courseSectionDone.clear();
+			tADone.clear();
+			
+			Integer temp = sectionList.get(0);
+			sectionList.remove(0);
+			sectionList.add(temp);
 		}
 		
-		System.out.println("\nDONE WITH ASSIGNMENT\n");
-		for (Integer key : finalSectionToTAAssignment.keySet()) {
-			System.out.println("Section Id : " + key + " "+ "TA : "+ finalSectionToTAAssignment.get(key));
+		
+		try {
+			PrintWriter pw = new PrintWriter(new File("matching.csv"));
+			Iterator<String> itr = finalOutput.iterator();
+			while (itr.hasNext()) {
+				pw.print(itr.next());
+				pw.println();
+			}
+	        pw.close();
+	        System.out.println("done!");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		
 	}
 	
 	private void enrichTA (List<TA> tas) {
@@ -273,6 +342,16 @@ public class GenerateAssignment {
 		gs.taPreferencesMap = gs.taPreferences.stream().collect(Collectors.toMap(TAPreferences::getId, item-> item));
 		for (TAPreferences taPreference: gs.taPreferences) {
 			taPreference.setScore(gs.tasMap.get(taPreference.getTaId()).getScore());
+			String[] previousTaught = gs.tasMap.get(taPreference.getTaId()).getPreviousCoursesTaught().split(",");
+			String[] isHappyWithPreviousTaught = gs.tasMap.get(taPreference.getTaId()).getHappyWithPreviousCoursesTaught().split(",");
+			for (int i = 0; i< previousTaught.length;i++) {
+				if (previousTaught[i].equals(String.valueOf(taPreference.getCourseId()))){
+					if (isHappyWithPreviousTaught[i].equals("1")) {
+						taPreference.setScore((float)(taPreference.getScore() + 0.2));
+						break;
+					}
+				}			
+			}
 		System.out.println(taPreference.getTaId() + " "+ taPreference.getCourseId()+" "+
 				taPreference.getInterestLevel());
 		}
@@ -289,7 +368,7 @@ public class GenerateAssignment {
 		gs.timeIntervals = timeIntervalsDAO.selectAll();
 		gs.taTimeConstraintsMap = gs.taTimeConstraints.stream().collect(Collectors.toMap(TATimeConstraints::getConstraintsId, item-> item));
 		for (TimeIntervals timeInterval: gs.timeIntervals) {
-		System.out.println(timeInterval.getTimeSlotId() + " "+ timeInterval.getDay() + " "+ timeInterval.getTimeDuration());
+		System.out.println(timeInterval.getTimeSlotId() + " "+ timeInterval.getDay() + " "+ timeInterval.getStartTime() + " - " + timeInterval.getEndTime());
 		}
 
 		//run algorithm on data
