@@ -14,7 +14,7 @@
     </resultMap>
 
     <select id="selectAll" resultMap="result">
-        SELECT * FROM TA_Preferences1;
+        SELECT * FROM TA_Preferences;
     </select>
     
 </mapper>
