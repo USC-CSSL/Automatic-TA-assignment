@@ -68,7 +68,7 @@ public class TA {
 	}
 
 	public String getPreviousCoursesTaught() {
-		return previousCoursesTaught;
+		return previousCoursesTaught.replaceAll("\\s","");
 	}
 
 	public void setPreviousCoursesTaught(String previousCoursesTaught) {
@@ -76,7 +76,7 @@ public class TA {
 	}
 
 	public String getHappyWithPreviousCoursesTaught() {
-		return happyWithPreviousCoursesTaught;
+		return happyWithPreviousCoursesTaught.replaceAll("\\s","");
 	}
 
 	public void setHappyWithPreviousCoursesTaught(
