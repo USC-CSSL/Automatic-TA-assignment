@@ -13,7 +13,7 @@
     </resultMap>
  
     <select id="selectAll" resultMap="result">
-        SELECT * FROM Course_Section1;
+        SELECT * FROM Course_Section;
     </select>
     
 </mapper>
