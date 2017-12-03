@@ -94,14 +94,32 @@
 				   </div>
 				  </div>
 				  <div class="form-row">
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="lastCourse">Course Taught Last Semester</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
-				    	<label for="happy">Happy with Previous Courses Taught</label>
+				    	<select class="form-control"  required id="lastCourse" name="lastCourse">
+				    	<?php
+				    		$sql = "SELECT * FROM `Course`";
+				    		$result = mysqli_query($conn,$sql);
+				    		
+				    		while($row = mysqli_fetch_array($result))
+						{
+							echo "<option value=".$row['Course_Id'].">".$row['Course_Code']."</option>";						
+ 						}
+ 						
+				    	?>
+				    	<option value='0'>N/A</option>
+					</select>
+				   </div>
+				  </div>
+				  <div class="form-row">
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
+				    	<label for="happy">Happy with Last Course Taught</label>
 				    </div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
 				    	<select required class="form-control" id="happy" name="happy">
-				    		<option >Yes</option>
-				    		<option >No</option>
-				    		<option >N/A</option>
+				    		<option value='1'>Yes</option>
+				    		<option value='0'>No</option>
+				    		<option value='0'>N/A</option>
 				    	</select>
 				    </div>
 				  </div>

@@ -1,11 +1,10 @@
 <?php
 	include('dbConnect.php');
 	session_start();
-	if (isset($_POST["course_id"]))
+	if (isset($_POST["section_id"]))
 	{
-		$courseId=$_POST["course_id"];
-		$sql1="DELETE FROM `Course` WHERE `Course_Id`='$courseId'";
-		$sql2="DELETE FROM `Course_Section` WHERE `Course_Id`='$courseId'";
+		$sectionId=$_POST["section_id"];
+		$sql2="DELETE FROM `Course_Section` WHERE `Section_Id`='$sectionId'";
 		
 		$result1=mysqli_query($conn,$sql1);
 		$result2=mysqli_query($conn,$sql2);

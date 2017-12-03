@@ -33,7 +33,7 @@
 		<li><a href="../html/admin.html">Home</a></li>
 		<li  class="active"><a href="../html/admin-users.html">Users</a></li> 
 		<li><a href="../html/admin-courses.html">Courses</a></li> 
-		<li><a href="..html/admin-matching.html">Matching</a></li> 
+		<li><a href="../html/admin-matching.html">Matching</a></li> 
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 		<li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>

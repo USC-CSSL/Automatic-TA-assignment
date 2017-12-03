@@ -79,8 +79,10 @@
 						    
 						    <div class='form-group col-lg-3 col-sm-3 col-xs-3 col-md-3'>
 						    	<select required class='form-control' id='preference' name='Pref-".$row2['Course_Code']."'>
-						    		<option value='3'>High</option>
-						    		<option value='2'>Medium</option>
+						    		<option value='5'>High</option>
+						    		<option value='4'>High-Medium</option>
+						    		<option value='3'>Medium</option>
+						    		<option value='2'>Medium-Low</option>
 						    		<option value='1'>Low</option>
 						    	</select>
 						    </div>

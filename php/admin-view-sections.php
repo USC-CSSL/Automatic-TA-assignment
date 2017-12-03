@@ -118,8 +118,10 @@
 							else
 							{
 								$type="Lab";
-							}			    	
-							echo    "
+							}
+							if($row3['IsActive']==1)
+							{			    	
+								echo    "
 								    <tr>
 									<td><center>".$row1['Section_Id']."</center></td>
 									<td><center>".$row3['Course_Code']."</center></td>
@@ -139,19 +141,50 @@
 										    <span class='sr-only'>Toggle Dropdown</span>
 										  </button>
 										  <ul class='dropdown-menu'>
-										    <li><a href='admin-view-course-details.php?course_id=".$row1['Course_Id']."'>View</a></li>
+										    <li><a href='admin-view-section-details.php?section_id=".$row1['Section_Id']."'>View</a></li>
 										    <li role='separator' class='divider'></li>
-										    <li><a href='admin-update-course-details.php?course_id=".$row1['Course_Id']."'>Update</a></li>
+										    <li><a href='admin-update-section-details.php?section_id=".$row1['Section_Id']."'>Update</a></li>
 										    <li role='separator' class='divider'></li>
-										    <li><a href='admin-delete-course.php?user_id=".$row1['Course_Id']."'>Delete</a></li>
+										    <li>
+										    <a type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row1['Section_Id'].");'>Delete</a>
+										    </li>
 										  </ul>
 										</div>
 										</center>
 									</td>
 								    </tr>
 								";
-
-				    		
+							}
+							else
+							{
+							echo    "
+								    <tr>
+									<td><center>".$row1['Section_Id']."</center></td>
+									<td><center>".$row3['Course_Code']."</center></td>
+									<td><center>".$type."</center></td>
+									<td><center>".$row1['Lecture_Code']."</center></td>
+									<td><center>".$row1['Lab_Code']."</center></td>
+									<td><center>".$row2['Start_Time']."</center></td>
+									<td><center>".$row2['End_Time']."</center></td>
+									<td><center>".$row2['Day']."</center></td>
+									<td>
+										<center>
+										<center>
+										<!-- Split button -->
+										<div class='btn-group'>
+										  <button type='button' class='btn btn-primary' disabled>Action</button>
+										  <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' disabled>
+										    <span class='caret'></span>
+										    <span class='sr-only'>Toggle Dropdown</span>
+										  </button>
+										  
+										</div>
+										</center>
+										</center>
+									</td>
+								    </tr>
+								";
+				    			}
 				    			$records_flag=True;
 						}
 						
@@ -176,6 +209,31 @@
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		
+	<script>
+	function confirmDelete(sectionId)
+	{
+		if (confirm('Are you sure you want to delete this Section?')) {
+		    //Make ajax call
+		    $.ajax({
+		        url: "admin-delete-section.php",
+		        type: "POST",
+		        data: {section_id : sectionId},
+		        dataType: "html", 
+		        success: function() {
+		            alert("Succesfully deleted section!");
+		            location.reload();
+		        },
+		        failure: function(){
+		        	alert("Error in Post");
+		        }
+		    });
+
+		}
+		else
+		{
+			alert("Delete action cancelled.");
+		}
+	}
+	</script>	
 	</body>
 </html>

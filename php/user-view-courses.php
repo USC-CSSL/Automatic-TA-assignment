@@ -72,7 +72,7 @@
 
 				    <tbody><?php
 				    		
-						$query1="SELECT * FROM `Course`";
+						$query1="SELECT * FROM `Course` WHERE `IsActive`='1'";
 						$result1=mysqli_query($conn,$query1);
 						$records_flag=False;
 						

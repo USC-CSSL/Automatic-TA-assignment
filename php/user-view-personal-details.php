@@ -2,13 +2,13 @@
 	include('dbConnect.php');
 	session_start();
 	$username=$_SESSION['Username'];
-	
+	#echo $username;	
 	$sql1="SELECT * FROM `User` WHERE `Username`='$username'";
 	$result1=mysqli_query($conn,$sql1);
 	$row1=mysqli_fetch_array($result1);
-	
+
 	$userId=$row1['User_Id'];
-	
+	#echo $userId;	
 	$sql2="SELECT * FROM `TA` WHERE `User_Id`='$userId'";
 	$result2=mysqli_query($conn,$sql2);
 	$row2=mysqli_fetch_array($result2);
@@ -19,7 +19,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>Admin Dashboard</title>
+		<title>User Dashboard</title>
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 		<!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
 		<link href="../css/admin.css" type="text/css" rel="stylesheet">
@@ -43,8 +43,8 @@
 	      <ul class="nav navbar-nav">
 		<li><a href="../html/user.html">Home</a></li>
 		<li class="active"><a href="../html/user-personal.html">Personal</a></li>
-		<li ><a href="../html/admin-courses.html">Courses</a></li> 
-		<li><a href="../html/admin-matching.html">Matching</a></li> 
+		<li ><a href="../html/user-courses.html">Courses</a></li> 
+		<li><a href="../html/user-matching.html">Matching</a></li> 
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 		<li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
@@ -100,19 +100,42 @@
 					  <th>Previous Courses Taught</th>
 					    <td><?php 
 					    	$courses=explode(",",$row2['Previous_Courses_Taught']);
+					    	$flag=0;
 					    	foreach ($courses as $c)
 					    	{
+					    		if($flag!=0)
+							{
+								echo "<br>";
+							}
 					    		$sql3="SELECT * FROM `Course` WHERE `Course_Id`='$c'";
 							$result3=mysqli_query($conn,$sql3);
 							$row3=mysqli_fetch_array($result3);
 							echo $row3['Course_Name'];
-							echo "<br>";
+							if($flag==0)
+							{
+								$flag=1;
+							}
+							
+							
 					    	}
 					    	#echo $row2['Number_Of_Full_TA'];?></td>
 					</tr>
 					<tr>
-					  <th>Happy With Previous Courses Taught</th>
-					    <td><?php echo $row2['Happy_With_Previous_Courses_Taught'];?></td>
+					  <th>Courses Taught Last Semester</th>
+					    <td><?php echo $row2['Course_Taught_Last_Semester'];?></td>
+					</tr>
+					<tr>
+					  <th>Happy With Last Course Taught</th>
+					    <td><?php 
+					    	if($row2['Happy_With_Last_Course_Taught'])
+					    	{
+					    		echo "Yes";
+					    	}
+					    	else
+					    	{
+					    		echo "No";
+					    	}
+					    	?></td>
 					</tr>
 					<tr>
 					  <th>Milestones</th>

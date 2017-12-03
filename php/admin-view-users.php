@@ -105,13 +105,15 @@
 							$result2=mysqli_query($conn,$query2);
 							$row2=mysqli_fetch_array($result2);
 							$row2['User_Id'];
-										    	
-							echo    "
+							if($row2['IsActive']==1)
+							{			    	
+								echo    "
 								    <tr>
 									<td><center>".$row1['User_Id']."</center></td>
 									<td><center>".$row1['Name']."</center></td>
 									<td><center>".$row1['Username']."</center></td>
 									<td><center>".$row2['Area']."</center></td>
+									
 									<td>
 										<center>
 										<!-- Split button -->
@@ -126,14 +128,49 @@
 										    <li role='separator' class='divider'></li>
 										    <li><a href='admin-update-user-details.php?user_id=".$row1['User_Id']."'>Update</a></li>
 										    <li role='separator' class='divider'></li>
-										    <li><a href='admin-delete-user.php?user_id=".$row1['User_Id']."'>Delete</a></li>
+										    <li>
+										    <a type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row1['User_Id'].");'>Delete</a>
+										    </li>
 										  </ul>
 										</div>
 										</center>
 									</td>
 								    </tr>
 								";
-
+							}
+							else
+							{			    	
+								echo    "
+								    <tr>
+									<td><center>".$row1['User_Id']."</center></td>
+									<td><center>".$row1['Name']."</center></td>
+									<td><center>".$row1['Username']."</center></td>
+									<td><center>".$row2['Area']."</center></td>
+									<td><center></center></td>
+									<td>
+										<center>
+										<!-- Split button -->
+										<div class='btn-group'>
+										  <button type='button' class='btn btn-primary'>Action</button>
+										  <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+										    <span class='caret'></span>
+										    <span class='sr-only'>Toggle Dropdown</span>
+										  </button>
+										  <ul class='dropdown-menu'>
+										    <li><a href='admin-view-users-details.php?user_id=".$row1['User_Id']."'>View</a></li>
+										    <li role='separator' class='divider'></li>
+										    <li><a href='admin-update-user-details.php?user_id=".$row1['User_Id']."'>Update</a></li>
+										    <li role='separator' class='divider'></li>
+										    <li>
+										    <a type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row1['User_Id'].");'>Delete</a>
+										    </li>
+										  </ul>
+										</div>
+										</center>
+									</td>
+								    </tr>
+								";
+							}
 				    		
 				    			$records_flag=True;
 						}
@@ -159,6 +196,32 @@
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
+	function confirmDelete(userId)
+	{
+		if (confirm('Are you sure you want to delete this User?')) {
+		    //Make ajax call
+		    $.ajax({
+		        url: "admin-delete-user.php",
+		        type: "POST",
+		        data: {user_id : userId},
+		        dataType: "html", 
+		        success: function() {
+		            alert("Succesfully deleted user!");
+		            location.reload();
+		        },
+		        failure: function(){
+		        	alert("Error in Post");
+		        }
+		    });
+
+		}
+		else
+		{
+			alert("Delete action cancelled.");
+		}
+	}
+	</script>
 		
 	</body>
 </html>

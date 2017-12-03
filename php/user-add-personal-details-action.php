@@ -17,17 +17,18 @@
 			$area=$_POST['area'];
 			$hasTAexp=$_POST['hasTAexp'];
 			$numberSem=$_POST['numberSem'];
-		
+			$lastCourse=$_POST['lastCourse'];
 			$prevCourses=$_POST['prevCourses'];
 			$happy=$_POST['happy'];
 			$milestones=$_POST['milestones'];
 			#echo "<script> alert($milestones);</script>";
 			$courses_string = implode(', ', $prevCourses);
 			$milestones_string = implode(', ', $milestones);
-			echo $courses_string."\n".$happy."\n".$numberSem."\n".$area;
+			$active=1;
+			#echo $courses_string."\n".$happy."\n".$numberSem."\n".$area;
 		
-			$sql = "INSERT INTO `ta_project`.`TA` (`User_Id`, `Area`, `Previous_Courses_Taught`, `Happy_With_Previous_Courses_Taught`, `Has_TA_Experience`, `Has_TA_Experience_For_Number_Of_Semester`, `Milestones_Id`) VALUES ('$userId', '$area', '$courses_string', '$happy', '$hasTAexp', '$numberSem', '$milestones_string');";
-		
+			#$sql = "INSERT INTO `ta_project`.`TA` (`User_Id`, `Area`, `Previous_Courses_Taught`, `Course_Taught_Last_Semester`, `Happy_With_Previous_Courses_Taught`, `Has_TA_Experience`, `Has_TA_Experience_For_Number_Of_Semester`, `Milestones_Id`) VALUES ('$userId', '$area', '$courses_string', '$lastCourse', '$happy', '$hasTAexp', '$numberSem', '$milestones_string');";
+			$sql="INSERT INTO `ta_project`.`TA` (`User_Id`, `Area`, `Previous_Courses_Taught`, `Course_Taught_Last_Semester`, `Happy_With_Last_Course_Taught`, `Has_TA_Experience`, `Has_TA_Experience_For_Number_Of_Semester`, `Milestones_Id`, `IsActive`) VALUES ('$userID', '$area', '$courses_string', '$lastCourse', '$happy', '$hasTAexp', '$numberSem', '$milestones_string', '$active');";
 			$result=mysqli_query($conn,$sql);
 		
 			if($result)

@@ -90,11 +90,14 @@
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="day">Day</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
 				    	<select required class="form-control" id="day" name="day">
-				    		<option >Monday</option>
-				    		<option >Tuesday</option>
-				    		<option >Wednesday</option>
-				    		<option >Thursday</option>
-				    		<option >Friday</option>
+				    		<option >MW</option>
+				    		<option >TTh</option>
+				    		<option >MWF</option>
+				    		<option >M</option>
+				    		<option >T</option>
+				    		<option >W</option>
+				    		<option >Th</option>
+				    		<option >F</option>
 				    		
 					</select>
 				    </div>
