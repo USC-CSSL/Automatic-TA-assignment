@@ -8,7 +8,7 @@
     <resultMap id="result" type="TATimeConstraints">
         <result property="constraintsId" column="Constraints_Id"/>
         <result property="taId" column="TA_Id"/>
-		<result property="timeInteravalNotAvilableId" column="Time_Interaval_Not_Avilable_Id"/> 
+		<result property="timeInteravalNotAvilableId" column="Time_Interval_Not_Available_Id"/> 
     </resultMap>
 
     <select id="selectAll" resultMap="result">

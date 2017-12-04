@@ -11,11 +11,10 @@
         <result property="area" column="Area"/>
         <result property="numberOfHalfTa" column="Number_Of_Half_TA"/>
         <result property="numberOfFullTa" column="Number_Of_Full_TA"/>
-        <result property="preference1" column="Preference1"/>
-        <result property="preference2" column="Preference2"/>   
+        <result property="isActive" column="Is_Active"/>  
     </resultMap>
  
     <select id="selectAll" resultMap="result">
-        SELECT * FROM Course;
+        SELECT * FROM Course where IsActive = 1;
     </select>
 </mapper>

@@ -6,9 +6,9 @@
 <mapper namespace="Milestone">
  
     <resultMap id="result" type="Milestone">
-        <result property="milestoneId" column="Milestones_Id"/>
+        <result property="milestoneId" column="Milestone_Id"/>
         <result property="milestoneName" column="Milestone_Name"/>
-        <result property="score" column="Score"/>   
+        <result property="score" column="Ranking"/>   
     </resultMap>
  
     <select id="selectAll" resultMap="result">

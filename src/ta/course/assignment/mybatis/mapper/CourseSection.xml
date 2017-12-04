@@ -9,7 +9,9 @@
         <result property="sectionId" column="Section_Id"/>
         <result property="courseId" column="Course_Id"/>
 		<result property="timeSlotId" column="Time_Slot_Id"/>
-		<result property="isLecture" column="Is_Lecture"/>   
+		<result property="isLecture" column="Is_Lecture"/> 
+		<result property="labCode" column="Lab_Code"/> 
+		<result property="lectureCode" column="Lecture_Code"/>   
     </resultMap>
  
     <select id="selectAll" resultMap="result">

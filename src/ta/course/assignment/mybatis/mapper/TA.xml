@@ -9,14 +9,16 @@
         <result property="taId" column="TA_Id"/>
         <result property="area" column="Area"/>
 		<result property="previousCoursesTaught" column="Previous_Courses_Taught"/>
-		<result property="happyWithPreviousCoursesTaught" column="Happy_With_Previous_Courses_Taught"/>
+		<result property="courseTaughtLastSemester" column="Course_Taught_Last_Semester"/>
+		<result property="happyWithLastCourseTaught" column="Happy_With_Last_Course_Taught"/>
 		<result property="hasTAExperience" column="Has_TA_Experience"/>
 		<result property="milestoneId" column="Milestones_Id"/>
-		<result property="hasTAExperianceForNumberOfSemester" column="Has_TA_Experiance_For_Number_Of_Semester"/>   
+		<result property="hasTAExperianceForNumberOfSemester" column="Has_TA_Experiance_For_Number_Of_Semester"/>
+		<result property="isActive" column="IsActive"/>
     </resultMap>
 
     <select id="selectAll" resultMap="result">
-        SELECT * FROM TA;
+        SELECT * FROM TA where IsActive = 1;
     </select>
     
 </mapper>

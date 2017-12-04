@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="Matching">
+ 
+    <resultMap id="result" type="Matching">
+        <result property="sectionId" column="Section_Id"/>
+        <result property="taId" column="TA_Id"/>   
+    </resultMap>
+    
+    <resultMap id="resultRunId" type="Matching">
+        <result property="runId" column="Run_Id"/> 
+    </resultMap>
+ 
+    <select id="getAdminMatching" resultMap="result">
+        SELECT * FROM Admin_Matching where IsActive = 1;
+    </select>
+    
+    <select id="getMatching" resultMap="result">
+        SELECT * FROM Matching where IsActive = 1;
+    </select>
+    
+    <select id="getLastRunId" resultMap="resultRunId" >
+        SELECT Run_Id FROM Matching ORDER BY Run_Id DESC LIMIT 1;
+    </select>
+    
+    <insert id='insertMatching' parameterType='Map'>
+   INSERT INTO Matching(Run_Id, Allotment_Id, Section_Id, TA_Id, IsActive)
+    VALUES(#{Run_Id}, 1, #{Section_Id}, #{TA_Id},1);
+  </insert>
+    
+</mapper>
