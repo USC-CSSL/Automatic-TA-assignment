@@ -15,10 +15,10 @@ public class TimeIntervals {
 	private int timeSlotId;
 	
 	//start time
-	private Time startTime;
+	private String startTime;
 	
 	//end time
-	private Time endTime;
+	private String endTime;
 	
 	//day of the slot
 	private String day;
@@ -31,19 +31,19 @@ public class TimeIntervals {
 		this.timeSlotId = timeSlotId;
 	}
 
-	public Time getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Time startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 
-	public Time getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Time endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 

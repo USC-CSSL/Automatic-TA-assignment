@@ -20,11 +20,15 @@ public class Course {
 	
 	private int numberOfFullTa;
 	
-	//Attribute required in TA at highest preference
-	private String Preference1;
-	
-	//Attribute required in TA at second preference
-	private String Preference2;
+	private int isActive;
+
+	public int getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(int isActive) {
+		this.isActive = isActive;
+	}
 
 	public int getCourseId() {
 		return courseId;
@@ -64,22 +68,6 @@ public class Course {
 
 	public void setNumberOfFullTa(int numberOfFullTa) {
 		this.numberOfFullTa = numberOfFullTa;
-	}
-
-	public String getPreference1() {
-		return Preference1;
-	}
-
-	public void setPreference1(String preference1) {
-		Preference1 = preference1;
-	}
-
-	public String getPreference2() {
-		return Preference2;
-	}
-
-	public void setPreference2(String preference2) {
-		Preference2 = preference2;
 	}
 
 }

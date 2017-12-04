@@ -16,15 +16,19 @@ public class TA {
 	
 	private String previousCoursesTaught;
 	
-	private String happyWithPreviousCoursesTaught;
+	private int courseTaughtLastSemester;
+	
+	private Boolean happyWithLastCourseTaught;
 	
 	private Boolean hasTAExperience;
 
-	private int milestoneId;
+	private String milestones;
 	
 	private float score; 
 
 	private int hasTAExperianceForNumberOfSemester;
+	
+	private int isActive;
 	
 	public int getHasTAExperianceForNumberOfSemester() {
 		return hasTAExperianceForNumberOfSemester;
@@ -35,12 +39,12 @@ public class TA {
 		this.hasTAExperianceForNumberOfSemester = hasTAExperianceForNumberOfSemester;
 	}
 
-	public int getMilestoneId() {
-		return milestoneId;
+	public String getMilestoneId() {
+		return milestones;
 	}
 
-	public void setMilestoneId(int milestoneId) {
-		this.milestoneId = milestoneId;
+	public void setMilestoneId(String milestones) {
+		this.milestones = milestones;
 	}
 
 	public float getScore() {
@@ -75,21 +79,36 @@ public class TA {
 		this.previousCoursesTaught = previousCoursesTaught;
 	}
 
-	public String getHappyWithPreviousCoursesTaught() {
-		return happyWithPreviousCoursesTaught.replaceAll("\\s","");
-	}
-
-	public void setHappyWithPreviousCoursesTaught(
-			String happyWithPreviousCoursesTaught) {
-		this.happyWithPreviousCoursesTaught = happyWithPreviousCoursesTaught;
-	}
-
 	public Boolean getHasTAExperience() {
 		return hasTAExperience;
 	}
 
 	public void setHasTAExperience(Boolean hasTAExperience) {
 		this.hasTAExperience = hasTAExperience;
+	}
+
+	public int getCourseTaughtLastSemester() {
+		return courseTaughtLastSemester;
+	}
+
+	public void setCourseTaughtLastSemester(int courseTaughtLastSemester) {
+		this.courseTaughtLastSemester = courseTaughtLastSemester;
+	}
+
+	public Boolean getHappyWithLastCourseTaught() {
+		return happyWithLastCourseTaught;
+	}
+
+	public void setHappyWithLastCourseTaught(Boolean happyWithLastCourseTaught) {
+		this.happyWithLastCourseTaught = happyWithLastCourseTaught;
+	}
+
+	public int getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(int isActive) {
+		this.isActive = isActive;
 	}
 	
 }

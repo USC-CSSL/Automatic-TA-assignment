@@ -12,6 +12,10 @@ public class CourseSection {
 	//primary key to identify each section
 	private int sectionId;
 	
+	private String lectureCode;
+	
+	private String labCode;
+	
 	//parent course id
 	private int courseId;
 	
@@ -19,6 +23,22 @@ public class CourseSection {
 	
 	//time slot id for the course section
 	private int timeSlotId;
+	
+	public String getLectureCode() {
+		return lectureCode;
+	}
+
+	public void setLectureCode(String lectureCode) {
+		this.lectureCode = lectureCode;
+	}
+
+	public String getLabCode() {
+		return labCode;
+	}
+
+	public void setLabCode(String labCode) {
+		this.labCode = labCode;
+	}
 
 	public boolean isLecture() {
 		return isLecture;

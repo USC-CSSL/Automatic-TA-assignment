@@ -6,7 +6,7 @@ public class Milestone {
 	
 	private String milestoneName;
 	
-	private float score;
+	private String score;
 
 	public int getMilestoneId() {
 		return milestoneId;
@@ -24,11 +24,11 @@ public class Milestone {
 		this.milestoneName = milestoneName;
 	}
 
-	public float getScore() {
+	public String getScore() {
 		return score;
 	}
 
-	public void setScore(float score) {
+	public void setScore(String score) {
 		this.score = score;
 	}
 	

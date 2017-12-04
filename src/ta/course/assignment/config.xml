@@ -7,6 +7,7 @@
     <typeAliases>
         <typeAlias alias="Course" type="ta.course.assignment.Course"/>
         <typeAlias alias="CourseSection" type="ta.course.assignment.CourseSection"/>
+        <typeAlias alias="Matching" type="ta.course.assignment.Matching"/>
         <typeAlias alias="Milestone" type="ta.course.assignment.Milestone"/>
         <typeAlias alias="TA" type="ta.course.assignment.TA"/>
         <typeAlias alias="TAPreferences" type="ta.course.assignment.TAPreferences"/>
@@ -21,15 +22,16 @@
             <!--  connecting to Local MySql -->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:8899/mysql"/>
+                <property name="url" value="jdbc:mysql://localhost/ta_project"/>
                 <property name="username" value="root"/>
-                <property name="password" value="root"/>
+                <property name="password" value="pace88sri"/> 
             </dataSource>
        </environment>
     </environments>
     <mappers>
        <mapper resource="ta/course/assignment/mybatis/mapper/Course.xml"/>
        <mapper resource="ta/course/assignment/mybatis/mapper/CourseSection.xml"/>
+       <mapper resource="ta/course/assignment/mybatis/mapper/Matching.xml"/>
        <mapper resource="ta/course/assignment/mybatis/mapper/Milestone.xml"/>
        <mapper resource="ta/course/assignment/mybatis/mapper/TA.xml"/>
        <mapper resource="ta/course/assignment/mybatis/mapper/TAPreferences.xml"/>
