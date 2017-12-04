@@ -96,47 +96,101 @@
 					    <td><?php echo $row2['Area'];?></td>
 					</tr>
 					<tr>
+					  <th>Milestone</th>
+					    <td><?php 
+					    $milestone=explode(",",$row2['Milestones_Id']);
+					    	foreach ($milestone as $m)
+					    	{
+					    		#echo $c;
+					    		$sql4 = "SELECT * FROM `Milestones` WHERE `Milestone_Id` ='$m'";
+							$result4 = mysqli_query($conn,$sql4);
+							$row4 = mysqli_fetch_array($result4);
+							echo $row4['Milestone_Name'];
+							echo "<br>";
+					    	}
+					    ?></td>
+					</tr>
+					<tr>
 					  <th>Has TA Experience</th>
 					    <td>
 					    	<?php 
 					    	if($row2['Has_TA_Experience']==1)
 						{
 						    	echo "Yes";
+						    	$hasTAexp=1;
 						}
 						else
 						{
 							echo "No";
+							$hasTAexp=0;
 						}
 						 ?></td>
 					</tr>
 					<tr>
 					  <th>Previous Courses Taught</th>
 					    <td><?php 
-					    	$courses=explode(",",$row2['Previous_Courses_Taught']);
-					    	foreach ($courses as $c)
+					    	if($hasTAexp)
 					    	{
-					    		#echo $c;
-					    		$sql4 = "SELECT * FROM `Course` WHERE Course_Id ='$c'";
-							$result4 = mysqli_query($conn,$sql4);
-							$row4 = mysqli_fetch_array($result4);
-							echo $row4['Course_Code'];
-							echo "<br>";
-					    	}
+						    	$courses=explode(",",$row2['Previous_Courses_Taught']);
+						    	foreach ($courses as $c)
+						    	{
+						    		#echo $c;
+						    		$sql4 = "SELECT * FROM `Course` WHERE Course_Id ='$c'";
+								$result4 = mysqli_query($conn,$sql4);
+								$row4 = mysqli_fetch_array($result4);
+								echo $row4['Course_Code'];
+								echo "<br>";
+						    	}
+						  }
+						  else
+						  {	
+						  	echo "N/A";
+						  }
 					    
 					    ?></td>
 					</tr>
 					<tr>
+					  <th>Course Taught Last Semester</th>
+					    <td><?php 
+					    	if($hasTAexp)
+					    	{
+						    	$courseId=$row2['Course_Taught_Last_Semester'];
+						    	$sql5 = "SELECT * FROM `Course` WHERE Course_Id ='$courseId'";
+								$result5 = mysqli_query($conn,$sql5);
+								$row5 = mysqli_fetch_array($result5);
+								echo $row5['Course_Code'];
+						}
+						  else
+						  {	
+						  	echo "N/A";
+						  }
+					    ?></td>
+					</tr>
+					<tr>
 					  <th>Happy with Previous Courses Taught</th>
-					    <td><?php echo $row2['Happy_With_Previous_Courses_Taught'];?></td>
+					    <td><?php 
+					    if($hasTAexp)
+					    	{
+						    	if($row2['Happy_With_Last_Course_Taught'])
+					    		{
+					    			echo "Yes";
+					    		}
+					    		else
+					    		{
+					    			echo "No";
+					    		}
+					    	}
+						  else
+						  {	
+						  	echo "N/A";
+						  }
+					    	?></td>
 					</tr>
 					<tr>
 					  <th>Number of Semesters (of TA Experience)</th>
 					    <td><?php echo $row2['Has_TA_Experience_For_Number_Of_Semester'];?></td>
 					</tr>
-					<tr>
-					  <th>Milestone</th>
-					    <td><?php echo $row3['Milestone_Name'];?></td>
-					</tr>
+					
 					
 				    </tbody>
 				</table>

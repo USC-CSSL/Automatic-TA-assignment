@@ -4,10 +4,13 @@
 	if (isset($_POST["submit"]))
 	{
 		$username=$_SESSION['Username'];
+		
+		
 		$sql1="SELECT * FROM `User` WHERE `Username`='$username'";
 		$result1=mysqli_query($conn,$sql1);
 		$row1=mysqli_fetch_array($result1);
 		$userId=$row1['User_Id'];
+		echo $userId;
 		
 		$sql2="SELECT * FROM `TA` WHERE `User_Id`='$userId'";
 		$result2=mysqli_query($conn,$sql2);
@@ -28,7 +31,7 @@
 			#echo $courses_string."\n".$happy."\n".$numberSem."\n".$area;
 		
 			#$sql = "INSERT INTO `ta_project`.`TA` (`User_Id`, `Area`, `Previous_Courses_Taught`, `Course_Taught_Last_Semester`, `Happy_With_Previous_Courses_Taught`, `Has_TA_Experience`, `Has_TA_Experience_For_Number_Of_Semester`, `Milestones_Id`) VALUES ('$userId', '$area', '$courses_string', '$lastCourse', '$happy', '$hasTAexp', '$numberSem', '$milestones_string');";
-			$sql="INSERT INTO `ta_project`.`TA` (`User_Id`, `Area`, `Previous_Courses_Taught`, `Course_Taught_Last_Semester`, `Happy_With_Last_Course_Taught`, `Has_TA_Experience`, `Has_TA_Experience_For_Number_Of_Semester`, `Milestones_Id`, `IsActive`) VALUES ('$userID', '$area', '$courses_string', '$lastCourse', '$happy', '$hasTAexp', '$numberSem', '$milestones_string', '$active');";
+			$sql="INSERT INTO `ta_project`.`TA` (`User_Id`, `Area`, `Previous_Courses_Taught`, `Course_Taught_Last_Semester`, `Happy_With_Last_Course_Taught`, `Has_TA_Experience`, `Has_TA_Experience_For_Number_Of_Semester`, `Milestones_Id`, `IsActive`) VALUES ('$userId', '$area', '$courses_string', '$lastCourse', '$happy', '$hasTAexp', '$numberSem', '$milestones_string', '$active');";
 			$result=mysqli_query($conn,$sql);
 		
 			if($result)
@@ -42,6 +45,7 @@
 				#header('Location: ' . $_SERVER["HTTP_REFERER"] );
 		
 			}
+			
 		}
 		else
 		{

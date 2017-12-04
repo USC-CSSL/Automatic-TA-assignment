@@ -35,7 +35,7 @@
 		<span class="icon-bar"></span>
 		<span class="icon-bar"></span> 
 	      </button>
-	      <a class="navbar-brand" href="../html/admin.html">User Dashboard</a>
+	      <a class="navbar-brand" href="../html/user.html">User Dashboard</a>
 	      <!--<a class="navbar-brand" href="#"><img src="../images/usc.jpg" style="width: 50px;height:50px;"></img></a>-->
 	    </div>
 	    <div class="collapse navbar-collapse" id="myNavbar">
@@ -137,16 +137,23 @@
 				   <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="milestones">Milestone</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
-				    	<select required class="form-control" id="milestones" name="milestones[]">
+				    	<select required class="form-control" id="milestones" name="milestones[]" multiple="multiple">
 				    		<?php
-				    		$sql = "SELECT * FROM `Milestones`";
-				    		$result = mysqli_query($conn,$sql);
-				    		
-				    		while($row = mysqli_fetch_array($result))
+				    		$sql3 = "SELECT * FROM `Milestones`";
+				    		$result3 = mysqli_query($conn,$sql3);
+				    		$milestones_string=$row2['Milestones_Id'];
+				    		$milestones=explode(",",$milestones_string);
+				    		while($row1 = mysqli_fetch_array($result3))
 						{
-							echo "<option value=".$row['Milestone_Id'].">".$row['Milestone_Name']."</option>";						
- 						}
- 						
+							if(in_array($row1['Milestone_Id'],$milestones))
+							{
+								echo "<option selected value=".$row1['Milestone_Id'].">".$row1['Milestone_Name']."</option>";	
+							}
+							else
+							{
+								echo "<option value=".$row1['Milestone_Id'].">".$row1['Milestone_Name']."</option>";	
+							}
+						}
 				    	?>
 				    		
 					</select>

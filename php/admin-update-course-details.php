@@ -93,50 +93,7 @@
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="full">Number of Full TA</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="number" class="form-control" id="full" placeholder="Number of Full TA" name="Full" value="<?php echo $row1['Number_Of_Full_TA'];?>"></div>
 				  </div>
-				  <div class="form-row">
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="p1">Preference 1</label></div>
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
-				    	<select required class="form-control" id="p1" name="p1">
-				    	<?php 
-				    		if($row1['Preference1']=="Has been a TA for this Course before")
-				    		{	
-				    			echo "<option selected='selected'>Has been a TA for this Course before</option>
-				    				<option>Has TA Experience</option>"
-				    				;
-				    			
-				    		}
-				    		else
-				    		{	
-				    			
-			    				echo "<option selected='selected'>Has TA Experience</option>
-			    				<option>Has been a TA for this Course before</option>";
-				    		}
-				   
-				    	
-				    	?>
-					</select>
-				   </div>
-				   <div class="form-row">
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="p2">Preference 2</label></div>
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
-				    	<select required class="form-control" id="p2" name="p2">
-				    		<?php 
-				    		if($row1['Preference2']=="Has TA Experience")
-				    		{	
-				    			echo "<option selected='selected'>Has TA Experience</option>
-				    				<option>Has been a TA for this Course before</option>";
-				    		}
-				    		else
-				    		{	
-				    			echo "<option selected='selected'>Has been a TA for this Course before</option>
-				    				<option>Has TA Experience</option>"
-				    				;
-				    		}
-				   
-				    	
-				    	?>
-					</select>
-				   </div>
+				  
 				   <br><br>
 				  <input type="submit" name="submit" class="btn btn-primary" value="Update"></input> 
 				</form>

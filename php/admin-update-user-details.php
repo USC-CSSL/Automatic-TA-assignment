@@ -96,6 +96,31 @@
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="text" class="form-control" id="area" placeholder="Area" name="Area" value="<?php echo $row2['Area'];?>"></div>
 				  </div>
 				  <div class="form-row">
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
+				    	<label for="milestones">Milestone</label>
+				    </div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
+				    	<select required class="form-control"  id="milestones" name="milestones[]" multiple="multiple">
+				    	<?php
+				    		$sql3 = "SELECT * FROM `Milestones`";
+				    		$result3 = mysqli_query($conn,$sql3);
+				    		$milestones_string=$row2['Milestones_Id'];
+				    		$milestones=explode(",",$milestones_string);
+				    		while($row1 = mysqli_fetch_array($result3))
+						{
+							if(in_array($row1['Milestone_Id'],$milestones))
+							{
+								echo "<option selected value=".$row1['Milestone_Id'].">".$row1['Milestone_Name']."</option>";	
+							}
+							else
+							{
+								echo "<option value=".$row1['Milestone_Id'].">".$row1['Milestone_Name']."</option>";	
+							}
+						}
+				    	?>
+					</select>
+				   </div>
+				  <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="hasTAexp">Has TA Experience</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
 				    	<select required class="form-control" id="hasTAexp" name="hasTAexp">

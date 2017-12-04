@@ -71,7 +71,7 @@
 					    <th><center>Start Time</center></th>
 					    <th><center>End Time</center></th>
 					    <th><center>Day</center></th>
-					    <th><center>Action</center></th>
+					    <!--<th><center>Action</center></th>-->
 					</tr>
 				    </thead>
 
@@ -131,7 +131,12 @@
 									<td><center>".$row2['Start_Time']."</center></td>
 									<td><center>".$row2['End_Time']."</center></td>
 									<td><center>".$row2['Day']."</center></td>
-									<td>
+									
+								    </tr>
+								";
+								/*
+								ACTION
+								<td>
 										<center>
 										<!-- Split button -->
 										<div class='btn-group'>
@@ -152,8 +157,9 @@
 										</div>
 										</center>
 									</td>
-								    </tr>
-								";
+								*/
+								
+								
 							}
 							else
 							{
@@ -167,7 +173,12 @@
 									<td><center>".$row2['Start_Time']."</center></td>
 									<td><center>".$row2['End_Time']."</center></td>
 									<td><center>".$row2['Day']."</center></td>
-									<td>
+									
+								    </tr>
+								";
+								/*
+								SECTION ACTION
+								<td>
 										<center>
 										<center>
 										<!-- Split button -->
@@ -182,8 +193,7 @@
 										</center>
 										</center>
 									</td>
-								    </tr>
-								";
+								*/
 				    			}
 				    			$records_flag=True;
 						}

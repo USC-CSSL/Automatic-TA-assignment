@@ -98,12 +98,19 @@
 					    <td><?php echo $row1['Number_Of_Full_TA'];?></td>
 					</tr>
 					<tr>
-					  <th>Preference 1</th>
-					    <td><?php echo $row1['Preference1'];?></td>
-					</tr>
-					<tr>
-					  <th>Preference 2</th>
-					    <td><?php echo $row1['Preference2'];?></td>
+					  <th>Active</th>
+					    <td><?php 
+					    if($row1['IsActive'])
+					    {
+					    	echo "Yes";
+					    }
+					    else
+					    {
+					    	echo "No";
+						}
+					    	?>
+					    	
+					    </td>
 					</tr>
 					
 					

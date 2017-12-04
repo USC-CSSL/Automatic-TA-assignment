@@ -2,7 +2,7 @@
 	include('dbConnect.php');
 	session_start();
 	$username=$_SESSION['Username'];
-	#echo $username;	
+	//echo $username;	
 	$sql1="SELECT * FROM `User` WHERE `Username`='$username'";
 	$result1=mysqli_query($conn,$sql1);
 	$row1=mysqli_fetch_array($result1);
@@ -79,16 +79,32 @@
 					  <th>Area</th>
 					    <td><?php echo $row2['Area'];?></td>
 					</tr>
+					<tr>
+					  <th>Milestones</th>
+					    <td><?php 
+					    	$milestones=explode(",",$row2['Milestones_Id']);
+					    	foreach ($milestones as $m)
+					    	{
+					    		$sql3="SELECT * FROM `Milestones` WHERE `Milestone_Id`='$m'";
+							$result3=mysqli_query($conn,$sql3);
+							$row3=mysqli_fetch_array($result3);
+							echo $row3['Milestone_Name'];
+							echo "<br>";
+					    	}
+					    	#echo $row2['Number_Of_Full_TA'];?></td>
+					</tr>
 				      	<tr>
 					  <th>Has TA Experience</th>
 					    <td><?php 
 						    if($row2['Has_TA_Experience'])
 						    {
 						    	echo "Yes";
+						    	$hasTAexp=1;
 						    }
 						    else
 						    {
 						    	echo "No";
+						    	$hasTAexp=0;
 						    };
 						?></td>
 					</tr>
@@ -99,6 +115,8 @@
 					<tr>
 					  <th>Previous Courses Taught</th>
 					    <td><?php 
+					    if($hasTAexp)
+					    {
 					    	$courses=explode(",",$row2['Previous_Courses_Taught']);
 					    	$flag=0;
 					    	foreach ($courses as $c)
@@ -118,15 +136,36 @@
 							
 							
 					    	}
+					    }
+					    else
+					    {
+					    	echo "N/A";
+					    }
 					    	#echo $row2['Number_Of_Full_TA'];?></td>
 					</tr>
 					<tr>
-					  <th>Courses Taught Last Semester</th>
-					    <td><?php echo $row2['Course_Taught_Last_Semester'];?></td>
+					  <th>Course Taught Last Semester</th>
+					    <td><?php 
+					    if($hasTAexp)
+					    {
+					    	$l=$row2['Course_Taught_Last_Semester'];
+					    	$sql3="SELECT * FROM `Course` WHERE `Course_Id`='$l'";
+							$result3=mysqli_query($conn,$sql3);
+							$row3=mysqli_fetch_array($result3);
+							echo $row3['Course_Name']; 
+						}
+					    else
+					    {
+					    	echo "N/A";
+					    }
+							?></td>
+					
 					</tr>
 					<tr>
 					  <th>Happy With Last Course Taught</th>
 					    <td><?php 
+					    if($hasTAexp)
+					    {
 					    	if($row2['Happy_With_Last_Course_Taught'])
 					    	{
 					    		echo "Yes";
@@ -135,22 +174,14 @@
 					    	{
 					    		echo "No";
 					    	}
+					    }
+					    else
+					    {
+					    	echo "N/A";
+					    }
 					    	?></td>
 					</tr>
-					<tr>
-					  <th>Milestones</th>
-					    <td><?php 
-					    	$milestones=explode(",",$row2['Milestones_Id']);
-					    	foreach ($milestones as $m)
-					    	{
-					    		$sql3="SELECT * FROM `Milestones` WHERE `Milestone_Id`='$m'";
-							$result3=mysqli_query($conn,$sql3);
-							$row3=mysqli_fetch_array($result3);
-							echo $row3['Milestone_Name'];
-							echo "<br>";
-					    	}
-					    	#echo $row2['Number_Of_Full_TA'];?></td>
-					</tr>
+					
 					
 					
 				    </tbody>

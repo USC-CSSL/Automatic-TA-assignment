@@ -127,7 +127,7 @@
 				   <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="milestones">Milestone</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
-				    	<select required class="form-control" id="milestones" name="milestones[]">
+				    	<select required class="form-control" id="milestones" name="milestones[]" multiple="multiple">
 				    		<?php
 				    		$sql = "SELECT * FROM `Milestones`";
 				    		$result = mysqli_query($conn,$sql);

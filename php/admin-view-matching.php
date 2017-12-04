@@ -81,7 +81,7 @@
 						$query="SELECT * FROM `Admin_Matching`";
 						$result=mysqli_query($conn,$query);
 						$records_flag=False;
-						
+						$admin=1;
 						while($row = mysqli_fetch_array($result))
 						{
 							
@@ -117,7 +117,14 @@
 									<td>
 									
 										<center>
-										<!-- Split button -->
+										<a class='btn btn-warning' type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row['Admin_Matching_Id'].",".$admin.");'>Delete</a>
+										
+										</center>
+									</td>
+								    </tr>
+								";
+							/*
+							<!-- Split button -->
 										<div class='btn-group'>
 										  <button type='button' class='btn btn-primary'>Action</button>
 										  <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
@@ -131,14 +138,10 @@
 										    <li role='separator' class='divider'></li>
 										    <li>
 										    
-										    <a type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row1['Course_Id'].");'>Delete</a>
+										    <a type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row['Admin_Matching_Id'].",admin);'>Delete</a>
 										  </ul>
 										</div>
-										</center>
-									</td>
-								    </tr>
-								";
-							
+							*/
 							}
 							else
 							{
@@ -156,7 +159,13 @@
 									<td>
 									
 										<center>
-										<!-- Split button -->
+										<a class='btn btn-warning' type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row['Admin_Matching_Id'].",".$admin.");'>Delete</a>
+										</center>
+									</td>
+								    </tr>
+								";
+								/*
+								<!-- Split button -->
 										<div class='btn-group'>
 										  <button type='button' class='btn btn-primary'>Action</button>
 										  <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
@@ -173,17 +182,14 @@
 										    <a type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row1['Course_Id'].");'>Delete</a>
 										  </ul>
 										</div>
-										</center>
-									</td>
-								    </tr>
-								";
+								*/
 							}
 				    			$records_flag=True;
 						}
 						
 						$query="SELECT * FROM `Matching`";
 						$result=mysqli_query($conn,$query);
-						
+						$admin=0;
 						while($row = mysqli_fetch_array($result))
 						{
 							
@@ -215,10 +221,17 @@
 									<td><center>".$row3['Lecture_Code']."</center></td>
 									<td><center>".$row3['Lab_Code']."</center></td>
 									<td><center>Algorithm</center></td>
-									<td><center><a class='btn btn-danger' href='admin-deactivate-matching.php?admin_matching_id=".$row['Admin_Matching_Id']."'>Deactivate</a></center></td>
+									<td><center><a class='btn btn-danger' href='admin-deactivate-matching.php?matching_id=".$row['Matching_Id']."'>Deactivate</a></center></td>
 									<td>
-									
 										<center>
+										<a class='btn btn-warning' type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row['Matching_Id'].",".$admin.");'>Delete</a>
+										
+										</center>	
+									</td>
+								    </tr>
+								";
+								/*
+								<center>
 										<!-- Split button -->
 										<div class='btn-group'>
 										  <button type='button' class='btn btn-primary'>Action</button>
@@ -237,9 +250,7 @@
 										  </ul>
 										</div>
 										</center>
-									</td>
-								    </tr>
-								";
+								*/
 							
 							}
 							else
@@ -254,10 +265,15 @@
 									<td><center>".$row3['Lecture_Code']."</center></td>
 									<td><center>".$row3['Lab_Code']."</center></td>
 									<td><center>Algorithm</center></td>
-									<td><center><a class='btn btn-success' href='admin-activate-matching.php?admin_matching_id=".$row['Admin_Matching_Id']."'>Activate</a></center></td>
+									<td><center><a class='btn btn-success' href='admin-activate-matching.php?matching_id=".$row['Matching_Id']."'>Activate</a></center></td>
 									<td>
-									
-										<center>
+									<center><a class='btn btn-warning' type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row['Matching_Id'].",".$admin.");'>Delete</a></center>
+										
+									</td>
+								    </tr>
+								";
+								/*
+								<center>
 										<!-- Split button -->
 										<div class='btn-group'>
 										  <button type='button' class='btn btn-primary'>Action</button>
@@ -276,9 +292,7 @@
 										  </ul>
 										</div>
 										</center>
-									</td>
-								    </tr>
-								";
+								*/
 							}
 				    			$records_flag=True;
 						}
@@ -305,14 +319,17 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
-	function confirmDelete(courseId)
+	function confirmDelete(matchId,source)
 	{
-		if (confirm('Are you sure you want to delete this Course?')) {
+		console.log("Inside");
+		if (confirm('Are you sure you want to delete this Matching?')) {
+		//alert(matchId);
+		//alert(source);
 		    //Make ajax call
 		    $.ajax({
-		        url: "admin-delete-course.php",
+		        url: "admin-delete-matching.php",
 		        type: "POST",
-		        data: {course_id : courseId},
+		        data: {matching_id : matchId, source : source},
 		        dataType: "html", 
 		        success: function() {
 		            //alert("Succesfully deleted course!");

@@ -9,10 +9,13 @@
 		$username=$_POST["Username"];
 		$area=$_POST["Area"];
 		$hasTAexp=$_POST["hasTAexp"];
-		echo "<script> alert('$hasTAexp');</script>";
+		$milestones=$_POST['milestones'];
+		$milestones_string=implode(',', $milestones);
+		$isactive=1;
+		#echo "<script> alert('$hasTAexp');</script>";
 		
 			$sql1="UPDATE `User` SET `Name`='$name',`Username`='$username' WHERE `User_Id`='$userId'";
-			$sql2="UPDATE `TA` SET `Area`='$area',`Previous_Courses_Taught`='N/A', `Happy_With_Previous_Courses_Taught`='N/A', `Has_TA_Experience`='0', `Has_TA_Experience_For_Number_Of_Semester`='0' WHERE `User_Id`='$userId'";
+			$sql2="UPDATE `TA` SET `Area`='$area',`Previous_Courses_Taught`='N/A',`Course_Taught_Last_Semester`='N/A', `Happy_With_Last_Course_Taught`='N/A', `Has_TA_Experience`='0', `Has_TA_Experience_For_Number_Of_Semester`='0', `Milestones_Id`='$milestones_string', `IsActive`='$isactive' WHERE `User_Id`='$userId'";
 			
 			$result1=mysqli_query($conn,$sql1);
 			$result2=mysqli_query($conn,$sql2);
@@ -113,6 +116,32 @@
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input type="text" class="form-control" id="area" placeholder="Area" name="Area" disabled  value="<?php echo $area;?>"></div>
 				  </div>
 				  <div class="form-row">
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
+				    	<label for="milestones">Milestone</label>
+				    </div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
+				    	<select required class="form-control"  id="milestones" name="milestones[]" multiple="multiple">
+				    	<?php
+				    		
+				    		$sql3 = "SELECT * FROM `Milestones`";
+				    		$result3 = mysqli_query($conn,$sql3);
+				    		
+				    		while($row1 = mysqli_fetch_array($result3))
+						{
+							if(in_array($row1['Milestone_Id'],$milestones))
+							{
+								echo "<option selected value=".$row1['Milestone_Id'].">".$row1['Milestone_Name']."</option>";	
+							}
+							else
+							{
+								echo "<option value=".$row1['Milestone_Id'].">".$row1['Milestone_Name']."</option>";	
+							}
+						}
+						
+				    	?>
+					</select>
+				   </div>
+				  <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="hasTAexp">Has TA Experience</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
 				    	<select class="form-control"  disabled id="hasTAexp" name="hasTAexp">
@@ -132,37 +161,43 @@
 				    		
 				    		while($row = mysqli_fetch_array($result))
 						{
-							echo "<option>".$row['Course_Code']."</option>";						
+							echo "<option value=".$row['Course_Id'].">".$row['Course_Code']."</option>";						
  						}
  						
 				    	?>
 					</select>
 				   </div>
 				   <div class="form-row">
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="happy">Happy With Previous Courses Taught <mark>*Seperate by comma*</mark></label></div>
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="text" class="form-control" id="happy" placeholder="Happy With Previous Courses Taught" name="happy"></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="lastCourse">Course Taught Last Semester</label></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
+				    	<select class="form-control"  required id="lastCourse" name="lastCourse">
+				    	<?php
+				    		$sql = "SELECT * FROM `Course`";
+				    		$result = mysqli_query($conn,$sql);
+				    		
+				    		while($row = mysqli_fetch_array($result))
+						{
+							echo "<option value=".$row['Course_Id'].">".$row['Course_Code']."</option>";						
+ 						}
+ 						
+				    	?>
+					</select>
+				   </div>
+				   <div class="form-row">
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="happy">Happy With Last Course Taught </label></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
+				    	<select class="form-control"  required id="happy" name="happy">
+				    		<option value="1">Yes</option>
+				    		<option value="0">No</option>
+				    	</select>
+				    	
+				    </div>
 				  </div>
 				  <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="number">Number of Semesters (with TA experience)</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required  type="number" class="form-control" id="number" placeholder="Number of Semesters" name="number"></div>
 				  </div>
-				  <div class="form-row">
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
-				    	<label for="milestone">Milestone</label>
-				    </div>
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
-				    	<select required class="form-control"  id="milestone" name="milestone">
-				    	<?php
-				    		$sql3 = "SELECT * FROM `Milestones`";
-				    		$result3 = mysqli_query($conn,$sql3);
-				    		
-				    		while($row1 = mysqli_fetch_array($result3))
-						{
-							echo "<option>".$row1['Milestone_Name']."</option>";	
-						}
-				    	?>
-					</select>
-				   </div>
+				  
 				   
 				  <center><input type="submit" name="submit" class="btn btn-primary" value="Update"></input> </center>
 	
