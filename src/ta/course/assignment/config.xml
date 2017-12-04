@@ -22,9 +22,9 @@
             <!--  connecting to Local MySql -->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost/ta_project"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/ta_project"/>
                 <property name="username" value="root"/>
-                <property name="password" value="pace88sri"/> 
+                <property name="password" value="root"/> 
             </dataSource>
        </environment>
     </environments>
