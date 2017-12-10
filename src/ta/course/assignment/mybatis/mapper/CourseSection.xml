@@ -15,7 +15,7 @@
     </resultMap>
  
     <select id="selectAll" resultMap="result">
-        SELECT * FROM Course_Section;
+        SELECT * FROM Course_Section where IsActive = 1;
     </select>
     
 </mapper>
