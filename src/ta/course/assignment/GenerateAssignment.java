@@ -328,11 +328,17 @@ public class GenerateAssignment {
 		GenerateAssignment gs = new GenerateAssignment();
 		
 		List<Matching> adminMatching = matchingDAO.getAdminMatching();
+		List<Matching> previousMatching = matchingDAO.getMatching();
 		Map<Integer,Integer> adminMatchingMap = new HashMap<Integer,Integer>();
 		for (Matching amatch : adminMatching) {
 			adminMatchingMap.put(amatch.getSectionId(), amatch.getTaId());
 			gs.tADone.put(amatch.getTaId(),1);
 			gs.courseSectionDone.put(amatch.getSectionId(), 1);
+		}
+		for (Matching pmatch : previousMatching) {
+			adminMatchingMap.put(pmatch.getSectionId(), pmatch.getTaId());
+			gs.tADone.put(pmatch.getTaId(),1);
+			gs.courseSectionDone.put(pmatch.getSectionId(), 1);
 		}
 		
 		for (Matching fixedMatching : adminMatching) {
@@ -447,24 +453,6 @@ public class GenerateAssignment {
 			}
 			System.out.println("SectionId :  "+ section + "- TA :  " + gs.finalSectionToTAAssignment.get(section));
 		}
-		File file = new File("output.txt");
-		if (file.exists()) {
-			file.delete(); // you might want to check if delete was
-							// successfull
-		}
-		try {
-			file.createNewFile();
-			FileOutputStream fileOutput = new FileOutputStream(file);
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-					fileOutput));
-			bw.write("HELLOOOOO");
-			bw.flush();
-			bw.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 		System.out.println("sized matching "+ matchingDAO.getMatching().size());
 	}
 
