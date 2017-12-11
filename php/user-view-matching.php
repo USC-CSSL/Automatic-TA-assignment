@@ -54,7 +54,7 @@
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav">
 		<li><a href="../html/user.html">Home</a></li>
-		<li><a href="../html/user-personal.html">Personal</a></li>
+		<li><a href="../html/user-personal.html">Background</a></li>
 		<li><a href="../html/user-courses.html">Courses</a></li> 
 		<li class="active"><a href="../html/user-matching.html">Matching</a></li> 
 	      </ul>

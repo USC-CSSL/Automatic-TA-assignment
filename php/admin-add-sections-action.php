@@ -52,7 +52,8 @@
 						if($result4)
 						{
 							echo "<script> alert('New Section Added');</script>";
-							echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../html/admin-courses.html">';
+							echo '<META HTTP-EQUIV="Refresh" Content="0; URL=admin-add-sections.php">';
+							//echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../html/admin-courses.html">';
 						}
 						else
 						{
@@ -94,7 +95,8 @@
 				if($result4)
 				{
 					echo "<script> alert('New Section Added');</script>";
-					echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../html/admin-courses.html">';
+					echo '<META HTTP-EQUIV="Refresh" Content="0; URL=admin-add-sections.php">';
+					//echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../html/admin-courses.html">';
 				}
 				else
 				{

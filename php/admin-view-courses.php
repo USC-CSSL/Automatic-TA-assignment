@@ -60,6 +60,14 @@
 			</div>
 			
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top: 2%;">
+			<?php
+			$query1="SELECT * FROM `Course` ORDER BY Course_Code";
+			$result1=mysqli_query($conn,$query1);
+			$r=mysqli_num_rows($result1);
+			//echo $r;
+			if($r!=0)
+			{			
+			?>
 				<table class="table table-responsive ">
 				    <thead>
 					<tr>
@@ -74,9 +82,6 @@
 
 				    <tbody><?php
 				    		
-						$query1="SELECT * FROM `Course`";
-						$result1=mysqli_query($conn,$query1);
-						$records_flag=False;
 						
 						while($row1 = mysqli_fetch_array($result1))
 						{
@@ -88,7 +93,7 @@
 									<td><center>".$row1['Course_Code']."</center></td>
 									<td><center>".$row1['Course_Name']."</center></td>
 									<td><center>".$row1['Area']."</center></td>
-									<td><center><a class='btn btn-danger' href='admin-deactivate-course.php?course_id=".$row1['Course_Id']."'>Deactivate</a></center></td>
+									<td><center>Active</center></td>
 									<td>
 									
 										<center>
@@ -103,6 +108,8 @@
 										    <li><a href='admin-view-course-details.php?course_id=".$row1['Course_Id']."'>View</a></li>
 										    <li role='separator' class='divider'></li>
 										    <li><a href='admin-update-course-details.php?course_id=".$row1['Course_Id']."'>Update</a></li>
+										    <li role='separator' class='divider'></li>
+										    <li><a href='admin-deactivate-course.php?course_id=".$row1['Course_Id']."'>Deactivate</a></li>
 										    <li role='separator' class='divider'></li>
 										    <li>
 										    
@@ -122,7 +129,7 @@
 									<td><center>".$row1['Course_Code']."</center></td>
 									<td><center>".$row1['Course_Name']."</center></td>
 									<td><center>".$row1['Area']."</center></td>
-									<td><center><a class='btn btn-success' href='admin-activate-course.php?course_id=".$row1['Course_Id']."'>Activate</a></center></td>
+									<td><center>Inactive</center></td>
 									<td>
 									
 										<center>
@@ -138,6 +145,8 @@
 										    <li role='separator' class='divider'></li>
 										    <li><a href='admin-update-course-details.php?course_id=".$row1['Course_Id']."'>Update</a></li>
 										    <li role='separator' class='divider'></li>
+										    <li><a href='admin-activate-course.php?course_id=".$row1['Course_Id']."'>Activate</a></li>
+										    <li role='separator' class='divider'></li>
 										    <li>
 										    
 										    <a type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row1['Course_Id'].");'>Delete</a>
@@ -149,13 +158,18 @@
 								";
 							}
 
-				    		
-				    			$records_flag=True;
 						}
-						
-						if($records_flag==False)
-						{
-							echo 	"
+								
+					?>		    	
+				   </tbody>
+				</table>
+				<br>
+				<br>
+				<?php
+				}
+				else
+				{
+					echo 	"
 										<div class='container col-lg-12 col-md-12 col-xs-12 col-sm-12'>
 											<div class='col-lg-12 col-md-12 col-xs-12 col-sm-12'>
 												<center>No Records Found</center>
@@ -163,13 +177,9 @@
 										</div>
 							
 									";
-						}
-						//*/			
-					?>		    	
-				   </tbody>
-				</table>
-				<br>
-				<br>
+				}
+				?>
+				
 			</div>
 		</div>
 	</div>

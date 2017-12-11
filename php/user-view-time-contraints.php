@@ -1,17 +1,33 @@
 <?php
 	include('dbConnect.php');
 	session_start();
+	
 	$username=$_SESSION['Username'];
-	//echo $username;	
 	$sql1="SELECT * FROM `User` WHERE `Username`='$username'";
 	$result1=mysqli_query($conn,$sql1);
 	$row1=mysqli_fetch_array($result1);
-
 	$userId=$row1['User_Id'];
-	#echo $userId;	
+	
 	$sql2="SELECT * FROM `TA` WHERE `User_Id`='$userId'";
 	$result2=mysqli_query($conn,$sql2);
 	$row2=mysqli_fetch_array($result2);
+	$taId=$row2['TA_Id'];
+	//$release=0;
+	/*
+	if(isset($_SESSION['Release_Matching']))
+	{
+		$release=1;
+		$sql3="SELECT * FROM `Matching` WHERE `TA_Id`='$taId'";
+		$result3=mysqli_query($conn,$sql3);
+		
+		$sql4="SELECT * FROM `Admin_Matching` WHERE `TA_Id`='$taId'";
+		$result4=mysqli_query($conn,$sql4);
+	}
+	*/
+	$sql3="SELECT * FROM `TA_Time_Constraints` WHERE `TA_Id`='$taId'";
+	$result3=mysqli_query($conn,$sql3);
+	$c=mysqli_num_rows($result3);
+	//echo $c;
 	
 ?>
 <!DOCTYPE HTML>
@@ -43,7 +59,7 @@
 	      <ul class="nav navbar-nav">
 		<li><a href="../html/user.html">Home</a></li>
 		<li class="active"><a href="../html/user-personal.html">Background</a></li>
-		<li ><a href="../html/user-courses.html">Courses</a></li> 
+		<li><a href="../html/user-courses.html">Courses</a></li> 
 		<li><a href="../html/user-matching.html">Matching</a></li> 
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
@@ -62,133 +78,76 @@
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top: 2%;">
 				<ol class="breadcrumb">
 				  <li><a href="../html/user-personal.html">Background</a></li> 
-				  <li class="active">View Personal Details</li>
-				  
+				  <li class="active">View Time Constraints</li>
 				</ol>
 			</div>
 			<div class="container">
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-				<center><h3>Personal Details</h3><center><br>
+				<center><h3>Constraints</h3><center><br>
+				<?php
+					if($c!=0)
+					{
+				?>
 				<table class="table" style="width:60%;">
 				    <tbody>
+				    
+				   <?php
+					$flag=0;
+				    	while($row3=mysqli_fetch_array($result3))
+				    	{
+				    		$rId=$row3['Reason_Id'];
+				    		$sql4="SELECT * FROM `Reason` WHERE `Reason_Id`='$rId'";
+						$result4=mysqli_query($conn,$sql4);
+						$row4=mysqli_fetch_array($result4);
+				    		$tId=$row3['Time_Interval_Not_Available_Id'];
+				    		
+				    		$sql6="SELECT * FROM `Time_Intervals` WHERE `Time_Slot_Id`='$tId'";
+				    		$result6=mysqli_query($conn,$sql6);
+				    		$row6=mysqli_fetch_array($result6);
+				    		if($flag==1)
+				    		{
+				    			echo "<tr><th>    </th><td>    </td></tr>";
+				    		}
+				    ?>
+				    
+					
 					<tr>
-					  <th>Username</th>
-					    <td><?php echo $row1['Username'];?></td>
+					  <th>Timings</th>
+					    <td><?php echo $row6['Start_Time']." - ".$row6['End_Time'];?></td>
 					</tr>
 					<tr>
-					  <th>Area</th>
-					    <td><?php echo $row2['Area'];?></td>
+					  <th>Day(s)</th>
+					    <td><?php echo $row6['Day'];?></td>
 					</tr>
 					<tr>
-					  <th>Milestones</th>
-					    <td><?php 
-					    	$milestones=explode(",",$row2['Milestones_Id']);
-					    	foreach ($milestones as $m)
-					    	{
-					    		$sql3="SELECT * FROM `Milestones` WHERE `Milestone_Id`='$m'";
-							$result3=mysqli_query($conn,$sql3);
-							$row3=mysqli_fetch_array($result3);
-							echo $row3['Milestone_Name'];
-							echo "<br>";
-					    	}
-					    	#echo $row2['Number_Of_Full_TA'];?></td>
+					  <th>Reason</th>
+					    <td><?php echo $row4['Reason'];?><br><?php echo $row3['Reason_If_Other'];?></td>
 					</tr>
-				      	<tr>
-					  <th>Has TA experience</th>
-					    <td><?php 
-						    if($row2['Has_TA_Experience'])
-						    {
-						    	echo "Yes";
-						    	$hasTAexp=1;
-						    }
-						    else
-						    {
-						    	echo "No";
-						    	$hasTAexp=0;
-						    };
-						?></td>
-					</tr>
-					<tr>
-					  <th>Number of semesters of TA experience</th>
-					    <td><?php echo $row2['Has_TA_Experience_For_Number_Of_Semester'];?></td>
-					</tr>
-					<tr>
-					  <th>Previous courses taught</th>
-					    <td><?php 
-					    if($hasTAexp)
-					    {
-					    	$courses=explode(",",$row2['Previous_Courses_Taught']);
-					    	$flag=0;
-					    	foreach ($courses as $c)
-					    	{
-					    		if($flag!=0)
-							{
-								echo "<br>";
-							}
-					    		$sql3="SELECT * FROM `Course` WHERE `Course_Id`='$c'";
-							$result3=mysqli_query($conn,$sql3);
-							$row3=mysqli_fetch_array($result3);
-							echo $row3['Course_Name'];
-							if($flag==0)
-							{
-								$flag=1;
-							}
-							
-							
-					    	}
-					    }
-					    else
-					    {
-					    	echo "N/A";
-					    }
-					    	#echo $row2['Number_Of_Full_TA'];?></td>
-					</tr>
-					<tr>
-					  <th>Course taught last semester</th>
-					    <td><?php 
-					    if($hasTAexp)
-					    {
-					    	$l=$row2['Course_Taught_Last_Semester'];
-					    	$sql3="SELECT * FROM `Course` WHERE `Course_Id`='$l'";
-							$result3=mysqli_query($conn,$sql3);
-							$row3=mysqli_fetch_array($result3);
-							echo $row3['Course_Name']; 
+					<?php
+						if($flag==0)
+						{	
+							$flag=1;
+							echo "<tr><th>    </th><td>    </td></tr>";
 						}
-					    else
-					    {
-					    	echo "N/A";
-					    }
-							?></td>
-					
-					</tr>
-					<tr>
-					  <th>Happy with last course taught</th>
-					    <td><?php 
-					    if($hasTAexp)
-					    {
-					    	if($row2['Happy_With_Last_Course_Taught'])
-					    	{
-					    		echo "Yes";
-					    	}
-					    	else
-					    	{
-					    		echo "No";
-					    	}
-					    }
-					    else
-					    {
-					    	echo "N/A";
-					    }
-					    	?></td>
-					</tr>
-					
+					}
+					?>
 					
 					
 				    </tbody>
 				</table>
 				<br><br><br>
+				<?php
+					}
+					else
+					{
+				?>
+				
 			</div>
-			
+			<h4><center>No Time Constraints submitted.</center></h4.
+			<?php
+			}
+			?>
+			</div>
 			</div>
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top: 2%;">
 				

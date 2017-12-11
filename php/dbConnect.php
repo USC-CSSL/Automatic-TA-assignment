@@ -4,14 +4,14 @@
 $conn = mysql_connect('localhost','root','pace88sri');
 mysql_select_db('ta_project') or die('could not connect');
 */
-
 $username='root';
-$password='pace88sri';
-$host='localhost';
+$password='taproject123';
+$host='127.0.0.1';
 $db='ta_project';
+$port=3306;
 
 
-$conn = mysqli_connect($host, $username, $password, $db);
+$conn = mysqli_connect($host, $username, $password, $db, $port);
 
 // Check connection
 

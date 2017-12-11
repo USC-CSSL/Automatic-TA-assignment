@@ -55,12 +55,12 @@
 			<div class="row">
 				<div class="container col-lg-6 col-md-6 col-xs-6 col-sm-6">
 					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 box">
-						<center><a href="admin-deactivate-previous-matching.php?matching=admin">Deactivate Previous Admin Matching</a></center>
+						<center><a style="color: #FFFFFF; text-decoration:none;" href="admin-deactivate-previous-matching.php?matching=admin">Deactivate Previous Admin Matching</a></center>
 					</div>
 				</div>
 				<div class="container col-lg-6 col-md-6 col-xs-6 col-sm-6">
 					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 box">
-						<center><a href="admin-activate-previous-matching.php?matching=admin">Activate Previous Admin Matching</a></center>
+						<center><a style="color: #FFFFFF; text-decoration:none;" href="admin-activate-previous-matching.php?matching=admin">Activate Previous Admin Matching</a></center>
 					</div>
 				</div>
 				
@@ -69,12 +69,12 @@
 			<div class="row">
 				<div class="container col-lg-6 col-md-6 col-xs-6 col-sm-6">
 					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 box">
-						<center><a href="admin-deactivate-previous-matching.php?matching=algorithm">Deactivate Previous Algorithm Matching</a></center>
+						<center><a style="color: #FFFFFF; text-decoration:none;" href="admin-deactivate-previous-matching.php?matching=algorithm">Deactivate Previous Algorithm Matching</a></center>
 					</div>
 				</div>
 				<div class="container col-lg-6 col-md-6 col-xs-6 col-sm-6">
 					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 box">
-						<center><a href="admin-activate-previous-matching.php?matching=algorithm">Activate Previous Algorithm Matching</a></center>
+						<center><a style="color: #FFFFFF; text-decoration:none;" href="admin-activate-previous-matching.php?matching=algorithm">Activate Previous Algorithm Matching</a></center>
 					</div>
 				</div>
 				
@@ -84,7 +84,7 @@
 			
 				<div class="container col-lg-6 col-md-6 col-xs-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-xs-offset-3 col-sm-offset-3">
 					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 box">
-						<center><a href="admin-run-matching.php">Run Matching</a></center>
+						<center><a style="color: #FFFFFF; text-decoration:none;" href="admin-run-matching.php">Run Matching</a></center>
 					</div>
 				</div>
 			

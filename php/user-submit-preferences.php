@@ -9,7 +9,7 @@
 	
 	$userId=$row1['User_Id'];
 	
-	$sql2="SELECT * FROM `Course`";
+	$sql2="SELECT * FROM `Course_Section` WHERE `IsActive`=1 AND`IsLecture`=1";
 	$result2=mysqli_query($conn,$sql2);
 	
 ?>
@@ -41,7 +41,7 @@
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav">
 		<li><a href="../html/user.html">Home</a></li>
-		<li><a href="../html/user-personal.html">Personal</a></li>
+		<li><a href="../html/user-personal.html">Background</a></li>
 		<li class="active"><a href="../html/user-courses.html">Courses</a></li> 
 		<li><a href="../html/user-matching.html">Matching</a></li> 
 	      </ul>
@@ -71,14 +71,19 @@
 				<?php
 					while($row2=mysqli_fetch_array($result2))
 					{
+						$courseId=$row2['Course_Id'];
+						$sql3="SELECT * FROM `Course` WHERE `Course_Id`='$courseId'";
+						$result3=mysqli_query($conn,$sql3);
+						$row3=mysqli_fetch_array($result3);
 						echo "
 						<div class='form-row'>
-						    <div class='form-group col-lg-3 col-sm-3 col-xs-3 col-md-3'>
-						    	<label for='preference'>Course Code : ".$row2['Course_Code']."</label> 
+						    <div class='form-group col-lg-4 col-sm-4 col-xs-4 col-md-4'>
+						    	<label for='preference'>Course Code : ".$row3['Course_Code']." Lecture Code : ".$row2['Lecture_Code']."</label> 
 						    </div>
 						    
-						    <div class='form-group col-lg-3 col-sm-3 col-xs-3 col-md-3'>
-						    	<select required class='form-control' id='preference' name='Pref-".$row2['Course_Code']."'>
+						    <div class='form-group col-lg-2 col-sm-2 col-xs-2 col-md-2'>
+						    	<select required class='form-control' id='preference' name='Pref-".$row2['Section_Id']."'>
+						    		<option value='-1' selected='selected' disabled>Select</option>
 						    		<option value='5'>High</option>
 						    		<option value='4'>High-Medium</option>
 						    		<option value='3'>Medium</option>
@@ -90,20 +95,23 @@
 						    	<label for='preference'>Been TA for this Course Before</label>
 						    </div>
 						    <div class='form-group col-lg-3 col-sm-3 col-xs-3 col-md-3'>
-						    	<select required class='form-control' id='preference' name='Been-".$row2['Course_Code']."'>
+						    	<select required class='form-control' id='preference' name='Been-".$row2['Section_Id']."'>
+						    		<option value='-1' selected='selected' disabled>Select</option>
 						    		<option value='1'>Yes</option>
 						    		<option value='0'>No</option>
 						    		
 						    	</select>
 						    </div>
+						    <br>
 						";
 						#echo "Been-".$row2['Course_Code']."1";
 					}
 				?>
 				  
-				  
-				   <br><br>
-				  <input type="submit" name="submit" class="btn btn-primary" value="Submit"></input> 
+				<div class="form-group col-lg-2 col-sm-2 col-xs-2 col-md-2 col-lg-offset-5 col-sm-offset-5 col-xs-offset-5 col-md-offset-5">
+						<center><input type="submit" name="submit" class="btn btn-primary" value="Submit"></input> </center>
+				</div>
+				
 				</form>
 				<br><br><br>
 			</div>

@@ -68,14 +68,22 @@
 				  </div>
 				  <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="area">Area</label></div>
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="text" class="form-control" id="area" placeholder="Area" name="Area"></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
+				    <select required class="form-control"name="Area" id="area">
+				    	<option>BCS</option>
+				    	<option>Clinical</option>
+				    	<option>Developmental</option>
+				    	<option>Quant</option>
+				    	<option>Social</option>
+				    </select>
+				    </div>
 				  </div>
 				  <div class="form-row">
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="half">Number of Half TA</label></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="half">Number of half TA</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="number" class="form-control" id="half" placeholder="Number of Half TA" name="Half"></div>
 				  </div>
 				  <div class="form-row">
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="full">Number of Full TA</label></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="full">Number of full TA</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="number" class="form-control" id="full" placeholder="Number of Full TA" name="Full"></div>
 				  </div>
 				  

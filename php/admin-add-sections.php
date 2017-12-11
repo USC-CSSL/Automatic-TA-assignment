@@ -63,7 +63,7 @@
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
 				    	<select required class="form-control" id="courseCode" name="courseCode">
 				    	<?php
-				    		$sql="SELECT * FROM Course";
+				    		$sql="SELECT * FROM Course ORDER BY Course_Code";
 				    		$result=mysqli_query($conn,$sql);
 				    		if($result)
 				    		{
@@ -112,11 +112,11 @@
 				  </div>
 				  <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="start">Start Time</label></div>
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="text" class="form-control" id="start" placeholder="Start Time" name="start"></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="time" class="form-control" id="start" placeholder="Start Time" name="start"></div>
 				  </div>
 				  <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="end">End Time</label></div>
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="text" class="form-control" id="end" placeholder="End Time" name="end"></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="time" class="form-control" id="end" placeholder="End Time" name="end"></div>
 				  </div>
 				  
 				   <br><br>

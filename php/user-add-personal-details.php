@@ -31,7 +31,7 @@
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav">
 		<li><a href="../html/user.html">Home</a></li>
-		<li class="active"><a href="../html/user-personal.html">Personal</a></li>
+		<li class="active"><a href="../html/user-personal.html">Background</a></li>
 		<li><a href="../html/user-courses.html">Courses</a></li> 
 		<li><a href="../html/user-matching.html">Matching</a></li> 
 	      </ul>
@@ -50,7 +50,7 @@
 			
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top: 2%;">
 				<ol class="breadcrumb">
-				  <li><a href="../html/user-personal.html">Personal</a></li> 
+				  <li><a href="../html/user-personal.html">Background</a></li> 
 				  <li class="active">Add Personal Details</a></li>
 				</ol>
 			</div>
@@ -63,7 +63,7 @@
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="text" class="form-control" name="area" id="area" placeholder="Area"></div>
 				  </div>
 				  <div class="form-row">
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="hasTAexp">Previous TA Experience</label></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="hasTAexp">Previous TA experience</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
 				    <select required class="form-control" id="hasTAexp" name="hasTAexp">
 				    		<option value='1'>Yes</option>
@@ -72,11 +72,11 @@
 				    </div>
 				  </div>
 				  <div class="form-row">
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="numberSem">Number of Semesters of TA experience</label></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="numberSem">Number of semesters of TA experience</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="number" class="form-control" id="numberSem" placeholder="Number of Semesters" name="numberSem"></div>
 				  </div>
 				  <div class="form-row">
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="prevCourses">Previous Courses Taught<br><mark>*Select multiple if applicable*</mark></label></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="prevCourses">Previous courses taught<br><mark>*Select multiple if applicable*</mark></label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
 				    	<select class="form-control"  required id="prevCourses" name="prevCourses[]" multiple="multiple">
 				    	<?php
@@ -94,7 +94,7 @@
 				   </div>
 				  </div>
 				  <div class="form-row">
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="lastCourse">Course Taught Last Semester</label></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="lastCourse">Course taught last semester</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
 				    	<select class="form-control"  required id="lastCourse" name="lastCourse">
 				    	<?php
@@ -113,7 +113,7 @@
 				  </div>
 				  <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
-				    	<label for="happy">Happy with Last Course Taught</label>
+				    	<label for="happy">Happy with last course taught</label>
 				    </div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
 				    	<select required class="form-control" id="happy" name="happy">

@@ -2,9 +2,12 @@
 include('dbConnect.php');
 session_start();
 if(isset($_POST['username'])&&isset($_POST['password'])) 
+
 {
 	$username=$_POST['username'];
 	$password=$_POST['password'];
+	//$username = trim($_POST['username']);
+	//$password = trim($_POST['password']);
 	$sql="SELECT * FROM `User` WHERE `Username`= '$username'";
 	$result=mysqli_query($conn,$sql);
 	if(!$result)
@@ -17,7 +20,7 @@ if(isset($_POST['username'])&&isset($_POST['password']))
 		if(!password_verify($password,$row['Password']))
 		{
 			echo "<script> alert('Wrong Password'); </script>";
-			echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../index.html">'; 
+			//echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../index.html">'; 
 		}
 		else
 		{
@@ -41,14 +44,14 @@ if(isset($_POST['username'])&&isset($_POST['password']))
 	}
 	else
 	{
-		echo "<script> alert('Username does not exist'); </script>";
-		echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../index.html">'; 	
+		echo "<script> alert('".$password."'); </script>";
+		//echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../index.html">'; 	
 	}
 }
-else
+//else
 {
-	echo "<script> alert('Values not Posted'); </script>";
-	echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../index.html">'; 
+	//echo "<script> alert('Values not Posted'); </script>";
+	//echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../index.html">'; 
 }
 /*
 if(isset($_POST['username'])&&isset($_POST['password'])) 

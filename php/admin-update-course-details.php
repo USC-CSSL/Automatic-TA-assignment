@@ -83,7 +83,15 @@
 				  </div>
 				  <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="area">Area</label></div>
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="text" class="form-control" id="area" placeholder="Area" name="Area" value="<?php echo $row1['Area'];?>"></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
+				    <select required class="form-control"name="Area" id="area">
+				    	<option>BCS</option>
+				    	<option>Clinical</option>
+				    	<option>Developmental</option>
+				    	<option>Quant</option>
+				    	<option>Social</option>
+				    </select>
+				    </div>
 				  </div>
 				  <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="half">Number of Half TA</label></div>

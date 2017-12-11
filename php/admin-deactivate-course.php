@@ -7,8 +7,9 @@
 		$active=0;
 		$sql="UPDATE `Course` SET `IsActive`='$active' WHERE `Course_Id`='$courseId'";
 		$result=mysqli_query($conn,$sql);
-		echo $result;
-		if($result)
+		$sql1="UPDATE `Course_Section` SET `IsActive`='$active' WHERE `Course_Id`='$courseId'";
+		$result1=mysqli_query($conn,$sql1);
+		if($result and $result1)
 		{
 			#echo "<script> alert('Deactivation done');</script>";
 			echo '<META HTTP-EQUIV="Refresh" Content="0; URL=admin-view-courses.php">';

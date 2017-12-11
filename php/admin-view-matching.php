@@ -78,7 +78,7 @@
 
 				    <tbody><?php
 				    		
-						$query="SELECT * FROM `Admin_Matching`";
+						$query="SELECT * FROM `Admin_Matching` ORDER BY `TA_Id`";
 						$result=mysqli_query($conn,$query);
 						$records_flag=False;
 						$admin=1;
@@ -187,7 +187,7 @@
 				    			$records_flag=True;
 						}
 						
-						$query="SELECT * FROM `Matching`";
+						$query="SELECT * FROM `Matching` ORDER BY `TA_Id`";
 						$result=mysqli_query($conn,$query);
 						$admin=0;
 						while($row = mysqli_fetch_array($result))

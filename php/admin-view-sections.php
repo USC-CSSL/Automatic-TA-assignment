@@ -60,6 +60,13 @@
 			</div>
 			
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top: 2%;">
+			<?php
+			$sql1="SELECT * FROM `Course_Section` INNER JOIN `Course` ON `Course_Section`.`Course_Id` = `Course`.`Course_Id` ORDER BY Course_Code";
+			$result1=mysqli_query($conn,$sql1);
+			$r=count(mysqli_fetch_array($result1));
+			if($r!=0)
+			{
+			?>
 				<table class="table table-responsive ">
 				    <thead>
 					<tr>
@@ -71,32 +78,12 @@
 					    <th><center>Start Time</center></th>
 					    <th><center>End Time</center></th>
 					    <th><center>Day</center></th>
-					    <!--<th><center>Action</center></th>-->
+					   
 					</tr>
 				    </thead>
 
 				    <tbody><?php
 				    		
-						$sql1="SELECT * FROM `Course_Section`";
-						$result1=mysqli_query($conn,$sql1);
-						#$row=mysqli_fetch_array($result);
-						/*
-						while($row1=mysqli_fetch_array($result1))
-						{
-							echo $row1['Username'];
-							print "\n";
-						}
-						
-						$query1="SELECT * FROM `Users`";
-						$result1=mysqli_query($conn,$query1);
-						//$row1=mysqli_fetch_array($result1);
-						
-						
-					    	$query3="SELECT * FROM `Milestones`";
-					    	$result3=mysqli_query($conn,$query3);
-						$row3=mysqli_fetch_array($result3);
-						*/
-						$records_flag=False;
 						
 						while($row1 = mysqli_fetch_array($result1))
 						{
@@ -134,86 +121,29 @@
 									
 								    </tr>
 								";
-								/*
-								ACTION
-								<td>
-										<center>
-										<!-- Split button -->
-										<div class='btn-group'>
-										  <button type='button' class='btn btn-primary'>Action</button>
-										  <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-										    <span class='caret'></span>
-										    <span class='sr-only'>Toggle Dropdown</span>
-										  </button>
-										  <ul class='dropdown-menu'>
-										    <li><a href='admin-view-section-details.php?section_id=".$row1['Section_Id']."'>View</a></li>
-										    <li role='separator' class='divider'></li>
-										    <li><a href='admin-update-section-details.php?section_id=".$row1['Section_Id']."'>Update</a></li>
-										    <li role='separator' class='divider'></li>
-										    <li>
-										    <a type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row1['Section_Id'].");'>Delete</a>
-										    </li>
-										  </ul>
-										</div>
-										</center>
-									</td>
-								*/
 								
 								
 							}
-							else
-							{
-							echo    "
-								    <tr>
-									<td><center>".$row1['Section_Id']."</center></td>
-									<td><center>".$row3['Course_Code']."</center></td>
-									<td><center>".$type."</center></td>
-									<td><center>".$row1['Lecture_Code']."</center></td>
-									<td><center>".$row1['Lab_Code']."</center></td>
-									<td><center>".$row2['Start_Time']."</center></td>
-									<td><center>".$row2['End_Time']."</center></td>
-									<td><center>".$row2['Day']."</center></td>
-									
-								    </tr>
-								";
-								/*
-								SECTION ACTION
-								<td>
-										<center>
-										<center>
-										<!-- Split button -->
-										<div class='btn-group'>
-										  <button type='button' class='btn btn-primary' disabled>Action</button>
-										  <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' disabled>
-										    <span class='caret'></span>
-										    <span class='sr-only'>Toggle Dropdown</span>
-										  </button>
-										  
-										</div>
-										</center>
-										</center>
-									</td>
-								*/
-				    			}
-				    			$records_flag=True;
+							
+				    			
 						}
-						
-						if($records_flag==False)
-						{
-							echo 	"
-										<div class='container col-lg-12 col-md-12 col-xs-12 col-sm-12'>
+								
+					?>		    	
+				   </tbody>
+				</table>
+				<?php
+				}
+				else
+				{
+					echo 	"	<div class='container col-lg-12 col-md-12 col-xs-12 col-sm-12'>
 											<div class='col-lg-12 col-md-12 col-xs-12 col-sm-12'>
 												<center>No Records Found</center>
 											</div>
 										</div>
 							
 									";
-						}
-						//*/			
-					?>		    	
-				   </tbody>
-				</table>
-				
+				}
+				?>
 			</div>
 		</div>
 	</div>

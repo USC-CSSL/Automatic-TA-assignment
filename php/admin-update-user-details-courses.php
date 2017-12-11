@@ -15,17 +15,24 @@
 		#echo "<script> alert('$hasTAexp');</script>";
 		
 			$sql1="UPDATE `User` SET `Name`='$name',`Username`='$username' WHERE `User_Id`='$userId'";
-			$sql2="UPDATE `TA` SET `Area`='$area',`Previous_Courses_Taught`='N/A',`Course_Taught_Last_Semester`='N/A', `Happy_With_Last_Course_Taught`='N/A', `Has_TA_Experience`='0', `Has_TA_Experience_For_Number_Of_Semester`='0', `Milestones_Id`='$milestones_string', `IsActive`='$isactive' WHERE `User_Id`='$userId'";
+			
 			
 			$result1=mysqli_query($conn,$sql1);
-			$result2=mysqli_query($conn,$sql2);
-			if($result1 and $result2) 
+			
+			if($result1) 
 		        {
 			 	#echo $result;
 			 	if($hasTAexp =="No")
 				{
+					$sql2="UPDATE `TA` SET `Area`='$area',`Previous_Courses_Taught`='N/A',`Course_Taught_Last_Semester`='N/A', `Happy_With_Last_Course_Taught`='N/A', `Has_TA_Experience`='0', `Has_TA_Experience_For_Number_Of_Semester`='0', `Milestones_Id`='$milestones_string', `IsActive`='$isactive' WHERE `User_Id`='$userId'";
+					$result2=mysqli_query($conn,$sql2);
 					echo "<script> alert('Updated');</script>";
 					echo '<META HTTP-EQUIV="Refresh" Content="0; URL=admin-view-users.php">';
+				}
+				else
+				{
+					$sql2="UPDATE `TA` SET `Area`='$area' WHERE `User_Id`='$userId'";
+					$result2=mysqli_query($conn,$sql2);
 				}
 		        }
 		        else 
@@ -120,7 +127,7 @@
 				    	<label for="milestones">Milestone</label>
 				    </div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
-				    	<select required class="form-control"  id="milestones" name="milestones[]" multiple="multiple">
+				    	<select required class="form-control" disabled id="milestones" name="milestones[]" multiple="multiple">
 				    	<?php
 				    		
 				    		$sql3 = "SELECT * FROM `Milestones`";
@@ -158,11 +165,35 @@
 				    	<?php
 				    		$sql = "SELECT * FROM `Course`";
 				    		$result = mysqli_query($conn,$sql);
-				    		
-				    		while($row = mysqli_fetch_array($result))
-						{
-							echo "<option value=".$row['Course_Id'].">".$row['Course_Code']."</option>";						
- 						}
+				    		$sql2 = "SELECT * FROM `TA` where User_Id='$userId'";
+			    			$result2 = mysqli_query($conn,$sql2);
+			    			$row2=mysqli_fetch_array($result2);
+			    			$m=$row2['Previous_Courses_Taught'];
+			    			$c=explode(",",$m);
+			    			if($m=="N/A")
+			    			{
+			    				while($row = mysqli_fetch_array($result))
+							{
+								echo "<option value=".$row['Course_Id'].">".$row['Course_Code']."</option>";	
+							}
+			    			}
+			    			else
+			    			{
+			    				while($row = mysqli_fetch_array($result))
+							{
+							
+								if(in_array($row['Course_Id'],$c))
+								{
+									echo "<option selected value=".$row['Course_Id'].">".$row['Course_Code']."</option>";	
+								}
+								else
+								{
+									echo "<option value=".$row['Course_Id'].">".$row['Course_Code']."</option>";	
+								}
+							
+	 						}
+			    			}
+			    			
  						
 				    	?>
 					</select>
@@ -179,7 +210,7 @@
 						{
 							echo "<option value=".$row['Course_Id'].">".$row['Course_Code']."</option>";						
  						}
- 						
+ 											
 				    	?>
 					</select>
 				   </div>

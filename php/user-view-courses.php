@@ -29,10 +29,10 @@
 	    </div>
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav">
-		<li><a href="user.html">Home</a></li>
-		<li><a href="user-personal.html">Personal</a></li> 
-		<li  class="active"><a href="user-courses.html">Courses</a></li> 
-		<li><a href="user-matching.html">Matching</a></li> 
+		<li><a href="../html/user.html">Home</a></li>
+		<li><a href="../html/user-personal.html">Background</a></li> 
+		<li  class="active"><a href="../html/user-courses.html">Courses</a></li> 
+		<li><a href="../html/user-matching.html">Matching</a></li> 
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 		<li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>

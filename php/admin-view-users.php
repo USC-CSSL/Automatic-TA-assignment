@@ -60,6 +60,25 @@
 			</div>
 			
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top: 2%;">
+			<?php
+			$query1="SELECT * FROM `User`";
+			$result1=mysqli_query($conn,$query1);
+			$r=mysqli_fetch_array($result1);
+			
+			if(count($r)==0)
+			{
+				echo 	"
+							<div class='container col-lg-12 col-md-12 col-xs-12 col-sm-12'>
+								<div class='col-lg-12 col-md-12 col-xs-12 col-sm-12'>
+									<center>No Records Found</center>
+								</div>
+							</div>
+				
+						";
+			}
+			else
+			{
+			?>
 				<table class="table table-striped table-responsive ">
 				    <thead>
 					<tr>
@@ -67,33 +86,13 @@
 					    <th><center>Name</center></th>
 					    <th><center>Username</center></th>
 					    <th><center>Area</center></th>
+					    <th><center>Active</center></th>
 					    <th><center>Action</center></th>
 					</tr>
 				    </thead>
 
 				    <tbody><?php
 				    		
-						$query1="SELECT * FROM `User`";
-						$result1=mysqli_query($conn,$query1);
-						#$row=mysqli_fetch_array($result);
-						/*
-						while($row1=mysqli_fetch_array($result1))
-						{
-							echo $row1['Username'];
-							print "\n";
-						}
-						
-						$query1="SELECT * FROM `Users`";
-						$result1=mysqli_query($conn,$query1);
-						//$row1=mysqli_fetch_array($result1);
-						
-						
-					    	$query3="SELECT * FROM `Milestones`";
-					    	$result3=mysqli_query($conn,$query3);
-						$row3=mysqli_fetch_array($result3);
-						*/
-						$records_flag=False;
-						
 						while($row1 = mysqli_fetch_array($result1))
 						{
 							if($row1['Username']=="admin")
@@ -106,14 +105,15 @@
 							$row2=mysqli_fetch_array($result2);
 							$row2['User_Id'];
 							if($row2['IsActive']==1)
-							{			    	
+							{	
+										    	
 								echo    "
 								    <tr>
 									<td><center>".$row1['User_Id']."</center></td>
 									<td><center>".$row1['Name']."</center></td>
 									<td><center>".$row1['Username']."</center></td>
 									<td><center>".$row2['Area']."</center></td>
-									
+									<td><center>Active</center></td>
 									<td>
 										<center>
 										<!-- Split button -->
@@ -128,7 +128,8 @@
 										    <li role='separator' class='divider'></li>
 										    <li><a href='admin-update-user-details.php?user_id=".$row1['User_Id']."'>Update</a></li>
 										    <li role='separator' class='divider'></li>
-										    <li>
+										    <li><a href='admin-deactivate-user.php?ta_id=".$row2['TA_Id']."'>Deactivate</a></li>
+										    <li role='separator' class='divider'></li><li>
 										    <a type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row1['User_Id'].");'>Delete</a>
 										    </li>
 										  </ul>
@@ -146,7 +147,7 @@
 									<td><center>".$row1['Name']."</center></td>
 									<td><center>".$row1['Username']."</center></td>
 									<td><center>".$row2['Area']."</center></td>
-									<td><center></center></td>
+									<td><center>Inactive</center></td>
 									<td>
 										<center>
 										<!-- Split button -->
@@ -161,6 +162,8 @@
 										    <li role='separator' class='divider'></li>
 										    <li><a href='admin-update-user-details.php?user_id=".$row1['User_Id']."'>Update</a></li>
 										    <li role='separator' class='divider'></li>
+										    <li><a href='admin-activate-user.php?ta_id=".$row2['TA_Id']."'>Activate</a></li>
+										    <li role='separator' class='divider'></li>
 										    <li>
 										    <a type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row1['User_Id'].");'>Delete</a>
 										    </li>
@@ -172,21 +175,11 @@
 								";
 							}
 				    		
-				    			$records_flag=True;
+				    			
 						}
 						
-						if($records_flag==False)
-						{
-							echo 	"
-										<div class='container col-lg-12 col-md-12 col-xs-12 col-sm-12'>
-											<div class='col-lg-12 col-md-12 col-xs-12 col-sm-12'>
-												<center>No Records Found</center>
-											</div>
-										</div>
-							
-									";
-						}
-						//*/			
+					}
+								
 					?>		    	
 				   </tbody>
 				</table>

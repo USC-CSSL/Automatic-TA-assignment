@@ -5,7 +5,7 @@
 	$sql1="SELECT * FROM `User` WHERE `Username`='$username'";
 	$result1=mysqli_query($conn,$sql1);
 	$row1=mysqli_fetch_array($result1);
-	
+        //echo $username;	
 	$userId=$row1['User_Id'];
 	
 	$sql2="SELECT * FROM `TA` where `User_Id`='$userId'";
@@ -15,7 +15,7 @@
 	$taId=$row2['TA_Id'];
 	$sql3="SELECT * FROM `TA_Preferences` where `TA_Id`='$taId'";
 	$result3=mysqli_query($conn,$sql3);
-	
+	//echo $taId;
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -45,7 +45,7 @@
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav">
 		<li><a href="../html/user.html">Home</a></li>
-		<li><a href="../html/user-personal.html">Personal</a></li> 
+		<li><a href="../html/user-personal.html">Background</a></li> 
 		<li  class="active"><a href="../html/user-courses.html">Courses</a></li> 
 		<li><a href="../html/user-matching.html">Matching</a></li> 
 	      </ul>
@@ -78,7 +78,7 @@
 				<table class="table table-responsive ">
 				    <thead>
 					<tr>
-					    <th><center>Course Code</center></th>
+					    <th><center>Course and Section</center></th>
 					    <th><center>Preference Level</center></th>
 					    <th><center>Have Been TA For This Course</center></th>
 					    
@@ -90,9 +90,13 @@
 						
 						while($row3 = mysqli_fetch_array($result3))
 						{
-							$sql4="SELECT * FROM `Course` where `Course_Id`='".$row3['Course_Id']."'";
+							$sql4="SELECT * FROM `Course_Section` where `Section_Id`='".$row3['Section_Id']."'";
 							$result4=mysqli_query($conn,$sql4);
 							$row4=mysqli_fetch_array($result4);	
+							
+							$sql5="SELECT * FROM `Course` where `Course_Id`='".$row4['Course_Id']."'";
+							$result5=mysqli_query($conn,$sql5);
+							$row5=mysqli_fetch_array($result5);	
 							if($row3['Has_Been_TA_For_This_Course']==1)
 							{	
 								$hasBeen="Yes";
@@ -101,10 +105,30 @@
 							{
 								$hasBeen="No";
 							}
+							switch ($row3['Interest_Level']) {
+							    case '5':
+								$i="High";
+								break;
+							    case '4':
+								$i="High-Medium";
+								break;
+							    case '3':
+								$i="Medium";
+								break;
+							    case '2':
+								$i="Medium-Low";
+								break;
+							    case '1':
+								$i="Low";
+								break;
+							    default:
+								$i="Low";
+								
+							}
 							echo    "
 								    <tr>
-									<td><center>".$row4['Course_Code']."</center></td>
-									<td><center>".$row3['Interest_Level']."</center></td>
+									<td><center>".$row5['Course_Code']." ".$row4['Lecture_Code']."</center></td>
+									<td><center>".$i."</center></td>
 									<td><center>".$hasBeen."</center></td>
 									
 								    </tr>

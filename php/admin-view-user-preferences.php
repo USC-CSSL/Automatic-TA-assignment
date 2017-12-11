@@ -66,7 +66,7 @@
 					<tr>
 					    <th><center>TA ID</center></th>
 					    <th><center>TA Name</center></th>
-					    <th><center>Course Code</center></th>
+					    <th><center>Course</center></th>
 					    <th><center>Preference Level</center></th>
 					    <th><center>Have Been TA For This Course</center></th>
 					    
@@ -91,10 +91,14 @@
 							$row1=mysqli_fetch_array($result1);
 							$name=$row1['Name'];
 							
-							$sql2="SELECT * FROM `Course` where `Course_Id`='".$row['Course_Id']."'";
+							$sql2="SELECT * FROM `Course_Section` where `Section_Id`='".$row['Section_Id']."'";
 							$result2=mysqli_query($conn,$sql2);
 							$row2=mysqli_fetch_array($result2);
 							
+							$sql3="SELECT * FROM `Course` where `Course_Id`='".$row2['Course_Id']."'";
+							$result3=mysqli_query($conn,$sql3);
+							$row3=mysqli_fetch_array($result3);
+
 							if($row['Has_Been_TA_For_This_Course']==1)
 							{	
 								$hasBeen="Yes";
@@ -107,7 +111,7 @@
 								    <tr>
 								    	<td><center>".$row['TA_Id']."</center></td>
 					    				<td><center>".$name."</center></td>
-									<td><center>".$row2['Course_Name']."</center></td>
+									<td><center>".$row3['Course_Code']." ".$row2['Lecture_Code']."</center></td>
 									<td><center>".$row['Interest_Level']."</center></td>
 									<td><center>".$hasBeen."</center></td>
 									

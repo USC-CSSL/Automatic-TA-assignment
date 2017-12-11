@@ -31,7 +31,7 @@
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav">
 		<li><a href="../html/user.html">Home</a></li>
-		<li class="active"><a href="../html/user-personal.html">Personal</a></li>
+		<li class="active"><a href="../html/user-personal.html">Background</a></li>
 		<li><a href="../html/user-courses.html">Courses</a></li> 
 		<li><a href="../html/user-matching.html">Matching</a></li> 
 	      </ul>
@@ -50,7 +50,7 @@
 			
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top: 2%;">
 				<ol class="breadcrumb">
-				  <li><a href="../html/user-personal.html">Personal</a></li> 
+				  <li><a href="../html/user-personal.html">Background</a></li> 
 				  <li class="active">Add Time Constraints</a></li>
 				</ol>
 			</div>
@@ -109,6 +109,7 @@
 				  
 				   <br><br>
 				  <input type="submit" name="submit" class="btn btn-primary" value="Submit"></input> 
+				  <input type="submit" name="submit-add" class="btn btn-primary" value="Submit and Add"></input> 
 				</form>
 				<br><br><br>
 			</div>
