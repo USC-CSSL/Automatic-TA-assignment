@@ -2,22 +2,21 @@
 	padding: 2%;
 	background-color: #890000 !important;
 	font-weight: bold;
-	color: #FFFFFF;
+	color: #FFFFFF !important;
 	
 }
 
-a.box:{
-	color:#FFFFFF;
-	text-decoration:none;
-}
 
-.box:hover{
-	color: #FFFFFF;
+.box: hover{
+	background-color: #890000 !important;
 	
 }
 
-a.box:hover{
+.box: hover{
 	color:#FFFFFF;
 	
+}
+#subFont{
+	font-size: 12px!important;
 }
 
