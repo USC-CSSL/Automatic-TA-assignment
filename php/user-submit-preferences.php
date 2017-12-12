@@ -9,7 +9,7 @@
 	
 	$userId=$row1['User_Id'];
 	
-	$sql2="SELECT * FROM `Course_Section` WHERE `IsActive`=1 AND`IsLecture`=1";
+	$sql2="SELECT * FROM `Course` WHERE `IsActive`=1 ORDER BY `Course_Code`";
 	$result2=mysqli_query($conn,$sql2);
 	
 ?>
@@ -72,17 +72,18 @@
 					while($row2=mysqli_fetch_array($result2))
 					{
 						$courseId=$row2['Course_Id'];
-						$sql3="SELECT * FROM `Course` WHERE `Course_Id`='$courseId'";
+						$sql3="SELECT * FROM `Course_Section` WHERE `Course_Id`='$courseId' AND `IsLecture`=1";
 						$result3=mysqli_query($conn,$sql3);
-						$row3=mysqli_fetch_array($result3);
+						while($row3=mysqli_fetch_array($result3))
+						{
 						echo "
 						<div class='form-row'>
 						    <div class='form-group col-lg-4 col-sm-4 col-xs-4 col-md-4'>
-						    	<label for='preference'>Course Code : ".$row3['Course_Code']." Lecture Code : ".$row2['Lecture_Code']."</label> 
+						    	<label for='preference'>Course Code : ".$row2['Course_Code']." Lecture Code : ".$row3['Lecture_Code']."</label> 
 						    </div>
 						    
 						    <div class='form-group col-lg-2 col-sm-2 col-xs-2 col-md-2'>
-						    	<select required class='form-control' id='preference' name='Pref-".$row2['Section_Id']."'>
+						    	<select required class='form-control' id='preference' name='Pref-".$row3['Section_Id']."'>
 						    		<option value='-1' selected='selected' disabled>Select</option>
 						    		<option value='5'>High</option>
 						    		<option value='4'>High-Medium</option>
@@ -91,7 +92,10 @@
 						    		<option value='1'>Low</option>
 						    	</select>
 						    </div>
-						    <div class='form-group col-lg-3 col-sm-3 col-xs-3 col-md-3'>
+						</div>	
+						";
+						}
+						/*<div class='form-group col-lg-3 col-sm-3 col-xs-3 col-md-3'>
 						    	<label for='preference'>Been TA for this Course Before</label>
 						    </div>
 						    <div class='form-group col-lg-3 col-sm-3 col-xs-3 col-md-3'>
@@ -103,7 +107,7 @@
 						    	</select>
 						    </div>
 						    <br>
-						";
+						";*/
 						#echo "Been-".$row2['Course_Code']."1";
 					}
 				?>

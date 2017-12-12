@@ -154,12 +154,25 @@
 					    <td><?php 
 					    	if($hasTAexp)
 					    	{
-						    	$courseId=$row2['Course_Taught_Last_Semester'];
-						    	$sql5 = "SELECT * FROM `Course` WHERE Course_Id ='$courseId'";
+						    	$sectionId=$row2['Course_Taught_Last_Semester'];
+							if($sectionId!="N/A" or $sectionId!='0')
+							{
+						    		$sql5 = "SELECT * FROM `Course_Section` WHERE `Section_Id` ='$sectionId'";
 								$result5 = mysqli_query($conn,$sql5);
 								$row5 = mysqli_fetch_array($result5);
-								echo $row5['Course_Code'];
-						}
+								$courseId=$row5['Course_Id'];
+								$sql6 = "SELECT * FROM `Course` WHERE `Course_Id` ='$courseId'";
+								$result6 = mysqli_query($conn,$sql6);
+								$row6 = mysqli_fetch_array($result6);
+								
+								$courseCode=$row6['Course_Code'];
+								echo $courseCode."(".$row5['Lecture_Code'].")";
+							}
+							else
+							{	
+								echo "Not Recorded";
+							}
+						  }
 						  else
 						  {	
 						  	echo "N/A";

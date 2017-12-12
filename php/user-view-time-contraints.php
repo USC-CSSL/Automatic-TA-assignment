@@ -7,12 +7,19 @@
 	$result1=mysqli_query($conn,$sql1);
 	$row1=mysqli_fetch_array($result1);
 	$userId=$row1['User_Id'];
-	
+        //echo $userId;
+	//echo $row1['Username'];	
 	$sql2="SELECT * FROM `TA` WHERE `User_Id`='$userId'";
 	$result2=mysqli_query($conn,$sql2);
 	$row2=mysqli_fetch_array($result2);
 	$taId=$row2['TA_Id'];
+	//echo "TAID:".$taId;	
 	//$release=0;
+	$flagEmpty=0;
+	if($taId==0 or $taId=="")
+	{
+		$flagEmpty=1;
+	}
 	/*
 	if(isset($_SESSION['Release_Matching']))
 	{
@@ -24,11 +31,23 @@
 		$result4=mysqli_query($conn,$sql4);
 	}
 	*/
-	$sql3="SELECT * FROM `TA_Time_Constraints` WHERE `TA_Id`='$taId'";
-	$result3=mysqli_query($conn,$sql3);
-	$c=mysqli_num_rows($result3);
-	//echo $c;
-	
+
+	if($flagEmpty==0)
+	{
+		//echo $taId;
+		$sql3="SELECT * FROM `TA_Time_Constraints` WHERE `TA_Id`='$taId'";
+		$result3=mysqli_query($conn,$sql3);
+		//$row3=mysqli_fetch_array($result3);
+		//$c1=count($row3);
+		//$c=$row3['Constraint_Id'];
+		//echo "ID:".$c;
+		$c1=mysqli_num_rows($result3);
+		//echo "Count2=".$c1;
+	}
+	else
+	{
+		$c1=0;
+	}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -85,7 +104,7 @@
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
 				<center><h3>Constraints</h3><center><br>
 				<?php
-					if($c!=0)
+					if($c1!=0 and $flagEmpty!=1)
 					{
 				?>
 				<table class="table" style="width:60%;">
@@ -93,6 +112,9 @@
 				    
 				   <?php
 					$flag=0;
+					//$result3=mysqli_query($conn,$sql3);
+					//$row3=mysqli_fetch_array($result3);
+		
 				    	while($row3=mysqli_fetch_array($result3))
 				    	{
 				    		$rId=$row3['Reason_Id'];

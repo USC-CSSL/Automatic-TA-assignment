@@ -63,9 +63,9 @@
 			<?php
 			$query1="SELECT * FROM `User`";
 			$result1=mysqli_query($conn,$query1);
-			$r=mysqli_fetch_array($result1);
+			$r=mysqli_num_rows($result1);
 			
-			if(count($r)==0)
+			if($r==0)
 			{
 				echo 	"
 							<div class='container col-lg-12 col-md-12 col-xs-12 col-sm-12'>
@@ -95,7 +95,7 @@
 				    		
 						while($row1 = mysqli_fetch_array($result1))
 						{
-							if($row1['Username']=="admin")
+							if($row1['IsAdmin']==1)
 							{	
 								continue;
 							}

@@ -70,7 +70,15 @@
 				<form method="post" action="user-update-personal-details-action.php">
 				  <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="area">Area</label></div>
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="text" class="form-control" name="area" id="area" value="<?php echo $row2['Area'];?>" placeholder="Area"></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
+					<select required type="text" class="form-control" name="area" id="area">
+						<option>BCS</option>
+						<option>Clinical</option>
+						<option>Developmental</option>
+						<option>Quant</option>
+						<option>Social</option>
+					</select>		
+				    </div>
 				  </div>
 				  <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="hasTAexp">Previous TA experience</label></div>
@@ -108,12 +116,18 @@
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
 				    	<select class="form-control"  required id="lastCourse" name="lastCourse">
 				    	<?php
-				    		$sql = "SELECT * FROM `Course`";
+				    		$sql = "SELECT * FROM `Course` ORDER BY `Course_Code`";
 				    		$result = mysqli_query($conn,$sql);
 				    		
 				    		while($row = mysqli_fetch_array($result))
 						{
-							echo "<option value=".$row['Course_Id'].">".$row['Course_Code']."</option>";						
+							$courseId=$row['Course_Id'];
+							$sql1="SELECT * FROM `Course_Section` WHERE `Course_Id`='$courseId' and `IsLecture`=1";
+							$result1=mysqli_query($conn,$sql1);
+							while($row1=mysqli_fetch_array($result1))
+							{
+								echo "<option value=".$row1['Section_Id'].">".$row['Course_Code']." ".$row1['Lecture_Code']."</option>";						
+							}
  						}
  						
 				    	?>

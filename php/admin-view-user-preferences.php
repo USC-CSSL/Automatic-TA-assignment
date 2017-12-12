@@ -50,7 +50,7 @@
 			
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top: 2%;">
 				<ol class="breadcrumb"> 
-				  <li><a href="../html/admin-users.html">Courses</a></li> 
+				  <li><a href="../html/admin-users.html">Users</a></li> 
 				  <li class="active">View Submitted Preferences</li>
 				  
 				</ol>
@@ -68,7 +68,7 @@
 					    <th><center>TA Name</center></th>
 					    <th><center>Course</center></th>
 					    <th><center>Preference Level</center></th>
-					    <th><center>Have Been TA For This Course</center></th>
+					   <!-- <th><center>Have Been TA For This Course</center></th>-->
 					    
 					</tr>
 				    </thead>
@@ -113,11 +113,11 @@
 					    				<td><center>".$name."</center></td>
 									<td><center>".$row3['Course_Code']." ".$row2['Lecture_Code']."</center></td>
 									<td><center>".$row['Interest_Level']."</center></td>
-									<td><center>".$hasBeen."</center></td>
-									
+								
 								    </tr>
 								";
-
+//	<td><center>".$hasBeen."</center></td>
+									
 				    		
 				    			$records_flag=True;
 						}

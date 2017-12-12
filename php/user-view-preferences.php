@@ -13,8 +13,23 @@
 	$row2=mysqli_fetch_array($result2);
 
 	$taId=$row2['TA_Id'];
-	$sql3="SELECT * FROM `TA_Preferences` where `TA_Id`='$taId'";
-	$result3=mysqli_query($conn,$sql3);
+	if($taId==0 or $taId=="")
+	{
+		$flagEmpty=1;
+	}
+	else
+	{
+		$sql3="SELECT * FROM `TA_Preferences` where `TA_Id`='$taId'";
+		$result3=mysqli_query($conn,$sql3);
+		if(mysqli_num_rows($result3)==0)
+		{
+			$noPref=1;
+		}
+		else
+		{
+			$noPref=0;
+		}
+	}
 	//echo $taId;
 ?>
 <!DOCTYPE HTML>
@@ -80,14 +95,15 @@
 					<tr>
 					    <th><center>Course and Section</center></th>
 					    <th><center>Preference Level</center></th>
-					    <th><center>Have Been TA For This Course</center></th>
+					    <!--<th><center>Have Been TA For This Course</center></th>-->
 					    
 					</tr>
 				    </thead>
 
 				    <tbody><?php
-				    		
-						
+				    		$records_flag=False;
+						if($flagEmpty!=1 and $noPref!=1)
+						{
 						while($row3 = mysqli_fetch_array($result3))
 						{
 							$sql4="SELECT * FROM `Course_Section` where `Section_Id`='".$row3['Section_Id']."'";
@@ -129,15 +145,18 @@
 								    <tr>
 									<td><center>".$row5['Course_Code']." ".$row4['Lecture_Code']."</center></td>
 									<td><center>".$i."</center></td>
-									<td><center>".$hasBeen."</center></td>
+								   </tr>
+								";
+								/*
+								"	<td><center>".$hasBeen."</center></td>
 									
 								    </tr>
 								";
 
-				    		
+				    				*/
 				    			$records_flag=True;
 						}
-						
+						}
 						if($records_flag==False)
 						{
 							echo 	"

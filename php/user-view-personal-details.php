@@ -128,7 +128,7 @@
 					    		$sql3="SELECT * FROM `Course` WHERE `Course_Id`='$c'";
 							$result3=mysqli_query($conn,$sql3);
 							$row3=mysqli_fetch_array($result3);
-							echo $row3['Course_Name'];
+							echo $row3['Course_Code']." ".$row3['Course_Name'];
 							if($flag==0)
 							{
 								$flag=1;
@@ -149,11 +149,19 @@
 					    if($hasTAexp)
 					    {
 					    	$l=$row2['Course_Taught_Last_Semester'];
-					    	$sql3="SELECT * FROM `Course` WHERE `Course_Id`='$l'";
-							$result3=mysqli_query($conn,$sql3);
-							$row3=mysqli_fetch_array($result3);
-							echo $row3['Course_Name']; 
+					    	$sql3="SELECT * FROM `Course_Section` WHERE `Section_Id`='$l'";
+						$result3=mysqli_query($conn,$sql3);
+						$row3=mysqli_fetch_array($result3);
+						$courseId=$row3['Course_Id'];
+						$sql4="SELECT * FROM `Course` WHERE `Course_Id`='$courseId'";
+						$result4=mysqli_query($conn,$sql4);
+						$row4=mysqli_fetch_array($result4);
+						//echo $l;
+						if($l!="N/A")
+						{	
+							echo $row4['Course_Code']." (".$row3['Lecture_Code'].")"; 
 						}
+					    }
 					    else
 					    {
 					    	echo "N/A";

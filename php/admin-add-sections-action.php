@@ -46,7 +46,7 @@
 							$isLecture=0;
 						}
 						
-						$sql4="INSERT INTO `Course_Section` (`Course_Id`,`IsLecture`,`Lecture_Code`,`Lab_Code`,`Time_Slot_Id`) VALUES('$courseId','$isLecture','$lectureCode','$labCode','$timeId')";
+						$sql4="INSERT INTO `Course_Section` (`Course_Id`,`IsLecture`,`Lecture_Code`,`Lab_Code`,`Time_Slot_Id`,`IsActive`) VALUES('$courseId','$isLecture','$lectureCode','$labCode','$timeId','1')";
 						$result4 = mysqli_query($conn,$sql4);
 						#add section
 						if($result4)
@@ -89,7 +89,7 @@
 				{
 					$isLecture=0;
 				}
-				$sql4="INSERT INTO `Course_Section` (`Course_Id`,`IsLecture`,`Lecture_Code`,`Lab_Code`,`Time_Slot_Id`) VALUES('$courseId','$isLecture','$lectureCode','$labCode','$timeId')";
+				$sql4="INSERT INTO `Course_Section` (`Course_Id`,`IsLecture`,`Lecture_Code`,`Lab_Code`,`Time_Slot_Id`,`IsActive`) VALUES('$courseId','$isLecture','$lectureCode','$labCode','$timeId','1')";
 				$result4 = mysqli_query($conn,$sql4);
 				#add section
 				if($result4)
