@@ -8,7 +8,7 @@
     <resultMap id="result" type="TAPreferences">
         <result property="id" column="Id"/>
         <result property="taId" column="TA_Id"/>
-		<result property="courseId" column="Course_Id"/>
+		<result property="sectionId" column="Section_Id"/>
 		<result property="hasBeenTAForThisCourse" column="Has_Been_TA_For_This_Course"/>
 		<result property="interestLevel" column="Interest_Level"/>   
     </resultMap>
