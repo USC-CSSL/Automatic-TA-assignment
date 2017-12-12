@@ -13,7 +13,7 @@ public class TAPreferences {
 	
 	private int taId;
 	
-	private int courseId;
+	private int sectionId;
 	
 	private Boolean hasBeenTAForThisCourse;
 	
@@ -45,12 +45,12 @@ public class TAPreferences {
 		this.taId = taId;
 	}
 
-	public int getCourseId() {
-		return courseId;
+	public int getSectionId() {
+		return sectionId;
 	}
 
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
+	public void setSectionId(int sectionId) {
+		this.sectionId = sectionId;
 	}
 
 	public Boolean getHasBeenTAForThisCourse() {

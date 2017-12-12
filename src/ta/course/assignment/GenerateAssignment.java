@@ -88,7 +88,8 @@ public class GenerateAssignment {
 		Map<Integer,List<TAPreferences>> eligilbeTAForSectionSorted = new HashMap<Integer,List<TAPreferences>>();
 		
 		for (TAPreferences taPreference: orderedTaPreferences) {
-			Course course = this.coursesMap.get(taPreference.getCourseId());
+			int taCoursePrefered = this.courseSectionMap.get(taPreference.getSectionId()).getCourseId();
+			Course course = this.coursesMap.get(taCoursePrefered);
 			List<TATimeConstraints> taTimeConflicts = this.taTimeConstraints.stream().filter(e -> e.getTaId() == taPreference.getTaId()).collect(Collectors.toList());
 			//intervel when TA is not present
 			List<Integer> conflictIds = new ArrayList<Integer>();
@@ -96,7 +97,7 @@ public class GenerateAssignment {
 				conflictIds.add(timeConflict.getTimeInteravalNotAvilableId());
 			}
 			
-			List<CourseSection> courseLectures = this.courseSections.stream().filter(e -> (e.getCourseId() == taPreference.getCourseId() && e.isLecture())).collect(Collectors.toList());
+			List<CourseSection> courseLectures = this.courseSections.stream().filter(e -> (e.getSectionId() == taPreference.getSectionId() && e.isLecture())).collect(Collectors.toList());
 			/*
 			List<Integer> courseTimeIds = new ArrayList<Integer>();
 			for (CourseSection courseTime : courseTimings) {
@@ -160,7 +161,8 @@ public class GenerateAssignment {
 			List<TAPreferences> unhappy = new ArrayList<TAPreferences>();
 			for (int i = 0;i < vals.size(); i++) {
 				TAPreferences temp = vals.get(i);
-				if (this.tasMap.get(temp.getTaId()).getCourseTaughtLastSemester() == temp.getCourseId()) {
+				//int tempCourse = this.courseSectionMap.get(temp.getSectionId()).getCourseId();
+				if (this.tasMap.get(temp.getTaId()).getCourseTaughtLastSemester() == temp.getSectionId()) {
 					if (this.tasMap.get(temp.getTaId()).getHappyWithLastCourseTaught()) {
 						happy.add(temp);
 					} else unhappy.add(temp);
@@ -402,16 +404,15 @@ public class GenerateAssignment {
 		System.out.println("\n*** TA Preferences *** ");
 		gs.taPreferences = taPreferencesDAO.selectAll();
 		for (TAPreferences taPreference: gs.taPreferences) {
-			System.out.println(taPreference.getTaId() + " "+ taPreference.getCourseId()+" "+
-					taPreference.getInterestLevel());
 			taPreference.setScore(gs.tasMap.get(taPreference.getTaId()).getScore());
-			int courseTaughtLastSemester = gs.tasMap.get(taPreference.getTaId()).getCourseTaughtLastSemester();
-			if (courseTaughtLastSemester == taPreference.getCourseId() && gs.tasMap.get(taPreference.getTaId()).getHappyWithLastCourseTaught()) {
+			int courseSectionTaughtLastSemester = gs.tasMap.get(taPreference.getTaId()).getCourseTaughtLastSemester();
+			int taCoursepreference = gs.courseSectionMap.get(taPreference.getSectionId()).getCourseId();
+			if (courseSectionTaughtLastSemester ==  taPreference.getSectionId() && gs.tasMap.get(taPreference.getTaId()).getHappyWithLastCourseTaught()) {
 				taPreference.setScore((float)(0.2 + gs.tasMap.get(taPreference.getTaId()).getScore()));			
 			}
 			System.out.println("ta map size "+ gs.tasMap.size());
 			System.out.println("course map size "+ gs.coursesMap.size());
-			if (gs.coursesMap.get(taPreference.getCourseId()).getArea() !=null && "Quant".equals(gs.coursesMap.get(taPreference.getCourseId()).getArea()) && gs.tasMap.get(taPreference.getTaId()).getArea() != null && "Quant".equals(gs.tasMap.get(taPreference.getTaId()).getArea())) {
+			if (gs.coursesMap.get(taCoursepreference).getArea() !=null && "Quant".equals(gs.coursesMap.get(taCoursepreference).getArea()) && gs.tasMap.get(taPreference.getTaId()).getArea() != null && "Quant".equals(gs.tasMap.get(taPreference.getTaId()).getArea())) {
 				taPreference.setScore((float)(5 + gs.tasMap.get(taPreference.getTaId()).getScore()));			
 			}
 			gs.taPreferencesMap.put(taPreference.getId(), taPreference);
