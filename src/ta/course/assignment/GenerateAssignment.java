@@ -133,7 +133,7 @@ public class GenerateAssignment {
 				
 				//System.out.println("keys " + keys + " taiD : " + taPreference.getTaId());
 				for (CourseSection cs : this.courseSections) {
-					if ((cs.getLectureCode().equals(keys) && !cs.isLecture()) || !this.lectureToLabMap.containsKey(cs.getLectureCode())) {
+					if ((cs.getLectureCode().equals(keys) && !cs.isLecture()) ||( cs.getLectureCode().equals(keys) && this.lectureToLabMap.get(cs.getLectureCode()).size() == 1)) {
 						if (!conflictIds.contains(cs.getTimeSlotId())) {
 							if (eligilbeTAForSection.containsKey(cs.getSectionId())) {
 								List<TAPreferences> temp = eligilbeTAForSection.get(cs.getSectionId());
@@ -192,6 +192,11 @@ public class GenerateAssignment {
 			for (TAPreferences taP : taPreferenceList) {
 				if (!this.tADone.containsKey(taP.getTaId()) && !this.courseSectionDone.containsKey(section)) {
 					List<Integer> sectionForSameLecture = this.lectureToLabMap.get(this.courseSectionMap.get(section).getLectureCode());
+					if (this.courseSectionMap.get(section).isLecture() && sectionForSameLecture.size() == 1) {
+						this.tADone.put(taP.getTaId(),1);
+						this.courseSectionDone.put(section,1);
+						this.finalSectionToTAAssignment.put(section, taP.getTaId());
+					} else {
 					for (int i = 0; i< sectionForSameLecture.size();i++) {
 						if (sectionForSameLecture.get(i) != section) {
 							List<TAPreferences> taPreferenceListForAnotherSection = null;
@@ -209,12 +214,17 @@ public class GenerateAssignment {
 							}
 						}
 					}
-					if (sectionForSameLecture.isEmpty()) {
+					}					
+				} /*else if (!this.tADone.containsKey(taP.getTaId()) && this.courseSectionMap.get(section).isLecture()) {
+					List<Integer> sectionForSameLecture = this.lectureToLabMap.get(this.courseSectionMap.get(section).getLectureCode());
+					if (sectionForSameLecture.size() == 1 && this.courseSectionDone.get(section) <=1) {
 						this.tADone.put(taP.getTaId(),1);
-						this.courseSectionDone.put(section,1);
+						int count = this.courseSectionDone.get(section);
+						this.courseSectionDone.put(section,count+1);
 						this.finalSectionToTAAssignment.put(section, taP.getTaId());
 					}
-				}
+					
+				}*/
 			}
 		}
 	}
