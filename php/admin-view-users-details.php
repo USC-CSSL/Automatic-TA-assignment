@@ -16,6 +16,10 @@
 		$result3 = mysqli_query($conn,$sql3);
 		$row3 = mysqli_fetch_array($result3);
 		
+		$sql7 = "SELECT * FROM `TA_Time_Constraints` WHERE `TA_Id` ='".$row2['TA_Id']."'";
+		$result7 = mysqli_query($conn,$sql7);
+		//$row7 = mysqli_fetch_array($result7);
+				
 	}
 	else
 	{
@@ -203,7 +207,29 @@
 					  <th>Number of Semesters (of TA Experience)</th>
 					    <td><?php echo $row2['Has_TA_Experience_For_Number_Of_Semester'];?></td>
 					</tr>
-					
+					<tr> 
+						<th>Time Constraints</th>
+						<td>
+							<?php
+								$f=0;
+								while($row7=mysqli_fetch_array($result7))
+								{
+									$id=$row7['Time_Interval_Not_Available_Id'];
+									//echo $id;
+									$sql8="SELECT * FROM `Time_Intervals` WHERE `Time_Slot_Id`='$id'";
+									$result8=mysqli_query($conn,$sql8);
+									$row8=mysqli_fetch_array($result8);
+									echo "Time: ".$row8['Start_Time']." - ".$row8['End_Time']." Day: ".$row8['Day'];
+									echo "<br>";
+									$f=1;
+								}
+								if($f==0)
+								{
+									echo "Not Available";
+								}
+							?>
+						</td>
+					</tr>
 					
 				    </tbody>
 				</table>

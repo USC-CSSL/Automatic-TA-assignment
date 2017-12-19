@@ -8,7 +8,19 @@
 	$row1=mysqli_fetch_array($result1);
 	
 	$userId=$row1['User_Id'];
-	
+	$sql="SELECT * FROM `TA` WHERE `User_Id`='$userId'";
+	$result=mysqli_query($conn,$sql);
+	$row=mysqli_fetch_array($result);
+
+	if($row['TA_Id']=="" or $row['TA_Id']==0)
+	{
+		$set=0;
+	}
+	else
+	{
+		$set=1;
+	}
+		
 	$sql2="SELECT * FROM `Course` WHERE `IsActive`=1 ORDER BY `Course_Code`";
 	$result2=mysqli_query($conn,$sql2);
 	
@@ -66,6 +78,9 @@
 			</div>
 			<div class="container">
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+				<?php
+					if($set==1){
+				?>
 				<center><h3>Submit Course Preferences</h3><center><br>
 				<form method="post" action="user-submit-preferences-action.php">
 				<?php
@@ -117,6 +132,13 @@
 				</div>
 				
 				</form>
+				<?php
+					}
+					else
+					{
+						echo "<center><h3>Please add personal details before submitting course preferences.</h3></center>";
+					}
+				?>
 				<br><br><br>
 			</div>
 			</div>

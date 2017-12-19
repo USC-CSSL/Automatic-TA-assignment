@@ -13,14 +13,19 @@
 	$row2=mysqli_fetch_array($result2);
 	$taId=$row2['TA_Id'];
 	$release=0;
+	//echo "Session: ".$_SESSION['Release_Matching'];
 	///*
-	if(isset($_SESSION['Release_Matching']))
+	$file="release.txt";
+	$f=fopen($file,'r');
+	//$release=fread($f,sizeof($file)); //USE THIS TO BLOCK AND RELEASE MATCHING; UNCOMMENT LATER
+	//if(isset($_SESSION['Release_Matching']))
 	{
-		$release=1;
-		$sql3="SELECT * FROM `Matching` WHERE `TA_Id`='$taId'";
+		//$release=1;
+		$release=fread($f, sizeof($file));
+		$sql3="SELECT * FROM `Matching` WHERE `TA_Id`='$taId' and `IsActive`=1";
 		$result3=mysqli_query($conn,$sql3);
-		
-		$sql4="SELECT * FROM `Admin_Matching` WHERE `TA_Id`='$taId'";
+		//echo $taId;
+		$sql4="SELECT * FROM `Admin_Matching` WHERE `TA_Id`='$taId' and `IsActive`=1";
 		$result4=mysqli_query($conn,$sql4);
 	}
 	//*/

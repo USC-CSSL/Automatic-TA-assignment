@@ -68,7 +68,7 @@
 					    <th><center>TA Name</center></th>
 					    <th><center>Course</center></th>
 					    <th><center>Preference Level</center></th>
-					   <!-- <th><center>Have Been TA For This Course</center></th>-->
+					    <th><center>Delete</center></th>
 					    
 					</tr>
 				    </thead>
@@ -113,7 +113,9 @@
 					    				<td><center>".$name."</center></td>
 									<td><center>".$row3['Course_Code']." ".$row2['Lecture_Code']."</center></td>
 									<td><center>".$row['Interest_Level']."</center></td>
-								
+									<td><center><a class='btn btn-warning' type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row['TA_Id'].",".$row['Section_Id'].");'>Delete</a>
+										
+</center></td>
 								    </tr>
 								";
 //	<td><center>".$hasBeen."</center></td>
@@ -143,6 +145,35 @@
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
+	function confirmDelete(taId,sectionId)
+	{
+		console.log("Inside");
+		if (confirm('Are you sure you want to delete this Matching?')) {
+		//alert(matchId);
+		//alert(source);
+		    //Make ajax call
+		    $.ajax({
+		        url: "admin-delete-user-preference.php",
+		        type: "POST",
+		        data: {ta_id : taId,section_id : sectionId},
+		        dataType: "html", 
+		        success: function() {
+		            //alert("Succesfully deleted preference!");
+		            location.reload();
+		        },
+		        failure: function(){
+		        	alert("Error in Post");
+		        }
+		    });
+
+		}
+		else
+		{
+			alert("Delete action cancelled.");
+		}
+	}
+	</script>
 		
 	</body>
 </html>

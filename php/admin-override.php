@@ -78,7 +78,7 @@
 						    			$sql1="SELECT * FROM `User` WHERE `User_Id`='$userId'";
 									$result1=mysqli_query($conn,$sql1);
 									$row1=mysqli_fetch_array($result1);
-						    			echo "<option value=".$row['TA_Id'].">Name: ".$row1['Name']." | TA_Id: ".$row['TA_Id']."</option>";
+						    			echo "<option value=".$row['TA_Id'].">".$row1['Name']." | TA_Id: ".$row['TA_Id']."</option>";
 						    		}
 							}
 							else
@@ -97,28 +97,29 @@
 						    		
 						    <?php
 						    	$active=1;
-						    	$sql="SELECT * FROM `Course_Section`";
+						    	$sql="SELECT * FROM `Course` ORDER BY Course_Code";
 							$result=mysqli_query($conn,$sql);
 						    	if($result)
 						    	{
 						    		while($row=mysqli_fetch_array($result))
 						    		{
 						    			$courseId=$row['Course_Id'];
-						    			$sql1="SELECT * FROM `Course` WHERE `Course_Id`='$courseId'";
+						    			$sql1="SELECT * FROM `Course_Section` WHERE `Course_Id`='$courseId' ORDER BY Lecture_Code,Lab_Code";
 									$result1=mysqli_query($conn,$sql1);
-									$row1=mysqli_fetch_array($result1);
+									while($row1=mysqli_fetch_array($result1))
+									{
 									if($row1['IsActive'])
 									{
-										if($row['Lab_Code']=="")
+										if($row1['Lab_Code']=="")
 										{
-											echo "<option value=".$row['Section_Id'].">".$row1['Course_Code']." - Lecture:".$row['Lecture_Code']." Lab: N/A</option>";
+											echo "<option value=".$row1['Section_Id'].">".$row['Course_Code']." - Lecture : ".$row1['Lecture_Code']." Lab : N/A</option>";
 										}
 										else
 										{
-											echo "<option value=".$row['Section_Id'].">".$row1['Course_Code']." - Lecture:".$row['Lecture_Code']." Lab: ".$row['Lab_Code']."</option>";
+											echo "<option value=".$row1['Section_Id'].">".$row['Course_Code']." - Lecture : ".$row1['Lecture_Code']." Lab : ".$row1['Lab_Code']."</option>";
 										}
 									}
-						    			
+						    			}
 						    		}
 							}
 							else

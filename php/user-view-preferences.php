@@ -90,20 +90,22 @@
 			</div>
 			
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top: 2%;">
+				<?php 
+					if($flagEmpty!=1 and $noPref!=1)
+					{
+						
+				?>
 				<table class="table table-responsive ">
 				    <thead>
 					<tr>
 					    <th><center>Course and Section</center></th>
 					    <th><center>Preference Level</center></th>
-					    <!--<th><center>Have Been TA For This Course</center></th>-->
-					    
+					    <th><center>Update</center></th>
 					</tr>
 				    </thead>
 
 				    <tbody><?php
 				    		$records_flag=False;
-						if($flagEmpty!=1 and $noPref!=1)
-						{
 						while($row3 = mysqli_fetch_array($result3))
 						{
 							$sql4="SELECT * FROM `Course_Section` where `Section_Id`='".$row3['Section_Id']."'";
@@ -145,6 +147,7 @@
 								    <tr>
 									<td><center>".$row5['Course_Code']." ".$row4['Lecture_Code']."</center></td>
 									<td><center>".$i."</center></td>
+									<td><center><a class='btn btn-primary'  href='user-update-preference.php?preference_id=".$row3['Id']."'>Update</a></center></td>
 								   </tr>
 								";
 								/*
