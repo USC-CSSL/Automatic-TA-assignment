@@ -151,6 +151,7 @@ public class GenerateAssignment {
 			}
 		}
 		for (Integer section : eligilbeTAForSection.keySet()) {
+			//System.out.println(section);
 			List<TAPreferences> vals = eligilbeTAForSection.get(section);
 			Collections.sort(vals, new Comparator<TAPreferences>() {
 			    public int compare(TAPreferences s1, TAPreferences s2) {
@@ -198,7 +199,7 @@ public class GenerateAssignment {
 						this.finalSectionToTAAssignment.put(section, taP.getTaId());
 					} else {
 					for (int i = 0; i< sectionForSameLecture.size();i++) {
-						if (sectionForSameLecture.get(i) != section) {
+						if ((int)sectionForSameLecture.get(i) != (int)section) {
 							List<TAPreferences> taPreferenceListForAnotherSection = null;
 							
 							if (sorted.get(sectionForSameLecture.get(i)) != null)
@@ -417,7 +418,7 @@ public class GenerateAssignment {
 			taPreference.setScore(gs.tasMap.get(taPreference.getTaId()).getScore());
 			int courseSectionTaughtLastSemester = gs.tasMap.get(taPreference.getTaId()).getCourseTaughtLastSemester();
 			int taCoursepreference = gs.courseSectionMap.get(taPreference.getSectionId()).getCourseId();
-			if (courseSectionTaughtLastSemester ==  taPreference.getSectionId() && gs.tasMap.get(taPreference.getTaId()).getHappyWithLastCourseTaught()) {
+			if ((int)courseSectionTaughtLastSemester ==  (int)taPreference.getSectionId() && gs.tasMap.get(taPreference.getTaId()).getHappyWithLastCourseTaught()) {
 				taPreference.setScore((float)(0.2 + gs.tasMap.get(taPreference.getTaId()).getScore()));			
 			}
 			System.out.println("ta map size "+ gs.tasMap.size());
@@ -426,6 +427,7 @@ public class GenerateAssignment {
 				taPreference.setScore((float)(5 + gs.tasMap.get(taPreference.getTaId()).getScore()));			
 			}
 			gs.taPreferencesMap.put(taPreference.getId(), taPreference);
+			System.out.println(" PrefId "+taPreference.getId()+" Score "+taPreference.getScore() +" TA_Id "+taPreference.getTaId()+ " interest "+taPreference.getInterestLevel());
 		}
 		//gs.taPreferencesMap = gs.taPreferences.stream().distinct().collect(Collectors.toMap(TAPreferences::getId, item-> item));
 		
@@ -455,7 +457,7 @@ public class GenerateAssignment {
 			runId = lastRun.getRunId()+1;
 		}
 		for (Integer section : gs.finalSectionToTAAssignment.keySet()) {
-			if (!(adminMatchingMap.containsKey(section) && adminMatchingMap.get(section) == gs.finalSectionToTAAssignment.get(section)) ) {
+			if (!(adminMatchingMap.containsKey(section) && (int)adminMatchingMap.get(section) == (int)gs.finalSectionToTAAssignment.get(section)) ) {
 				HashMap<String, Integer> hm = new HashMap<String, Integer>();
 				hm.put("Section_Id", section);
 				hm.put("TA_Id", gs.finalSectionToTAAssignment.get(section));
