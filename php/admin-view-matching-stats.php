@@ -67,15 +67,16 @@
 					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="font:#FFF;">
 						<br><b>Algorithm</b><br><br><a class="btn btn-success">
 					<?php
-						$sql="SELECT count(DISTINCT Matching.TA_Id) as total FROM TA, Matching WHERE Matching.TA_Id=TA.TA_Id";
+						$sql="SELECT count(DISTINCT Matching.TA_Id) as total FROM TA, Matching WHERE Matching.TA_Id=TA.TA_Id and TA.IsActive=1 and Matching.IsActive=1";
 						$result=mysqli_query($conn,$sql);
 						$data=mysqli_fetch_assoc($result);
+                        $total_ta = $data['total'];
 						echo $data['total'];
 
 					?>
 						</a><br>
 					<?php
-						$sql="SELECT DISTINCT(User.Name) as name  FROM TA, Matching, User WHERE Matching.TA_Id=TA.TA_Id and TA.User_Id=User.User_Id";
+						$sql="SELECT DISTINCT(User.Name) as name  FROM TA, Matching, User WHERE Matching.TA_Id=TA.TA_Id and TA.User_Id=User.User_Id and TA.IsActive=1 and Matching.IsActive=1";
 						$result=mysqli_query($conn,$sql);
 						while($data2=mysqli_fetch_assoc($result))
 						{	echo "<br>";echo $data2['name'];}
@@ -85,15 +86,16 @@
 					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="font:#FFF;">
 						<br><b>Admin</b><br><br><a class="btn btn-success">
 					<?php
-						$sql="SELECT count(DISTINCT Admin_Matching.TA_Id) as total FROM TA, Admin_Matching WHERE Admin_Matching.TA_Id=TA.TA_Id";
+						$sql="SELECT count(DISTINCT Admin_Matching.TA_Id) as total FROM TA, Admin_Matching WHERE Admin_Matching.TA_Id=TA.TA_Id and TA.IsActive=1 and Admin_Matching.IsActive=1";
 						$result=mysqli_query($conn,$sql);
 						$data1=mysqli_fetch_assoc($result);
+                        $total_ta+=$data1['total'];
 						echo $data1['total'];
 
 					?>
 						</a><br>
 					<?php
-						$sql="SELECT DISTINCT(User.Name) as name  FROM TA, Admin_Matching, User WHERE Admin_Matching.TA_Id=TA.TA_Id and TA.User_Id=User.User_Id";
+						$sql="SELECT DISTINCT(User.Name) as name  FROM TA, Admin_Matching, User WHERE Admin_Matching.TA_Id=TA.TA_Id and TA.User_Id=User.User_Id and TA.IsActive=1 and Admin_Matching.IsActive=1";
 						$result=mysqli_query($conn,$sql);
 						while($data2=mysqli_fetch_assoc($result))
 						{	echo "<br>";echo $data2['name'];}
@@ -181,7 +183,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="font:#FFF;">
 					<br><br>	<a class="btn btn-danger">
 					<?php
-						$sql="SELECT count(TA.TA_Id) as total FROM TA,User WHERE TA.IsActive=1 AND TA.User_Id=User.User_Id ";
+						$sql="SELECT count(TA.TA_Id) as total FROM TA,User WHERE TA.IsActive=1 AND TA.User_Id=User.User_Id and TA.IsActive=1";
 						$result=mysqli_query($conn,$sql);
 						$data=mysqli_fetch_assoc($result);
 						echo $data['total']-$total_ta;
@@ -189,7 +191,7 @@
 					?>
 						</a><br>
 					<?php
-						$sql="SELECT User.Name as name FROM User,TA WHERE TA.IsActive=1 AND User.User_Id=TA.User_Id AND TA.TA_Id NOT IN (SELECT DISTINCT Matching.TA_Id From Matching) AND TA.TA_Id NOT IN (SELECT DISTINCT Admin_Matching.TA_Id FROM Admin_Matching)";
+						$sql="SELECT User.Name as name FROM User,TA WHERE TA.IsActive=1 AND User.User_Id=TA.User_Id AND TA.TA_Id NOT IN (SELECT DISTINCT Matching.TA_Id From Matching where IsActive=1) AND TA.TA_Id NOT IN (SELECT DISTINCT Admin_Matching.TA_Id FROM Admin_Matching where IsActive=1)";
 						$result=mysqli_query($conn,$sql);
 						while($data2=mysqli_fetch_assoc($result))
 						{	echo "<br>";echo $data2['name'];}
