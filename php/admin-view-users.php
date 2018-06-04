@@ -61,7 +61,7 @@
 			
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top: 2%;">
 			<?php
-			$query1="SELECT * FROM `User`";
+			$query1="SELECT * FROM `User` where `IsAdmin=0`";
 			$result1=mysqli_query($conn,$query1);
 			$r=mysqli_num_rows($result1);
 			
