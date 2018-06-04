@@ -79,6 +79,21 @@
 				</div>
 				
 			</div>
+        
+           <br>
+            <div class="row">
+				<div class="container col-lg-6 col-md-6 col-xs-6 col-sm-6">
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 box">
+						<center><a style="color: #FFFFFF; text-decoration:none;" href="admin-delete-previous-matching.php?matching=admin">Delete Previous Admin Matching</a></center>
+					</div>
+				</div>
+				<div class="container col-lg-6 col-md-6 col-xs-6 col-sm-6">
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 box">
+						<center><a style="color: #FFFFFF; text-decoration:none;" href="admin-delete-previous-matching.php?matching=algorithm">Delete Previous Algorithm Matching</a></center>
+					</div>
+				</div>
+				
+			</div>
 			<br><br>
 			<div class="row">
 			
