@@ -78,7 +78,7 @@
 					    <th><center>Start Time</center></th>
 					    <th><center>End Time</center></th>
 					    <th><center>Day</center></th>
-					   
+					    <th><center>Action</center></th>
 					</tr>
 				    </thead>
 
@@ -94,10 +94,15 @@
 								
 							$courseId=$row1['Course_Id'];
 							#echo $courseId;
-							$sql3="SELECT * FROM `Course` WHERE `Course_Id`='$courseId'";
+							$sql3="SELECT * FROM `Course` WHERE `Course_Id`=$courseId";
+                            $sql4="SELECT * FROM `Course_Section` where `Section_Id`=".$row1['Section_Id'];
+                            
 							$result3=mysqli_query($conn,$sql3);
 							$row3 = mysqli_fetch_array($result3);
 							
+                            $result4=mysqli_query($conn,$sql4);
+							$row4 = mysqli_fetch_array($result4);
+                            
 							if($row1['IsLecture']==1)
 							{
 								$type="Lecture";
@@ -106,7 +111,7 @@
 							{
 								$type="Lab";
 							}
-							if($row3['IsActive']==1)
+							if($row4['IsActive']==1)
 							{			    	
 								echo    "
 								    <tr>
@@ -118,14 +123,70 @@
 									<td><center>".$row2['Start_Time']."</center></td>
 									<td><center>".$row2['End_Time']."</center></td>
 									<td><center>".$row2['Day']."</center></td>
+									<td>
 									
+										<center>
+										<!-- Split button -->
+										<div class='btn-group'>
+										  <button type='button' class='btn btn-primary'>Action</button>
+										  <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+										    <span class='caret'></span>
+										    <span class='sr-only'>Toggle Dropdown</span>
+										  </button>
+										  <ul class='dropdown-menu'>
+										    <li><a href='admin-view-course-details.php?course_id=".$row1['Course_Id']."'>View</a></li>
+										    <li role='separator' class='divider'></li>
+										    <li><a href='admin-update-section-details.php?section_id=".$row1['Section_Id']."'>Update</a></li>
+										    <li role='separator' class='divider'></li>
+										    <li><a href='admin-deactivate-section.php?section_id=".$row1['Section_Id']."'>Deactivate</a></li>
+										    <li role='separator' class='divider'></li>
+										    <li>
+										    
+										    <a type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row1['Section_Id'].");'>Delete</a>
+										  </ul>
+										</div>
+										</center>
+									</td>
 								    </tr>
-								";
-								
-								
-							}
-							
-				    			
+								";	
+							} else {
+                                echo    "
+								    <tr>
+									<td><center>".$row1['Section_Id']."</center></td>
+									<td><center>".$row3['Course_Code']."</center></td>
+									<td><center>".$type."</center></td>
+									<td><center>".$row1['Lecture_Code']."</center></td>
+									<td><center>".$row1['Lab_Code']."</center></td>
+									<td><center>".$row2['Start_Time']."</center></td>
+									<td><center>".$row2['End_Time']."</center></td>
+									<td><center>".$row2['Day']."</center></td>
+									<td>
+									
+										<center>
+										<!-- Split button -->
+										<div class='btn-group'>
+										  <button type='button' class='btn btn-danger'>Action</button>
+										  <button type='button' class='btn btn-danger dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+										    <span class='caret'></span>
+										    <span class='sr-only'>Toggle Dropdown</span>
+										  </button>
+										  <ul class='dropdown-menu'>
+										    <li><a href='admin-view-course-details.php?course_id=".$row1['Course_Id']."'>View</a></li>
+										    <li role='separator' class='divider'></li>
+										    <li><a href='admin-update-section-details.php?section_id=".$row1['Section_Id']."'>Update</a></li>
+										    <li role='separator' class='divider'></li>
+										    <li><a href='admin-activate-section.php?section_id=".$row1['Section_Id']."'>Activate</a></li>
+										    <li role='separator' class='divider'></li>
+										    <li>
+										    
+										    <a type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row1['Section_Id'].");'>Delete</a>
+										  </ul>
+										</div>
+										</center>
+									</td>
+								    </tr>
+								";	
+                            }	
 						}
 								
 					?>		    	
