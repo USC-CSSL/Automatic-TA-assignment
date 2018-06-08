@@ -149,44 +149,7 @@
 									</td>
 								    </tr>
 								";	
-							} else {
-                                echo    "
-								    <tr>
-									<td><center>".$row1['Section_Id']."</center></td>
-									<td><center>".$row3['Course_Code']."</center></td>
-									<td><center>".$type."</center></td>
-									<td><center>".$row1['Lecture_Code']."</center></td>
-									<td><center>".$row1['Lab_Code']."</center></td>
-									<td><center>".$row2['Start_Time']."</center></td>
-									<td><center>".$row2['End_Time']."</center></td>
-									<td><center>".$row2['Day']."</center></td>
-									<td>
-									
-										<center>
-										<!-- Split button -->
-										<div class='btn-group'>
-										  <button type='button' class='btn btn-danger'>Action</button>
-										  <button type='button' class='btn btn-danger dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-										    <span class='caret'></span>
-										    <span class='sr-only'>Toggle Dropdown</span>
-										  </button>
-										  <ul class='dropdown-menu'>
-										    <li><a href='admin-view-course-details.php?course_id=".$row1['Course_Id']."'>View</a></li>
-										    <li role='separator' class='divider'></li>
-										    <li><a href='admin-update-section-details.php?section_id=".$row1['Section_Id']."'>Update</a></li>
-										    <li role='separator' class='divider'></li>
-										    <li><a href='admin-activate-section.php?section_id=".$row1['Section_Id']."'>Activate</a></li>
-										    <li role='separator' class='divider'></li>
-										    <li>
-										    
-										    <a type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row1['Section_Id'].");'>Delete</a>
-										  </ul>
-										</div>
-										</center>
-									</td>
-								    </tr>
-								";	
-                            }	
+							} 
 						}
 								
 					?>		    	
