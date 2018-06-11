@@ -14,7 +14,47 @@
 		$row2=mysqli_fetch_array($result2);
 		$taId=$row2['TA_Id'];
 		
-		$timeId=$_POST['time'];
+        $day = $_POST['day'];
+        $start = $_POST['start'];
+        $end = $_POST['end'];
+        $sqlt = "SELECT * FROM `Time_Intervals` WHERE `Start_Time`='$start' AND `End_Time`='$end' AND `Day`='$day'";
+		$resultt = mysqli_query($conn,$sqlt);
+        $rowt=mysqli_fetch_array($resultt);
+        $timeId;
+        
+        
+        if(count($rowt)==0)
+			{	
+				$sql_2="INSERT INTO  `ta_project`.`Time_Intervals` (`Start_Time` ,`End_Time` ,`Day`) VALUES ('$start','$end','$day')";
+				$result_2 = mysqli_query($conn,$sql_2);
+				#add timeslot
+				if($result_2)
+				{
+					#echo "<script> alert('3');</script>";
+					
+					$result_3 = mysqli_query($conn,$sqlt);
+					#get the timeslot id
+					if($result_3)
+					{
+						
+						$row_2=mysqli_fetch_array($result_3);
+						$timeId=$row_2['Time_Slot_Id'];
+                        
+                    }else
+					{
+						echo "<script> alert('Error Getting Timeslot After Adding New Slot');</script>";
+						echo '<META HTTP-EQUIV="Refresh" Content="0; URL=user-add-time-constraints-action.php">';
+					}
+                } 
+                else {
+					echo "<script> alert('Error Adding Timeslot');</script>";
+					#echo '<META HTTP-EQUIV="Refresh" Content="0; URL=admin-add-sections.php">';
+				}
+        } else {
+            $timeId=$rowt['Time_Slot_Id'];
+        }
+        
+    
 		$reasonId=$_POST['reason'];
 		if($reasonId==4)
 		{
@@ -51,7 +91,45 @@
 		$row2=mysqli_fetch_array($result2);
 		$taId=$row2['TA_Id'];
 		
-		$timeId=$_POST['time'];
+		$timeId;
+        $day = $_POST['day'];
+        $start = $_POST['start'];
+        $end = $_POST['end'];
+        $sqlt = "SELECT * FROM `Time_Intervals` WHERE `Start_Time`='$start' AND `End_Time`='$end' AND `Day`='$day'";
+		$resultt = mysqli_query($conn,$sqlt);
+        $rowt=mysqli_fetch_array($resultt);
+        
+        if(count($rowt)==0)
+			{	
+				$sql_2="INSERT INTO  `ta_project`.`Time_Intervals` (`Start_Time` ,`End_Time` ,`Day`) VALUES ('$start','$end','$day')";
+				$result_2 = mysqli_query($conn,$sql_2);
+				#add timeslot
+				if($result_2)
+				{
+					#echo "<script> alert('3');</script>";
+					
+					$result_3 = mysqli_query($conn,$sqlt);
+					#get the timeslot id
+					if($result_3)
+					{
+						
+						$row_2=mysqli_fetch_array($result_3);
+						$timeId=$row_2['Time_Slot_Id'];
+                        
+                    }else
+					{
+						echo "<script> alert('Error Getting Timeslot After Adding New Slot');</script>";
+						echo '<META HTTP-EQUIV="Refresh" Content="0; URL=user-add-time-constraints-action.php">';
+					}
+                } 
+                else {
+					echo "<script> alert('Error Adding Timeslot');</script>";
+					#echo '<META HTTP-EQUIV="Refresh" Content="0; URL=admin-add-sections.php">';
+				}
+        } else {
+            $timeId=$rowt['Time_Slot_Id'];
+        }
+        
 		$reasonId=$_POST['reason'];
 		if($reasonId==4)
 		{

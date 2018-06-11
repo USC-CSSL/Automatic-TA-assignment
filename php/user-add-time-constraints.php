@@ -58,29 +58,35 @@
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
 				<center>
 					<h3>Add Time Constraints</h3>
-					<h4>Note: Select timeslots when unavailable.</h4>
+					<h4>Note: Select timeslots when unavailable between 8:00 AM and 8:00 PM.</h4>
 				<center>
 				<br>
 				<form method="post" action="user-add-time-contraints-action.php">
 				  <div class="form-row">
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="time">Time Slot</label></div>
+				    <div class="form-row">
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="day">Day</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
-				    	<select required class="form-control" id="time" name="time">
-				    	<?php
-				    		$sql="SELECT * FROM Time_Intervals";
-				    		$result=mysqli_query($conn,$sql);
-				    		if($result)
-				    		{
-				    			while($row=mysqli_fetch_array($result))
-				    			{
-				    				echo "<option value=".$row['Time_Slot_Id'].">".$row['Start_Time']." - ".$row['End_Time']." ".$row['Day']."</option>";
-				    			}
-				    		}
+				    	<select required class="form-control" id="day" name="day">
+				    		<option>MW</option>
+				    		<option>TTh</option>
+				    		<option>MWF</option>
+				    		<option>M</option>
+				    		<option>T</option>
+				    		<option>W</option>
+				    		<option>Th</option>
+				    		<option>F</option>
 				    		
-				    	?>
-				    	
-					</select>
-				   </div>
+					    </select>
+				    </div>
+				  </div>
+                  <div class="form-row">
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="start">Start Time</label></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="time" class="form-control" id="start" placeholder="Start Time" name="start"></div>
+				  </div>
+				  <div class="form-row">
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="end">End Time</label></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="time" class="form-control" id="end" placeholder="End Time" name="end"></div>
+				  </div>
 				   <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="reason">Reason</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">

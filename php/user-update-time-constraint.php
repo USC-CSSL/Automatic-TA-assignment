@@ -66,6 +66,19 @@
 			<div class="container">
 			<?php if($constraintId!=0)
 				{
+                    $sql1="SELECT * FROM TA_Time_Constraints WHERE Constraint_Id='$constraintId'";
+				    $result1=mysqli_query($conn,$sql1);
+				    $row1=mysqli_fetch_array($result1);
+                    $timeSlotId = $row1['Time_Interval_Not_Available_Id'];    
+    
+                    $sql2="SELECT * from Time_Intervals where Time_Slot_Id='$timeSlotId'";
+                    $result2=mysqli_query($conn,$sql2);
+				    $row2=mysqli_fetch_array($result2);
+
+                    $day=$row2['Day'];
+                    $start=$row2['Start_Time'];
+                    $end=$row2['End_Time'];
+    
 			?>
 			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
 				<center>
@@ -74,34 +87,30 @@
 				<br>
 				<form method="post" action="user-update-time-constraint-action.php?constraint_id=<?php echo $constraintId;?>">
 				  <div class="form-row">
-				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="time">Time Slot</label></div>
+				    <div class="form-row">
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="day">Day</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
-				    	<select required class="form-control" id="time" name="time">
-				    	<?php
-				    		$sql="SELECT * FROM Time_Intervals";
-				    		$result=mysqli_query($conn,$sql);
-						$sql1="SELECT * FROM TA_Time_Constraints WHERE Constraint_Id='$constraintId'";
-						$result1=mysqli_query($conn,$sql1);
-						$row1=mysqli_fetch_array($result1);
-				    		if($result)
-				    		{
-				    			while($row=mysqli_fetch_array($result))
-				    			{
-								if($row['Time_Slot_Id']==$row1['Time_Interval_Not_Available_Id'])
-								{
-				    					echo "<option selected value=".$row['Time_Slot_Id'].">".$row['Start_Time']." - ".$row['End_Time']." ".$row['Day']."</option>";
-				    				}
-								else
-								{	echo "<option value=".$row['Time_Slot_Id'].">".$row['Start_Time']." - ".$row['End_Time']." ".$row['Day']."</option>";
-				    				
-								}
-							}
-				    		}
+				    	<select required class="form-control" id="day" name="day">
+				    		<option <?php if($day=="MW")echo 'selected'?> >MW</option>
+				    		<option <?php if($day=="TTh")echo 'selected'?>>TTh</option>
+				    		<option <?php if($day=="MWF")echo 'selected'?>>MWF</option>
+				    		<option <?php if($day=="M")echo 'selected'?>>M</option>
+				    		<option <?php if($day=="T")echo 'selected'?>>T</option>
+				    		<option <?php if($day=="W")echo 'selected'?>>W</option>
+				    		<option <?php if($day=="Th")echo 'selected'?>>Th</option>
+				    		<option <?php if($day=="F")echo 'selected'?>>F</option>
 				    		
-				    	?>
-				    	
-					</select>
-				   </div>
+					    </select>
+				    </div>
+				  </div>
+                  <div class="form-row">
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="start">Start Time</label></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="time" class="form-control" id="start" placeholder="Start Time" name="start" value='<?php echo $row2['Start_Time'] ?>'></div>
+				  </div>
+				  <div class="form-row">
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="end">End Time</label></div>
+				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><input required type="time" class="form-control" id="end" placeholder="End Time" name="end" value='<?php echo $row2['End_Time'] ?>'></div>
+				  </div>
 				   <div class="form-row">
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6"><label for="reason">Reason</label></div>
 				    <div class="form-group col-lg-6 col-sm-6 col-xs-6 col-md-6">
