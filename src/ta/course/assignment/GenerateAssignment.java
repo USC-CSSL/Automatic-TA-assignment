@@ -106,7 +106,26 @@ public class GenerateAssignment {
 			
 			courseTimeIds.removeAll(conflictIds);*/
 			for (CourseSection lecture : courseLectures) {
-				if (!conflictIds.contains(lecture.getTimeSlotId())) {
+				if(!conflictIds.isEmpty()) {
+					boolean noconflict = true;
+					for(Integer taNotAvilable : conflictIds) {
+						if (isOverlappingTime(taNotAvilable,lecture.getTimeSlotId())) {
+							noconflict = false;
+							break;
+						}
+					}
+					if(noconflict) {
+						if (eligilbeTAForCourseLecture.containsKey(lecture.getLectureCode())) {
+							List<TAPreferences> temp = eligilbeTAForCourseLecture.get(lecture.getLectureCode());
+							temp.add(taPreference);
+							eligilbeTAForCourseLecture.put(lecture.getLectureCode(), temp);
+						} else {
+							List<TAPreferences> temp = new ArrayList<TAPreferences>();
+							temp.add(taPreference);
+							eligilbeTAForCourseLecture.put(lecture.getLectureCode(), temp);
+						}
+					}
+				} else {
 					if (eligilbeTAForCourseLecture.containsKey(lecture.getLectureCode())) {
 						List<TAPreferences> temp = eligilbeTAForCourseLecture.get(lecture.getLectureCode());
 						temp.add(taPreference);
@@ -131,10 +150,31 @@ public class GenerateAssignment {
 					conflictIds.add(timeConflict.getTimeInteravalNotAvilableId());
 				}
 				
+				
+				
 				//System.out.println("keys " + keys + " taiD : " + taPreference.getTaId());
 				for (CourseSection cs : this.courseSections) {
 					if ((cs.getLectureCode().equals(keys) && !cs.isLecture()) ||( cs.getLectureCode().equals(keys) && this.lectureToLabMap.get(cs.getLectureCode()).size() == 1)) {
-						if (!conflictIds.contains(cs.getTimeSlotId())) {
+						if(!conflictIds.isEmpty()) {
+							boolean noconflict = true;
+							for(Integer taNotAvilable : conflictIds) {
+								if (isOverlappingTime(taNotAvilable,cs.getTimeSlotId())) {
+									noconflict=false;
+									break;
+								} 
+							}
+							if(noconflict) {
+								if (eligilbeTAForSection.containsKey(cs.getSectionId())) {
+									List<TAPreferences> temp = eligilbeTAForSection.get(cs.getSectionId());
+									temp.add(taPreference);
+									eligilbeTAForSection.put(cs.getSectionId(), temp);
+								} else {
+									List<TAPreferences> temp = new ArrayList<TAPreferences>();
+									temp.add(taPreference);
+									eligilbeTAForSection.put(cs.getSectionId(), temp);
+								}
+							}
+						} else {
 							if (eligilbeTAForSection.containsKey(cs.getSectionId())) {
 								List<TAPreferences> temp = eligilbeTAForSection.get(cs.getSectionId());
 								temp.add(taPreference);
@@ -145,9 +185,9 @@ public class GenerateAssignment {
 								eligilbeTAForSection.put(cs.getSectionId(), temp);
 							}
 						}
+
 					} 
-				}
-				
+				}	
 			}
 		}
 		for (Integer section : eligilbeTAForSection.keySet()) {
@@ -175,6 +215,27 @@ public class GenerateAssignment {
 			eligilbeTAForSectionSorted.put(section, happy);		
 		}		
 		return eligilbeTAForSection;
+	}
+	
+	boolean isOverlappingTime(int a, int b) {
+		if(a==b) return true;
+		TimeIntervals first = timeIntervalsMap.get(a);
+		TimeIntervals second = timeIntervalsMap.get(b);
+		String firstDay = new String(first.getDay());
+		String secondDay = new String(second.getDay());
+		
+		//Replace Th with H to avoid conflict of char 'T' in Tuesday and Th while checking substring
+		firstDay = firstDay.replace("Th", "H");
+		secondDay = secondDay.replace("Th", "H");
+
+		if(!firstDay.contains(secondDay) && !secondDay.contains(firstDay))return false;
+		
+		boolean o = false;
+		
+		if(first.getStartTime().compareTo(second.getStartTime())<=0 && first.getEndTime().compareTo(second.getEndTime())>=0) o= true;
+		else if(second.getStartTime().compareTo(first.getStartTime())<=0 && second.getEndTime().compareTo(first.getEndTime())>=0) o= true;
+		
+		return o;
 	}
 	
 	void distributeTA (Map<Integer,List<TAPreferences>> tAPreferences1) {
@@ -415,6 +476,7 @@ public class GenerateAssignment {
 		System.out.println("\n*** TA Preferences *** ");
 		gs.taPreferences = taPreferencesDAO.selectAll();
 		for (TAPreferences taPreference: gs.taPreferences) {
+			System.out.println("ta id "+ taPreference.getTaId());
 			taPreference.setScore(gs.tasMap.get(taPreference.getTaId()).getScore());
 			int courseSectionTaughtLastSemester = gs.tasMap.get(taPreference.getTaId()).getCourseTaughtLastSemester();
 			int taCoursepreference = gs.courseSectionMap.get(taPreference.getSectionId()).getCourseId();
