@@ -163,6 +163,7 @@ public class GenerateAssignment {
 									break;
 								} 
 							}
+
 							if(noconflict) {
 								if (eligilbeTAForSection.containsKey(cs.getSectionId())) {
 									List<TAPreferences> temp = eligilbeTAForSection.get(cs.getSectionId());
@@ -230,10 +231,10 @@ public class GenerateAssignment {
 
 		if(!firstDay.contains(secondDay) && !secondDay.contains(firstDay))return false;
 		
-		boolean o = false;
+		boolean o = true;
 		
-		if(first.getStartTime().compareTo(second.getStartTime())<=0 && first.getEndTime().compareTo(second.getEndTime())>=0) o= true;
-		else if(second.getStartTime().compareTo(first.getStartTime())<=0 && second.getEndTime().compareTo(first.getEndTime())>=0) o= true;
+		if(first.getStartTime().compareTo(second.getStartTime())<0 && first.getEndTime().compareTo(second.getStartTime())<=0) o= false;
+		else if(second.getStartTime().compareTo(first.getStartTime())<0 && second.getEndTime().compareTo(first.getStartTime())<=0) o= false;
 		
 		return o;
 	}
@@ -260,7 +261,7 @@ public class GenerateAssignment {
 						this.finalSectionToTAAssignment.put(section, taP.getTaId());
 					} else {
 					for (int i = 0; i< sectionForSameLecture.size();i++) {
-						if ((int)sectionForSameLecture.get(i) != (int)section) {
+						if ((int)sectionForSameLecture.get(i) != (int)section && !this.courseSectionMap.get(sectionForSameLecture.get(i)).isLecture()) {
 							List<TAPreferences> taPreferenceListForAnotherSection = null;
 							
 							if (sorted.get(sectionForSameLecture.get(i)) != null)
@@ -310,7 +311,8 @@ public class GenerateAssignment {
 		this.distributeTA(tAPreferencesForFour);
 		this.distributeTA(tAPreferencesForThree);
 		this.distributeTA(tAPreferencesForTwo);
-		this.distributeTA(tAPreferencesForOne);		
+		this.distributeTA(tAPreferencesForOne);
+		
 		/*
 		Set<Integer> sectionsSet = tAPreferencesForFive.keySet();
 		List<Integer> sectionList = new ArrayList<Integer>();
@@ -451,11 +453,11 @@ public class GenerateAssignment {
 		}
 		
 		for (CourseSection courseSection: gs.courseSections) {
-			if (gs.lectureToLabMap.containsKey(courseSection.getLectureCode()) && !courseSection.isLecture()) {
+			if (gs.lectureToLabMap.containsKey(courseSection.getLectureCode())) {
 				List<Integer> labs = gs.lectureToLabMap.get(courseSection.getLectureCode());
 				labs.add(courseSection.getSectionId());
 				gs.lectureToLabMap.put(courseSection.getLectureCode(), labs);
-			} else if (courseSection.isLecture()){
+			} else{
 				List<Integer> labs = new ArrayList<Integer>();
 				labs.add(courseSection.getSectionId());
 				gs.lectureToLabMap.put(courseSection.getLectureCode(), labs);
