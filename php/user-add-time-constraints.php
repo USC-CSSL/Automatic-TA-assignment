@@ -75,8 +75,9 @@
 				    		<option>W</option>
 				    		<option>Th</option>
 				    		<option>F</option>
-				    		
-					    </select>
+				    		<option>MF</option>
+	
+                                        </select>
 				    </div>
 				  </div>
                   <div class="form-row">

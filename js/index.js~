@@ -1,0 +1,5 @@
+angular.module("TAProjectApp", [])
+            .controller("loginController", function($scope) {
+                $scope.LoginForm = {};
+                $scope.LoginForm.username = "snandaku";
+            } );

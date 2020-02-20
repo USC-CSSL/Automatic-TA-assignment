@@ -33,7 +33,8 @@ if (isset($_POST['name'])&&isset($_POST['username'])&&isset($_POST['password'])&
 				$_SESSION['Username'] = $username;
 				$_SESSION['Name'] = $name;
 				$_SESSION["IsAdmin"]= $isAdmin;
-				 
+                                $_SESSION["status"] = true;	
+								 
 				echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../html/user.html">';
 		      }
 		      else 

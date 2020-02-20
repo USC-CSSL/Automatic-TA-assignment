@@ -8,13 +8,14 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Admin Dashboard</title>
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-		<!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
-		<link href="../css/admin.css" type="text/css" rel="stylesheet">
-		<link href="../js/admin.js" type="text/javascript">
-		<!--<script src="../js/jquery-cookie-master/src/jquery.cookie.js"></script>-->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+                <link href="../css/admin.css" type="text/css" rel="stylesheet">
+                <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                <link  type="text/javascript"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+                <script src="../js/admin.js" type="text/javascript"></script>
 	</head>
-	<body>
+	<body id="main">
 	<!-- NAVBAR -->
 	<nav class="navbar navbar-inverse">
 	  <div class="container-fluid">
@@ -91,7 +92,14 @@
 							$sql2="SELECT * FROM `Time_Intervals` WHERE `Time_Slot_Id`=$timeSlotId";
 							$result2=mysqli_query($conn,$sql2);
 							$row2 = mysqli_fetch_array($result2);
-								
+							
+							$startt = $row2['Start_Time'];
+							$startt = strtotime($startt);
+                                                        $startt = date('h:i a', $startt);	
+							
+							$endd = $row2['End_Time'];
+							$endd = strtotime($endd);
+                                                        $endd = date('h:i a', $endd);
 							$courseId=$row1['Course_Id'];
 							#echo $courseId;
 							$sql3="SELECT * FROM `Course` WHERE `Course_Id`=$courseId";
@@ -120,8 +128,8 @@
 									<td><center>".$type."</center></td>
 									<td><center>".$row1['Lecture_Code']."</center></td>
 									<td><center>".$row1['Lab_Code']."</center></td>
-									<td><center>".$row2['Start_Time']."</center></td>
-									<td><center>".$row2['End_Time']."</center></td>
+									<td><center>".$startt."</center></td>
+									<td><center>".$endd."</center></td>
 									<td><center>".$row2['Day']."</center></td>
 									<td>
 									

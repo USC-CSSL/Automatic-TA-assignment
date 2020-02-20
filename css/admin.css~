@@ -1,0 +1,26 @@
+.box{
+	padding: 2%;
+	background-color: #890000 !important;
+	font-weight: bold;
+	color: #FFFFFF;
+	
+}
+
+a.box:{
+	color:#FFFFFF;
+	text-decoration:none;
+}
+
+.box:hover{
+	color: #FFFFFF;
+	
+}
+
+a.box:hover{
+	color:#FFFFFF;
+	
+}
+.subFont{
+	font-size: 12px!important;
+}
+

@@ -7,7 +7,12 @@
 		$type=$_POST['type'];
 		$day=$_POST['day'];
 		$start=$_POST['start'];
+		$start = strtotime($start);
+		$start = date('h:i a', $start);
+		//echo "<script> alert('$start');</script>";
 		$end=$_POST['end'];
+		$end = strtotime($end);
+                $end = date('h:i a', $end);
 		$lectureCode=$_POST['lectureCode'];
 		$labCode=$_POST['labCode'];
 		// check section id exists
@@ -34,7 +39,7 @@
 						
 						$row2=mysqli_fetch_array($result3);
 						$timeId=$row2['Time_Slot_Id'];
-						echo $type;
+						//echo $type;
 						
 						if($type=="Lecture")
 						{

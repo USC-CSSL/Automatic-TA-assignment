@@ -1,5 +1,5 @@
 <?php
-	//exec("java ../java/generateAssignment/ta/course/assignmentgenerateAssignment/ta/course/assignment/GenerateAssignment", $output);
+	//exec("java -cp ../java/generateAssignment/ta/course/assignmentgenerateAssignment/ta/course/assignment/GenerateAssignment", $output);
 	//echo exec("java -cp ../java/mysql-connector-java-5.0.8-bin.jar:mybatis-3.4.1.jar:JAR_SRINIDHI/generateAssignment.jar ta.course.assignment.GenerateAssignment",$output);
 	#echo exec("python3 file1.py",$output);
 	//echo exec("python3 ./file1.py",$output);
@@ -8,7 +8,7 @@
 	//print_r($output);
 	#echo count($output);
 	
-	//echo exec("cd ../java");
+	echo exec("cd ../java");
 	echo exec("java -cp mysql-connector-java-5.0.8-bin.jar:mybatis-3.4.1.jar:generateAssignment.jar ta.course.assignment.GenerateAssignment",$output);
 	//echo exec("java -cp mysql-connector-java-5.0.8-bin.jar:mybatis-3.4.1.jar:generateAssignmentT.jar ta.course.assignment.GenerateAssignment",$output);
 	//exit

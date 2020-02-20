@@ -1,6 +1,8 @@
 <?php
-	include('dbConnect.php');
-	session_start();
+
+	 include('dbConnect.php');
+        session_start();
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -9,12 +11,14 @@
 		<meta charset="UTF-8">
 		<title>Admin Dashboard</title>
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-		<!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
-		<link href="../css/admin.css" type="text/css" rel="stylesheet">
-		<link href="../js/admin.js" type="text/javascript">
-		<!--<script src="../js/jquery-cookie-master/src/jquery.cookie.js"></script>-->
+                <link href="../css/admin.css" type="text/css" rel="stylesheet">
+                <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                <link  type="text/javascript"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+                <script src="../js/admin.js" type="text/javascript"></script>
+		
 	</head>
-	<body>
+	<body id="main">
 	<!-- NAVBAR -->
 	<nav class="navbar navbar-inverse">
 	  <div class="container-fluid">
@@ -86,7 +90,6 @@
 					    <th><center>Name</center></th>
 					    <th><center>Username</center></th>
 					    <th><center>Area</center></th>
-					    <th><center>Active</center></th>
 					    <th><center>Action</center></th>
 					</tr>
 				    </thead>
@@ -104,16 +107,12 @@
 							$result2=mysqli_query($conn,$query2);
 							$row2=mysqli_fetch_array($result2);
 							$row2['User_Id'];
-							if($row2['IsActive']==1)
-							{	
-										    	
-								echo    "
+							echo    "
 								    <tr>
 									<td><center>".$row1['User_Id']."</center></td>
 									<td><center>".$row1['Name']."</center></td>
 									<td><center>".$row1['Username']."</center></td>
 									<td><center>".$row2['Area']."</center></td>
-									<td><center>Active</center></td>
 									<td>
 										<center>
 										<!-- Split button -->
@@ -127,8 +126,6 @@
 										    <li><a href='admin-view-users-details.php?user_id=".$row1['User_Id']."'>View</a></li>
 										    <li role='separator' class='divider'></li>
 										    <li><a href='admin-update-user-details.php?user_id=".$row1['User_Id']."'>Update</a></li>
-										    <li role='separator' class='divider'></li>
-										    <li><a href='admin-deactivate-user.php?ta_id=".$row2['TA_Id']."'>Deactivate</a></li>
 										    <li role='separator' class='divider'></li><li>
 										    <a type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row1['User_Id'].");'>Delete</a>
 										    </li>
@@ -138,43 +135,6 @@
 									</td>
 								    </tr>
 								";
-							}
-							else
-							{			    	
-								echo    "
-								    <tr>
-									<td><center>".$row1['User_Id']."</center></td>
-									<td><center>".$row1['Name']."</center></td>
-									<td><center>".$row1['Username']."</center></td>
-									<td><center>".$row2['Area']."</center></td>
-									<td><center>Inactive</center></td>
-									<td>
-										<center>
-										<!-- Split button -->
-										<div class='btn-group'>
-										  <button type='button' class='btn btn-primary'>Action</button>
-										  <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-										    <span class='caret'></span>
-										    <span class='sr-only'>Toggle Dropdown</span>
-										  </button>
-										  <ul class='dropdown-menu'>
-										    <li><a href='admin-view-users-details.php?user_id=".$row1['User_Id']."'>View</a></li>
-										    <li role='separator' class='divider'></li>
-										    <li><a href='admin-update-user-details.php?user_id=".$row1['User_Id']."'>Update</a></li>
-										    <li role='separator' class='divider'></li>
-										    <li><a href='admin-activate-user.php?ta_id=".$row2['TA_Id']."'>Activate</a></li>
-										    <li role='separator' class='divider'></li>
-										    <li>
-										    <a type='submit' id='delete' name='submit' href='javascript:void(0);' onclick='confirmDelete(".$row1['User_Id'].");'>Delete</a>
-										    </li>
-										  </ul>
-										</div>
-										</center>
-									</td>
-								    </tr>
-								";
-							}
-				    		
 				    			
 						}
 						

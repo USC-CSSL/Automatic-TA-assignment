@@ -9,10 +9,11 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<link  type="text/javascript"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
 		<link href="../css/admin.css" type="text/css" rel="stylesheet">
+		<script src="../js/admin.js" type="text/javascript"></script>
 		<!--<link href="js/admin.js" type="text/javascript">
 		<script src="../js/jquery-cookie-master/src/jquery.cookie.js"></script>-->
 	</head>
-	<body>
+	<body id="main">
 		
 	<!-- NAVBAR -->
 	<nav class="navbar navbar-inverse">
@@ -53,14 +54,28 @@
 			</div>
 			<!--<div class="row">-->
 			<div class="row">
+                                <div class="container col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 box">
+                                                <center><a style="color: #FFFFFF; text-decoration:none;" href="../php/admin-add-courses-excel.php">Add Courses (Excel)</a></center>
+                                        </div>
+                                </div>
+                                <div class="container col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 box">
+                                                <center><a style="color: #FFFFFF; text-decoration:none;" href="../php/admin-add-sections-excel.php">Add Sections (Excel)</a></center>
+                                        </div>
+                                </div>
+                        </div>
+                        <br><br>
+			
+			<div class="row">
 				<div class="container col-lg-6 col-md-6 col-xs-6 col-sm-6">
 					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 box">
-						<center><a style="color: #FFFFFF; text-decoration:none;" href="../php/admin-add-courses.php">Add Courses</a></center>
+						<center><a style="color: #FFFFFF; text-decoration:none;" href="../php/admin-add-courses.php">Add Courses (Manual)</a></center>
 					</div>
 				</div>
 				<div class="container col-lg-6 col-md-6 col-xs-6 col-sm-6">
 					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 box">
-						<center><a style="color: #FFFFFF; text-decoration:none;" href="../php/admin-add-sections.php">Add Sections</a></center>
+						<center><a style="color: #FFFFFF; text-decoration:none;" href="../php/admin-add-sections.php">Add Sections (Manual)</a></center>
 					</div>
 				</div>
 			</div>

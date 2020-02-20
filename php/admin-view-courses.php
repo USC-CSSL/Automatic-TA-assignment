@@ -9,12 +9,13 @@
 		<meta charset="UTF-8">
 		<title>Admin Dashboard</title>
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-		<!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
-		<link href="../css/admin.css" type="text/css" rel="stylesheet">
-		<link href="../js/admin.js" type="text/javascript">
-		<!--<script src="../js/jquery-cookie-master/src/jquery.cookie.js"></script>-->
+                <link href="../css/admin.css" type="text/css" rel="stylesheet">
+                <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                <link  type="text/javascript"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+                <script src="../js/admin.js" type="text/javascript"></script>
 	</head>
-	<body>
+	<body id="main">
 	<!-- NAVBAR -->
 	<nav class="navbar navbar-inverse">
 	  <div class="container-fluid">

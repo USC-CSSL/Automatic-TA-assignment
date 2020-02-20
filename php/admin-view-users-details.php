@@ -215,11 +215,23 @@
 								while($row7=mysqli_fetch_array($result7))
 								{
 									$id=$row7['Time_Interval_Not_Available_Id'];
+									$rid = $row7['Reason_Id'];
+									
 									//echo $id;
 									$sql8="SELECT * FROM `Time_Intervals` WHERE `Time_Slot_Id`='$id'";
 									$result8=mysqli_query($conn,$sql8);
 									$row8=mysqli_fetch_array($result8);
-									echo "Time: ".$row8['Start_Time']." - ".$row8['End_Time']." Day: ".$row8['Day'];
+									$start = $row8['Start_Time'];
+									$start = strtotime($start);
+                							$start = date('h:i a', $start);
+									$end = $row8['End_Time'];
+                                                                        $end = strtotime($end);
+                                                                        $end = date('h:i a', $end);
+									$sql9="SELECT * FROM `REASON` WHERE `Reason_Id`='$rid'";
+                                                                        $result9=mysqli_query($conn,$sql9);
+                                                                        $row9=mysqli_fetch_array($result9);
+									
+				echo "Time:  ".$start."  -  ".$end."  Day: ".$row8['Day']."   Reason:  ".$row9['Reason']. "   ".$row7['Reason_If_Other'];
 									echo "<br>";
 									$f=1;
 								}

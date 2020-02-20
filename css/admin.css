@@ -2,17 +2,21 @@
 	padding: 2%;
 	background-color: #890000 !important;
 	font-weight: bold;
-	color: #FFFFFF !important;
+	color: #FFFFFF;
 	
 }
 
+a.box:{
+	color:#FFFFFF;
+	text-decoration:none;
+}
 
-.box: hover{
-	background-color: #890000 !important;
+.box:hover{
+	color: #FFFFFF;
 	
 }
 
-.box: hover{
+a.box:hover{
 	color:#FFFFFF;
 	
 }
@@ -20,3 +24,6 @@
 	font-size: 12px!important;
 }
 
+#main{
+display:none;
+}

@@ -1,58 +1,69 @@
 <?php
 include('dbConnect.php');
 session_start();
-if(isset($_POST['username'])&&isset($_POST['password'])) 
+	if(isset($_POST['username'])&&isset($_POST['password'])) 
+	{
+		$username=$_POST['username'];
+		$password=$_POST['password'];
+		
+		//$username = trim($_POST['username']);
+		//$password = trim($_POST['password']);
+	
+		$sql="SELECT * FROM `User` WHERE `Username`= '$username'";
+		$result=mysqli_query($conn,$sql);
+		if(!$result)
+		  {
+			echo "NO RESULT";	
+		  }
 
-{
-	$username=$_POST['username'];
-	$password=$_POST['password'];
-	//$username = trim($_POST['username']);
-	//$password = trim($_POST['password']);
-	$sql="SELECT * FROM `User` WHERE `Username`= '$username'";
-	$result=mysqli_query($conn,$sql);
-	if(!$result)
-	{
-		echo "NO RESULT";	
-	}
-	$row=mysqli_fetch_array($result);
-	if(count($row)!=0)
-	{
-		if(!password_verify($password,$row['Password']))
-		{
-			echo "<script> alert('Wrong Password'); </script>";
-			//echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../index.html">'; 
+		$row=mysqli_fetch_array($result);
+		if(count($row)!=0)
+		  {
+			if(!password_verify($password,$row['Password']))
+			  {
+				echo "<script> alert('Wrong Password'); </script>";
+				echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../index.html">'; 
+			  }
+			else
+			  {
+				echo "<script> alert('Welcome $username'); </script>";
+				
+				#echo $row['IsAdmin'];
+				
+				$_SESSION["Username"]= $username;
+				$_SESSION["Name"]= $row['Name'];
+				$_SESSION["IsAdmin"]= $row['IsAdmin'];
+				$_SESSION["status"] = true;				
+
+				if($row['IsAdmin']==1)
+				{
+					echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../html/admin.html">'; 
+				}
+				else
+				{
+					echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../html/user.html">'; 
+				}
+			}
 		}
 		else
 		{
-			echo "<script> alert('Welcome $username'); </script>";
-			#echo $row['IsAdmin'];
-			
-			$_SESSION["Username"]= $username;
-			$_SESSION["Name"]= $row['Name'];
-			$_SESSION["IsAdmin"]= $row['IsAdmin'];
-			
-			if($row['IsAdmin']==1)
-			{
-			
-				echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../html/admin.html">'; 
-			}
-			else
-			{
-				echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../html/user.html">'; 
-			}
+			echo "<script> alert('User does not exists. Please enter a valid Username !!!'); </script>";
+			echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../index.html">'; 	
 		}
 	}
-	else
-	{
-		echo "<script> alert('".$password."'); </script>";
-		//echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../index.html">'; 	
-	}
-}
-//else
-{
-	//echo "<script> alert('Values not Posted'); </script>";
-	//echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../index.html">'; 
-}
+
+	//else
+	//{
+	//	echo "<script> alert('Values not Posted'); </script>";
+	//	echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../index.html">'; 
+	//}
+
+
+
+
+
+
+
 /*
 if(isset($_POST['username'])&&isset($_POST['password'])) 
 {
@@ -101,6 +112,5 @@ else{
 	echo "Values not Posted";
 }
 */
-
 
 ?>

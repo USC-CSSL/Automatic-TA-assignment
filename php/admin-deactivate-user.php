@@ -8,10 +8,10 @@
 		$active=0;
 		$sql="UPDATE `TA` SET `IsActive`='$active' WHERE `TA_Id`='$ta'";
 		$result=mysqli_query($conn,$sql);
-                $sql3="DELETE FROM `TA_Time_Constraints` WHERE `TA_Id`='$ta'";
-                $sql4="DELETE FROM `TA_Preferences` WHERE `TA_Id`='$ta'";
-                $result3=mysqli_query($conn,$sql3);
-                $result4=mysqli_query($conn,$sql4);
+        $sql3="DELETE FROM `TA_Time_Constraints` WHERE `TA_Id`='$ta'";
+        $sql4="DELETE FROM `TA_Preferences` WHERE `TA_Id`='$ta'";
+        $result3=mysqli_query($conn,$sql3);
+        $result4=mysqli_query($conn,$sql4);
         
 		echo $result;
 		if($result && $result3 && $result4)
